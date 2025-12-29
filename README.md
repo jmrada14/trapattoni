@@ -1,6 +1,6 @@
 # Trapattoni
 
-A native iOS and macOS app for football⚽️ training. Build custom training sessions, follow structured plans, draw tactics, and track your progress.
+A native iOS and macOS app for football training⚽️. Build custom training sessions, follow structured plans, draw tactics, and track your progress.
 
 Named after Giovanni Trapattoni, the legendary Italian football manager.
 

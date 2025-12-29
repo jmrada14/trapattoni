@@ -1,0 +1,1407 @@
+[
+  {
+    "name": "Cone Weave Dribbling",
+    "description": "Navigate through a line of cones using close ball control, alternating feet with each touch. Set up 8-10 cones in a straight line, spaced about 1 meter apart.",
+    "category": "Dribbling",
+    "trainingType": "Solo",
+    "skillLevel": "Beginner",
+    "duration": "Short (5-10 min)",
+    "spaceRequired": "Small (5x5m)",
+    "equipment": ["Ball", "Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Keep the ball close to your feet",
+      "Use the inside and outside of both feet",
+      "Keep your head up to scan the field",
+      "Stay on your toes for quick direction changes",
+      "Maintain a low center of gravity"
+    ],
+    "commonMistakes": [
+      "Pushing the ball too far ahead",
+      "Only using one foot",
+      "Looking down at the ball constantly",
+      "Standing too upright"
+    ],
+    "variations": [
+      "Increase speed as you improve",
+      "Use only your weak foot",
+      "Add a sprint at the end",
+      "Reduce cone spacing for tighter control"
+    ],
+    "tags": ["ball control", "footwork", "basics", "warm-up", "agility"]
+  },
+  {
+    "name": "Speed Dribble Sprints",
+    "description": "Dribble the ball at maximum speed across a 30-meter distance while maintaining control. Focus on pushing the ball ahead and sprinting to catch up.",
+    "category": "Dribbling",
+    "trainingType": "Solo",
+    "skillLevel": "Intermediate",
+    "duration": "Short (5-10 min)",
+    "spaceRequired": "Large (20x20m+)",
+    "equipment": ["Ball", "Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Push the ball 2-3 meters ahead on open space",
+      "Use the laces to strike the ball forward",
+      "Sprint to catch up with the ball",
+      "Decelerate smoothly at the end"
+    ],
+    "commonMistakes": [
+      "Kicking the ball too far ahead",
+      "Losing control when tired",
+      "Not using arms for balance"
+    ],
+    "variations": [
+      "Add direction changes at cones",
+      "Race against a partner",
+      "Finish with a shot on goal"
+    ],
+    "tags": ["speed", "conditioning", "transition", "counter-attack"]
+  },
+  {
+    "name": "Figure 8 Dribbling",
+    "description": "Dribble in a figure-8 pattern around two cones placed 5 meters apart. Focus on smooth turns and consistent ball contact.",
+    "category": "Dribbling",
+    "trainingType": "Solo",
+    "skillLevel": "Beginner",
+    "duration": "Short (5-10 min)",
+    "spaceRequired": "Small (5x5m)",
+    "equipment": ["Ball", "Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Use inside of foot for turning",
+      "Keep ball on outside when rounding cones",
+      "Maintain consistent speed",
+      "Practice both directions equally"
+    ],
+    "commonMistakes": [
+      "Cutting corners too tightly",
+      "Inconsistent touches",
+      "Favoring one direction"
+    ],
+    "variations": [
+      "Add a third cone for a clover pattern",
+      "Incorporate stepovers at each cone",
+      "Time yourself and beat your record"
+    ],
+    "tags": ["ball control", "turning", "coordination", "basics"]
+  },
+  {
+    "name": "La Croqueta",
+    "description": "Practice the signature Iniesta move: shift the ball quickly from one foot to the other using the inside of both feet to evade defenders.",
+    "category": "Dribbling",
+    "trainingType": "Solo",
+    "skillLevel": "Advanced",
+    "duration": "Short (5-10 min)",
+    "spaceRequired": "Small (5x5m)",
+    "equipment": ["Ball"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Keep the ball close between feet",
+      "Use a quick, sharp inside-to-inside motion",
+      "Shift body weight with the ball",
+      "Explode away after the move"
+    ],
+    "commonMistakes": [
+      "Moving the ball too far from body",
+      "Telegraphing the move",
+      "Not accelerating after completion"
+    ],
+    "variations": [
+      "Chain multiple La Croquetas together",
+      "Combine with a body feint",
+      "Practice against a passive defender"
+    ],
+    "tags": ["skills", "1v1", "technique", "flair", "evasion"]
+  },
+  {
+    "name": "1v1 Dribbling Battles",
+    "description": "Face off against a partner in a small grid. One player tries to dribble past the defender to a target line. Switch roles after each attempt.",
+    "category": "Dribbling",
+    "trainingType": "Partner",
+    "skillLevel": "Intermediate",
+    "duration": "Medium (10-20 min)",
+    "spaceRequired": "Small (5x5m)",
+    "equipment": ["Ball", "Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Use feints and body movements to unbalance defender",
+      "Change pace suddenly",
+      "Shield the ball when under pressure",
+      "Attack the defender's weak side"
+    ],
+    "commonMistakes": [
+      "Predictable movements",
+      "Dribbling too close to defender",
+      "Not using body feints"
+    ],
+    "variations": [
+      "Add a time limit",
+      "Winner stays on",
+      "Must use specific moves only"
+    ],
+    "tags": ["1v1", "competitive", "game-realistic", "defending"]
+  },
+  {
+    "name": "Shadow Dribbling",
+    "description": "One player dribbles freely while the partner mirrors their movements without a ball. The follower must stay within 2 meters at all times.",
+    "category": "Dribbling",
+    "trainingType": "Partner",
+    "skillLevel": "Beginner",
+    "duration": "Short (5-10 min)",
+    "spaceRequired": "Medium (10x10m)",
+    "equipment": ["Ball"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Leader should vary speed and direction",
+      "Follower focuses on quick reactions",
+      "Both players stay light on their feet",
+      "Switch roles every 2 minutes"
+    ],
+    "commonMistakes": [
+      "Leader moving too predictably",
+      "Follower falling too far behind",
+      "Not communicating when switching"
+    ],
+    "variations": [
+      "Both players have a ball",
+      "Add a defender trying to win the ball",
+      "Confined to a smaller space"
+    ],
+    "tags": ["agility", "reactions", "warm-up", "fun"]
+  },
+  {
+    "name": "Dribbling Relay Race",
+    "description": "Teams compete in a relay race, dribbling through cones and back. Each player must complete the course before tagging the next teammate.",
+    "category": "Dribbling",
+    "trainingType": "Team",
+    "skillLevel": "Beginner",
+    "duration": "Short (5-10 min)",
+    "spaceRequired": "Medium (10x10m)",
+    "equipment": ["Ball", "Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Maintain control even under pressure",
+      "Clean handoff to next player",
+      "Encourage teammates",
+      "Balance speed with control"
+    ],
+    "commonMistakes": [
+      "Rushing and losing control",
+      "Starting before proper handoff",
+      "Not cheering on teammates"
+    ],
+    "variations": [
+      "Weak foot only",
+      "Must perform a skill move at each cone",
+      "Elimination rounds"
+    ],
+    "tags": ["team building", "competitive", "fun", "warm-up"]
+  },
+  {
+    "name": "Keep Ball (Rondo)",
+    "description": "Classic possession game where a group keeps the ball away from 1-2 defenders in the middle. When ball is won, the player who lost it becomes defender.",
+    "category": "Dribbling",
+    "trainingType": "Team",
+    "skillLevel": "Intermediate",
+    "duration": "Medium (10-20 min)",
+    "spaceRequired": "Small (5x5m)",
+    "equipment": ["Ball", "Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Keep the ball moving quickly",
+      "Support the player on the ball",
+      "Use body feints before passing",
+      "Communicate constantly"
+    ],
+    "commonMistakes": [
+      "Holding the ball too long",
+      "Poor body positioning",
+      "Not offering passing options"
+    ],
+    "variations": [
+      "Two-touch maximum",
+      "One-touch only",
+      "Add neutral players",
+      "Vary the grid size"
+    ],
+    "tags": ["possession", "quick play", "team training", "technical"]
+  },
+  {
+    "name": "Wall Passing Repetitions",
+    "description": "Stand 3-5 meters from a wall and practice passing and receiving. Focus on one-touch and two-touch control with both feet.",
+    "category": "Passing",
+    "trainingType": "Solo",
+    "skillLevel": "Beginner",
+    "duration": "Medium (10-20 min)",
+    "spaceRequired": "Small (5x5m)",
+    "equipment": ["Ball", "Wall"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Lock your ankle when passing",
+      "Use inside of foot for accuracy",
+      "Cushion the ball on receiving",
+      "Stay on your toes for quick reactions"
+    ],
+    "commonMistakes": [
+      "Passing too hard or soft",
+      "Poor body position for receiving",
+      "Not using both feet equally"
+    ],
+    "variations": [
+      "Alternate feet with each pass",
+      "Add movement between passes",
+      "Practice driven passes with laces"
+    ],
+    "tags": ["first touch", "technique", "repetition", "fundamentals"]
+  },
+  {
+    "name": "Rebounder Passing",
+    "description": "Use a rebounder to practice quick one-touch and two-touch passing. Focus on controlling the unpredictable return angle.",
+    "category": "Passing",
+    "trainingType": "Solo",
+    "skillLevel": "Intermediate",
+    "duration": "Medium (10-20 min)",
+    "spaceRequired": "Small (5x5m)",
+    "equipment": ["Ball", "Rebounder"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Adjust body quickly to return angle",
+      "Stay balanced and ready",
+      "Vary pass strength",
+      "Practice volleys and headers too"
+    ],
+    "commonMistakes": [
+      "Standing flat-footed",
+      "Not adjusting to return angle",
+      "Always using same foot"
+    ],
+    "variations": [
+      "Move laterally between passes",
+      "Add a turn before returning",
+      "Combine with shooting"
+    ],
+    "tags": ["reactions", "first touch", "technique", "coordination"]
+  },
+  {
+    "name": "Partner Passing Sequence",
+    "description": "Stand 10-15 meters apart with a partner. Pass back and forth focusing on weight, accuracy, and first touch. Progress from two-touch to one-touch.",
+    "category": "Passing",
+    "trainingType": "Partner",
+    "skillLevel": "Beginner",
+    "duration": "Short (5-10 min)",
+    "spaceRequired": "Medium (10x10m)",
+    "equipment": ["Ball"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Pass to partner's preferred foot",
+      "Weight the pass appropriately",
+      "Communicate which foot to receive on",
+      "First touch sets up next action"
+    ],
+    "commonMistakes": [
+      "Passes behind the receiver",
+      "Too hard or soft",
+      "Lazy first touch"
+    ],
+    "variations": [
+      "Add movement after passing",
+      "Increase distance gradually",
+      "Include lofted passes"
+    ],
+    "tags": ["fundamentals", "warm-up", "technique", "communication"]
+  },
+  {
+    "name": "Triangle Passing",
+    "description": "Set up three cones in a triangle. Move around the triangle, passing to each cone position, then following your pass. Great for one-two combination practice.",
+    "category": "Passing",
+    "trainingType": "Partner",
+    "skillLevel": "Intermediate",
+    "duration": "Medium (10-20 min)",
+    "spaceRequired": "Medium (10x10m)",
+    "equipment": ["Ball", "Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Weight of pass should invite teammate forward",
+      "Move immediately after passing",
+      "Communicate with teammates",
+      "Check shoulder before receiving"
+    ],
+    "commonMistakes": [
+      "Standing still after passing",
+      "Passes behind the receiver",
+      "Not opening body to receive"
+    ],
+    "variations": [
+      "Add a fourth player for a diamond",
+      "Include one-touch only rounds",
+      "Add defenders for pressure"
+    ],
+    "tags": ["combination play", "movement", "teamwork", "possession"]
+  },
+  {
+    "name": "Give and Go (Wall Pass)",
+    "description": "Practice the classic give-and-go with a partner. Player A passes to B, sprints past imaginary defender, receives return pass in space.",
+    "category": "Passing",
+    "trainingType": "Partner",
+    "skillLevel": "Intermediate",
+    "duration": "Short (5-10 min)",
+    "spaceRequired": "Medium (10x10m)",
+    "equipment": ["Ball", "Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Accelerate after the pass",
+      "Return pass should be in front of runner",
+      "Time the run correctly",
+      "First pass should be firm"
+    ],
+    "commonMistakes": [
+      "Running before passing",
+      "Return pass too slow",
+      "Not sprinting at full speed"
+    ],
+    "variations": [
+      "Add a passive defender",
+      "Finish with a shot",
+      "Alternate who initiates"
+    ],
+    "tags": ["combination play", "movement", "attacking", "1-2 passing"]
+  },
+  {
+    "name": "Long Ball Practice",
+    "description": "Practice hitting accurate long-range passes over 30+ meters. Focus on technique, flight, and landing zone accuracy.",
+    "category": "Passing",
+    "trainingType": "Partner",
+    "skillLevel": "Advanced",
+    "duration": "Medium (10-20 min)",
+    "spaceRequired": "Large (20x20m+)",
+    "equipment": ["Ball", "Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Strike through the bottom half of the ball",
+      "Follow through toward target",
+      "Plant foot next to the ball",
+      "Use arms for balance and power"
+    ],
+    "commonMistakes": [
+      "Leaning back too much",
+      "Striking the ball too centrally",
+      "Not following through properly"
+    ],
+    "variations": [
+      "Practice both feet",
+      "Hit moving targets",
+      "Add a first touch after receiving"
+    ],
+    "tags": ["technique", "switching play", "vision", "delivery"]
+  },
+  {
+    "name": "One-Touch Passing Squares",
+    "description": "Four players on corners of a square, one-touch passing in sequence. Develops quick feet and anticipation.",
+    "category": "Passing",
+    "trainingType": "Team",
+    "skillLevel": "Intermediate",
+    "duration": "Short (5-10 min)",
+    "spaceRequired": "Small (5x5m)",
+    "equipment": ["Ball", "Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Body open before ball arrives",
+      "Know where to pass before receiving",
+      "Soft touch to redirect momentum",
+      "Communicate and call for ball"
+    ],
+    "commonMistakes": [
+      "Closed body position",
+      "Heavy first touch",
+      "Not looking before receiving"
+    ],
+    "variations": [
+      "Two balls at once",
+      "Follow your pass to next corner",
+      "Add a defender in the middle"
+    ],
+    "tags": ["quick play", "awareness", "team training", "rondo"]
+  },
+  {
+    "name": "Possession Grid",
+    "description": "Two teams play keep-ball in a defined grid. The team with the ball tries to complete a set number of passes while opponents press.",
+    "category": "Passing",
+    "trainingType": "Team",
+    "skillLevel": "Intermediate",
+    "duration": "Medium (10-20 min)",
+    "spaceRequired": "Medium (10x10m)",
+    "equipment": ["Ball", "Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Move to create passing angles",
+      "Play quickly under pressure",
+      "Support the ball carrier",
+      "Switch the play"
+    ],
+    "commonMistakes": [
+      "Standing still",
+      "Forcing difficult passes",
+      "Not spreading out"
+    ],
+    "variations": [
+      "Touch restrictions",
+      "Neutral players",
+      "Score by splitting defenders with a pass"
+    ],
+    "tags": ["possession", "pressing", "game-realistic", "teamwork"]
+  },
+  {
+    "name": "Finesse Shooting",
+    "description": "Practice curling shots into the corners using the inside of your foot. Set up just outside the box and aim for specific corners.",
+    "category": "Shooting",
+    "trainingType": "Solo",
+    "skillLevel": "Intermediate",
+    "duration": "Medium (10-20 min)",
+    "spaceRequired": "Large (20x20m+)",
+    "equipment": ["Ball", "Goal", "Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Wrap foot around the ball",
+      "Strike across the ball for spin",
+      "Aim for inside of the post",
+      "Follow through across your body"
+    ],
+    "commonMistakes": [
+      "Striking too centrally",
+      "Not enough curl",
+      "Rushing the shot"
+    ],
+    "variations": [
+      "Add a first touch before shooting",
+      "Shoot while moving",
+      "Practice from different angles"
+    ],
+    "tags": ["finishing", "technique", "accuracy", "placement"]
+  },
+  {
+    "name": "Power Shots",
+    "description": "Strike the ball with maximum power using your laces. Focus on clean contact and keeping the ball down.",
+    "category": "Shooting",
+    "trainingType": "Solo",
+    "skillLevel": "Intermediate",
+    "duration": "Medium (10-20 min)",
+    "spaceRequired": "Large (20x20m+)",
+    "equipment": ["Ball", "Goal"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Lock your ankle firmly",
+      "Strike through the center of the ball",
+      "Keep your knee over the ball",
+      "Land on your shooting foot"
+    ],
+    "commonMistakes": [
+      "Leaning back causing the ball to rise",
+      "Toe-poking instead of laces",
+      "No follow through"
+    ],
+    "variations": [
+      "Add a dribble before shooting",
+      "Shoot from further distances",
+      "Practice with both feet"
+    ],
+    "tags": ["power", "striking", "finishing", "technique"]
+  },
+  {
+    "name": "Volley Practice",
+    "description": "Toss the ball to yourself or have a partner cross it, then strike it out of the air. Focus on timing and clean contact.",
+    "category": "Shooting",
+    "trainingType": "Solo",
+    "skillLevel": "Advanced",
+    "duration": "Medium (10-20 min)",
+    "spaceRequired": "Medium (10x10m)",
+    "equipment": ["Ball", "Goal"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Watch the ball onto your foot",
+      "Keep your body over the ball",
+      "Strike through the middle of the ball",
+      "Time your approach carefully"
+    ],
+    "commonMistakes": [
+      "Swinging too early",
+      "Taking eyes off the ball",
+      "Leaning away from the shot"
+    ],
+    "variations": [
+      "Half-volleys after one bounce",
+      "Side volleys from crosses",
+      "Bicycle kick attempts (on soft ground)"
+    ],
+    "tags": ["technique", "timing", "finishing", "aerial"]
+  },
+  {
+    "name": "Shooting Under Pressure",
+    "description": "Partner feeds balls while you shoot quickly. After each shot, partner provides light pressure to simulate game conditions.",
+    "category": "Shooting",
+    "trainingType": "Partner",
+    "skillLevel": "Intermediate",
+    "duration": "Medium (10-20 min)",
+    "spaceRequired": "Large (20x20m+)",
+    "equipment": ["Ball", "Goal"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Quick decision making",
+      "Take the shot early",
+      "Stay calm under pressure",
+      "Pick your spot before receiving"
+    ],
+    "commonMistakes": [
+      "Taking too many touches",
+      "Panicking when pressured",
+      "Not scanning before receiving"
+    ],
+    "variations": [
+      "Active defender",
+      "Limited touches",
+      "Vary delivery type"
+    ],
+    "tags": ["finishing", "pressure", "game-realistic", "decision making"]
+  },
+  {
+    "name": "Crossing and Finishing",
+    "description": "One player delivers crosses from wide areas while partner attacks the box to finish. Alternate sides and roles.",
+    "category": "Shooting",
+    "trainingType": "Partner",
+    "skillLevel": "Intermediate",
+    "duration": "Medium (10-20 min)",
+    "spaceRequired": "Large (20x20m+)",
+    "equipment": ["Ball", "Goal", "Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Time your run to meet the cross",
+      "Attack the ball, don't wait for it",
+      "Vary your runs (near post, far post, cutback)",
+      "Communicate with the crosser"
+    ],
+    "commonMistakes": [
+      "Running too early or late",
+      "Static in the box",
+      "Poor connection on headers"
+    ],
+    "variations": [
+      "Add a defender",
+      "Low crosses only",
+      "Cutback finishes"
+    ],
+    "tags": ["finishing", "crossing", "headers", "attacking"]
+  },
+  {
+    "name": "Shooting Circuit",
+    "description": "Set up multiple shooting stations. Teams rotate through each station, competing for most goals. Include various shot types and distances.",
+    "category": "Shooting",
+    "trainingType": "Team",
+    "skillLevel": "Intermediate",
+    "duration": "Medium (10-20 min)",
+    "spaceRequired": "Large (20x20m+)",
+    "equipment": ["Ball", "Goal", "Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Focus on technique at each station",
+      "Encourage teammates",
+      "Recover quickly between shots",
+      "Competitive but controlled"
+    ],
+    "commonMistakes": [
+      "Sacrificing technique for speed",
+      "Not following through",
+      "Negative body language after misses"
+    ],
+    "variations": [
+      "Add goalkeeper",
+      "Time limits at each station",
+      "Knockout tournament"
+    ],
+    "tags": ["finishing", "competition", "team building", "fun"]
+  },
+  {
+    "name": "Small-Sided Finishing Game",
+    "description": "Play 3v3 or 4v4 in a small area with two goals. Focus on creating and taking shooting opportunities quickly.",
+    "category": "Shooting",
+    "trainingType": "Team",
+    "skillLevel": "Intermediate",
+    "duration": "Medium (10-20 min)",
+    "spaceRequired": "Medium (10x10m)",
+    "equipment": ["Ball", "Goal", "Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Shoot when you see the goal",
+      "Quick combinations to create chances",
+      "Transition quickly after losing ball",
+      "Support teammates in attack"
+    ],
+    "commonMistakes": [
+      "Over-playing instead of shooting",
+      "Poor shot selection",
+      "Not recovering defensively"
+    ],
+    "variations": [
+      "Must score from one-touch finish",
+      "Goals only count from inside the box",
+      "Add goalkeepers"
+    ],
+    "tags": ["game-realistic", "finishing", "small-sided", "competitive"]
+  },
+  {
+    "name": "Cushion Control",
+    "description": "Practice receiving the ball with different body parts, cushioning it softly to keep it close. Have a partner throw or pass balls at various heights.",
+    "category": "First Touch",
+    "trainingType": "Partner",
+    "skillLevel": "Beginner",
+    "duration": "Short (5-10 min)",
+    "spaceRequired": "Small (5x5m)",
+    "equipment": ["Ball"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Withdraw the receiving surface on contact",
+      "Get in line with the ball early",
+      "Keep eyes on the ball throughout",
+      "Relax the body part receiving"
+    ],
+    "commonMistakes": [
+      "Stiff body on contact",
+      "Poor positioning",
+      "Not getting low for ground balls"
+    ],
+    "variations": [
+      "Control with chest, thigh, and foot",
+      "Add direction change after control",
+      "Receive while moving"
+    ],
+    "tags": ["first touch", "control", "technique", "fundamentals"]
+  },
+  {
+    "name": "Trap and Turn",
+    "description": "Receive the ball with your back to goal, trap it, and turn in one smooth motion. Essential skill for midfielders and forwards.",
+    "category": "First Touch",
+    "trainingType": "Partner",
+    "skillLevel": "Intermediate",
+    "duration": "Short (5-10 min)",
+    "spaceRequired": "Small (5x5m)",
+    "equipment": ["Ball", "Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Check shoulder before receiving",
+      "Use body to shield the ball",
+      "Push ball into space with first touch",
+      "Accelerate away after turning"
+    ],
+    "commonMistakes": [
+      "Turning into pressure",
+      "Heavy first touch",
+      "Not checking surroundings"
+    ],
+    "variations": [
+      "Add passive defender pressure",
+      "Vary the direction of turns",
+      "Include a pass or shot after turning"
+    ],
+    "tags": ["turning", "awareness", "technique", "midfield"]
+  },
+  {
+    "name": "Aerial Control",
+    "description": "Practice controlling high balls with chest, thigh, and head. Self-toss or use a partner for varying deliveries.",
+    "category": "First Touch",
+    "trainingType": "Solo",
+    "skillLevel": "Intermediate",
+    "duration": "Short (5-10 min)",
+    "spaceRequired": "Small (5x5m)",
+    "equipment": ["Ball"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Get under the flight of the ball",
+      "Use chest with arms out for balance",
+      "Cushion thigh controls downward",
+      "Prepare next action while ball is in flight"
+    ],
+    "commonMistakes": [
+      "Ball bouncing away on contact",
+      "Not moving feet to position",
+      "Tense body on contact"
+    ],
+    "variations": [
+      "Control and volley",
+      "Control while being closed down",
+      "Juggle before controlling"
+    ],
+    "tags": ["aerial", "control", "technique", "headers"]
+  },
+  {
+    "name": "First Touch Under Pressure",
+    "description": "Partner plays passes while applying closing pressure. Focus on taking a quality first touch away from the defender.",
+    "category": "First Touch",
+    "trainingType": "Partner",
+    "skillLevel": "Intermediate",
+    "duration": "Short (5-10 min)",
+    "spaceRequired": "Small (5x5m)",
+    "equipment": ["Ball", "Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Know where pressure is coming from",
+      "Touch away from defender",
+      "Use body to shield",
+      "Be ready to play quickly"
+    ],
+    "commonMistakes": [
+      "Not checking shoulder",
+      "Touch into defender",
+      "Panicking under pressure"
+    ],
+    "variations": [
+      "Vary pressure intensity",
+      "Add second defender",
+      "Must play forward after touch"
+    ],
+    "tags": ["first touch", "pressure", "awareness", "game-realistic"]
+  },
+  {
+    "name": "Control and Combine",
+    "description": "Groups of 3: Player A passes to B who controls and plays to C. Rotate positions. Focus on quality of touch and weight of pass.",
+    "category": "First Touch",
+    "trainingType": "Team",
+    "skillLevel": "Beginner",
+    "duration": "Short (5-10 min)",
+    "spaceRequired": "Medium (10x10m)",
+    "equipment": ["Ball", "Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "First touch sets up the pass",
+      "Open body to see all options",
+      "Communicate for the ball",
+      "Move after passing"
+    ],
+    "commonMistakes": [
+      "Standing still",
+      "Poor touch leading to rushed pass",
+      "Not communicating"
+    ],
+    "variations": [
+      "One touch only",
+      "Add movement patterns",
+      "Include overlap runs"
+    ],
+    "tags": ["combination play", "first touch", "teamwork", "passing"]
+  },
+  {
+    "name": "Ladder Agility Drills",
+    "description": "Complete various footwork patterns through an agility ladder. Focus on quick feet, coordination, and athletic movement.",
+    "category": "Fitness & Conditioning",
+    "trainingType": "Solo",
+    "skillLevel": "Beginner",
+    "duration": "Short (5-10 min)",
+    "spaceRequired": "Small (5x5m)",
+    "equipment": ["Agility Ladder"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Stay on the balls of your feet",
+      "Keep hips low and core engaged",
+      "Pump your arms for rhythm",
+      "Focus on precision before speed"
+    ],
+    "commonMistakes": [
+      "Looking down constantly",
+      "Skipping steps or patterns",
+      "Not using arms effectively"
+    ],
+    "variations": [
+      "In-in-out-out pattern",
+      "Lateral shuffle through",
+      "Ickey shuffle",
+      "Two feet in each square"
+    ],
+    "tags": ["agility", "footwork", "speed", "coordination", "warm-up"]
+  },
+  {
+    "name": "Shuttle Runs",
+    "description": "Sprint between cones set at 5, 10, and 15 meters. Touch each cone and return. Develops acceleration and deceleration.",
+    "category": "Fitness & Conditioning",
+    "trainingType": "Solo",
+    "skillLevel": "Beginner",
+    "duration": "Short (5-10 min)",
+    "spaceRequired": "Medium (10x10m)",
+    "equipment": ["Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Explode from standing start",
+      "Decelerate with short choppy steps",
+      "Stay low when changing direction",
+      "Drive arms for power"
+    ],
+    "commonMistakes": [
+      "Slowing down too early",
+      "Poor turning technique",
+      "Not going full effort"
+    ],
+    "variations": [
+      "Add a ball at the end to shoot",
+      "Compete against a partner",
+      "Vary the distances"
+    ],
+    "tags": ["speed", "endurance", "conditioning", "acceleration"]
+  },
+  {
+    "name": "Box Jumps",
+    "description": "Jump onto a sturdy box or platform, then step down and repeat. Builds explosive leg power for jumping and sprinting.",
+    "category": "Fitness & Conditioning",
+    "trainingType": "Solo",
+    "skillLevel": "Intermediate",
+    "duration": "Short (5-10 min)",
+    "spaceRequired": "Small (5x5m)",
+    "equipment": ["Hurdles"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Drive through your heels",
+      "Swing arms for momentum",
+      "Land softly with bent knees",
+      "Stand fully upright on top"
+    ],
+    "commonMistakes": [
+      "Not fully extending on jump",
+      "Landing with straight legs",
+      "Jumping down instead of stepping"
+    ],
+    "variations": [
+      "Single leg jumps",
+      "Lateral box jumps",
+      "Depth jumps for advanced athletes"
+    ],
+    "tags": ["power", "explosiveness", "jumping", "strength"]
+  },
+  {
+    "name": "Sprint Recovery Intervals",
+    "description": "Sprint for 30 seconds at maximum effort, then jog or walk for 60 seconds. Repeat for 10-15 rounds.",
+    "category": "Fitness & Conditioning",
+    "trainingType": "Solo",
+    "skillLevel": "Advanced",
+    "duration": "Long (20+ min)",
+    "spaceRequired": "Large (20x20m+)",
+    "equipment": ["Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Give 100% effort on sprints",
+      "Use recovery time wisely",
+      "Maintain form even when tired",
+      "Track your times to measure progress"
+    ],
+    "commonMistakes": [
+      "Pacing yourself on sprints",
+      "Not recovering properly",
+      "Poor running form when fatigued"
+    ],
+    "variations": [
+      "Vary sprint and rest ratios",
+      "Add a ball for dribble sprints",
+      "Hill sprints for extra difficulty"
+    ],
+    "tags": ["endurance", "conditioning", "stamina", "match fitness"]
+  },
+  {
+    "name": "Partner Sprint Races",
+    "description": "Race your partner over various distances (10m, 20m, 30m). Rest and repeat. Great for competitive speed training.",
+    "category": "Fitness & Conditioning",
+    "trainingType": "Partner",
+    "skillLevel": "Beginner",
+    "duration": "Short (5-10 min)",
+    "spaceRequired": "Large (20x20m+)",
+    "equipment": ["Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Explosive start",
+      "Stay in your lane",
+      "Drive arms hard",
+      "Compete with intensity"
+    ],
+    "commonMistakes": [
+      "False starts",
+      "Slowing before the line",
+      "Poor running mechanics"
+    ],
+    "variations": [
+      "Reaction start on command",
+      "Backward start then turn",
+      "With ball at feet"
+    ],
+    "tags": ["speed", "competitive", "fun", "partner work"]
+  },
+  {
+    "name": "Resistance Band Partner Runs",
+    "description": "One player wears a resistance band while partner provides resistance from behind. Builds explosive power and acceleration.",
+    "category": "Fitness & Conditioning",
+    "trainingType": "Partner",
+    "skillLevel": "Intermediate",
+    "duration": "Short (5-10 min)",
+    "spaceRequired": "Medium (10x10m)",
+    "equipment": ["Resistance Band"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Drive knees high against resistance",
+      "Lean forward slightly",
+      "Pump arms aggressively",
+      "Partner provides steady resistance"
+    ],
+    "commonMistakes": [
+      "Upright posture",
+      "Inconsistent resistance from partner",
+      "Short strides"
+    ],
+    "variations": [
+      "Lateral movements",
+      "Release and sprint freely",
+      "Backward resistance running"
+    ],
+    "tags": ["power", "acceleration", "strength", "partner work"]
+  },
+  {
+    "name": "Team Fitness Circuit",
+    "description": "Set up stations for different exercises (sprints, jumps, core work). Teams rotate through each station together.",
+    "category": "Fitness & Conditioning",
+    "trainingType": "Team",
+    "skillLevel": "Intermediate",
+    "duration": "Medium (10-20 min)",
+    "spaceRequired": "Large (20x20m+)",
+    "equipment": ["Cones", "Agility Ladder", "Hurdles"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Work as a team",
+      "Encourage each other",
+      "Maintain intensity throughout",
+      "Smooth transitions between stations"
+    ],
+    "commonMistakes": [
+      "Pacing instead of pushing",
+      "Poor technique when tired",
+      "Not supporting teammates"
+    ],
+    "variations": [
+      "Add competitive element between groups",
+      "Include ball work at some stations",
+      "Vary work and rest periods"
+    ],
+    "tags": ["team building", "conditioning", "variety", "endurance"]
+  },
+  {
+    "name": "Diving Save Practice",
+    "description": "Practice diving to save shots aimed at the corners. Focus on technique, landing, and quick recovery.",
+    "category": "Goalkeeping",
+    "trainingType": "Partner",
+    "skillLevel": "Intermediate",
+    "duration": "Medium (10-20 min)",
+    "spaceRequired": "Medium (10x10m)",
+    "equipment": ["Ball", "Goal"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Push off with near foot",
+      "Get hands behind the ball",
+      "Land on your side, not stomach",
+      "Recover quickly to set position"
+    ],
+    "commonMistakes": [
+      "Diving backwards instead of forward",
+      "Weak wrists on contact",
+      "Slow recovery"
+    ],
+    "variations": [
+      "Rapid fire shots",
+      "Dive from different starting positions",
+      "Add crosses and 1v1 scenarios"
+    ],
+    "tags": ["goalkeeping", "saves", "technique", "reactions"]
+  },
+  {
+    "name": "Distribution Practice",
+    "description": "Practice various goalkeeper distribution methods: rolling, throwing, punting, and goal kicks.",
+    "category": "Goalkeeping",
+    "trainingType": "Solo",
+    "skillLevel": "Beginner",
+    "duration": "Medium (10-20 min)",
+    "spaceRequired": "Large (20x20m+)",
+    "equipment": ["Ball", "Goal", "Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Accuracy over distance",
+      "Use overarm throw for speed",
+      "Strike goal kicks cleanly",
+      "Choose distribution based on situation"
+    ],
+    "commonMistakes": [
+      "Rushing the distribution",
+      "Poor accuracy under pressure",
+      "Predictable patterns"
+    ],
+    "variations": [
+      "Set targets at different distances",
+      "Practice quick distribution after saves",
+      "Add time pressure"
+    ],
+    "tags": ["goalkeeping", "distribution", "passing", "kicking"]
+  },
+  {
+    "name": "Shot Stopping Reactions",
+    "description": "Face rapid shots from close range. Develops quick reactions and hand-eye coordination.",
+    "category": "Goalkeeping",
+    "trainingType": "Partner",
+    "skillLevel": "Advanced",
+    "duration": "Short (5-10 min)",
+    "spaceRequired": "Small (5x5m)",
+    "equipment": ["Ball", "Goal"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Stay on your toes in set position",
+      "Keep eyes on the ball at all times",
+      "Make yourself big",
+      "React don't anticipate"
+    ],
+    "commonMistakes": [
+      "Guessing where the shot goes",
+      "Standing flat-footed",
+      "Closing eyes on contact"
+    ],
+    "variations": [
+      "Use two balls alternating",
+      "Shooter can fake shots",
+      "Add deflected shots"
+    ],
+    "tags": ["reactions", "reflexes", "goalkeeping", "close range"]
+  },
+  {
+    "name": "Goalkeeper Communication Drill",
+    "description": "Practice organizing the defense during crosses and set pieces. Partner delivers balls while GK commands defenders.",
+    "category": "Goalkeeping",
+    "trainingType": "Team",
+    "skillLevel": "Intermediate",
+    "duration": "Medium (10-20 min)",
+    "spaceRequired": "Large (20x20m+)",
+    "equipment": ["Ball", "Goal"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Clear and loud commands",
+      "Early decision making",
+      "Command with authority",
+      "Use names when directing players"
+    ],
+    "commonMistakes": [
+      "Quiet or unclear communication",
+      "Late decisions",
+      "Not taking responsibility"
+    ],
+    "variations": [
+      "Add attacking players",
+      "Increase pace of deliveries",
+      "Simulate game noise"
+    ],
+    "tags": ["communication", "leadership", "crosses", "organization"]
+  },
+  {
+    "name": "1v1 Defending",
+    "description": "Practice defending against an attacker in isolation. Focus on body position, jockeying, and timing tackles.",
+    "category": "Defending",
+    "trainingType": "Partner",
+    "skillLevel": "Intermediate",
+    "duration": "Medium (10-20 min)",
+    "spaceRequired": "Medium (10x10m)",
+    "equipment": ["Ball", "Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Stay on your feet, don't dive in",
+      "Force attacker to weaker foot",
+      "Stay goal-side",
+      "Watch the ball, not the attacker's body"
+    ],
+    "commonMistakes": [
+      "Diving in too early",
+      "Getting too close or too far",
+      "Letting attacker dictate"
+    ],
+    "variations": [
+      "Add a goal to defend",
+      "Multiple attackers",
+      "Transition to attack when ball won"
+    ],
+    "tags": ["defending", "tackling", "1v1", "positioning"]
+  },
+  {
+    "name": "Defensive Positioning",
+    "description": "Practice maintaining proper defensive shape. React to ball movement while keeping compact and organized.",
+    "category": "Defending",
+    "trainingType": "Team",
+    "skillLevel": "Intermediate",
+    "duration": "Medium (10-20 min)",
+    "spaceRequired": "Large (20x20m+)",
+    "equipment": ["Ball", "Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Shift as a unit with the ball",
+      "Maintain distances between players",
+      "Communicate constantly",
+      "Be aware of runners behind you"
+    ],
+    "commonMistakes": [
+      "Ball-watching",
+      "Getting stretched too wide",
+      "Not tracking runners"
+    ],
+    "variations": [
+      "Add opposition attackers",
+      "Practice high vs low block",
+      "Transition to pressing triggers"
+    ],
+    "tags": ["shape", "organization", "team defending", "communication"]
+  },
+  {
+    "name": "Clearance Practice",
+    "description": "Practice clearing the ball under pressure. Focus on getting distance, height, and direction on clearances.",
+    "category": "Defending",
+    "trainingType": "Solo",
+    "skillLevel": "Beginner",
+    "duration": "Short (5-10 min)",
+    "spaceRequired": "Medium (10x10m)",
+    "equipment": ["Ball"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Get your body behind the ball",
+      "Strike through the ball firmly",
+      "Aim for height and distance",
+      "Clear away from the goal"
+    ],
+    "commonMistakes": [
+      "Weak contact on clearance",
+      "Clearing across own goal",
+      "Miskicking under pressure"
+    ],
+    "variations": [
+      "Header clearances",
+      "Clearances while off balance",
+      "Under pressure from attacker"
+    ],
+    "tags": ["defending", "clearances", "technique", "safety"]
+  },
+  {
+    "name": "2v2 Defending",
+    "description": "Practice defending in pairs against two attackers. Focus on communication, cover, and pressing together.",
+    "category": "Defending",
+    "trainingType": "Partner",
+    "skillLevel": "Intermediate",
+    "duration": "Medium (10-20 min)",
+    "spaceRequired": "Medium (10x10m)",
+    "equipment": ["Ball", "Cones", "Goal"],
+    "videoURL": null,
+    "coachingPoints": [
+      "One player presses, one covers",
+      "Communicate constantly",
+      "Don't get split by passes",
+      "Force play to one side"
+    ],
+    "commonMistakes": [
+      "Both pressing together",
+      "No communication",
+      "Allowing easy through balls"
+    ],
+    "variations": [
+      "Add a 3rd attacker",
+      "Vary the space size",
+      "Add a goalkeeper"
+    ],
+    "tags": ["partnership", "communication", "pressing", "cover"]
+  },
+  {
+    "name": "Pressing Triggers",
+    "description": "Practice recognizing and executing team pressing moments. When trigger occurs, press intensely as a unit.",
+    "category": "Defending",
+    "trainingType": "Team",
+    "skillLevel": "Advanced",
+    "duration": "Medium (10-20 min)",
+    "spaceRequired": "Large (20x20m+)",
+    "equipment": ["Ball", "Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Identify pressing triggers (bad touch, backwards pass)",
+      "Press as a unit, not individually",
+      "Cut off passing lanes",
+      "Win the ball high up the pitch"
+    ],
+    "commonMistakes": [
+      "Pressing at wrong moments",
+      "Not pressing together",
+      "Leaving gaps behind the press"
+    ],
+    "variations": [
+      "Specific triggers only",
+      "Counter-pressing after losing ball",
+      "Transition to attack after winning ball"
+    ],
+    "tags": ["pressing", "team defending", "tactical", "intensity"]
+  },
+  {
+    "name": "Free Kick Technique",
+    "description": "Practice bending and dipping free kicks around a wall. Focus on consistent technique and accuracy.",
+    "category": "Set Pieces",
+    "trainingType": "Solo",
+    "skillLevel": "Advanced",
+    "duration": "Medium (10-20 min)",
+    "spaceRequired": "Large (20x20m+)",
+    "equipment": ["Ball", "Goal", "Mannequin"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Approach at an angle",
+      "Strike across the ball for curve",
+      "Follow through toward target",
+      "Keep the ball down by leaning over it"
+    ],
+    "commonMistakes": [
+      "Striking too centrally",
+      "Rushing the approach",
+      "Inconsistent contact point"
+    ],
+    "variations": [
+      "Different distances from goal",
+      "Power vs placement kicks",
+      "Practice with both feet"
+    ],
+    "tags": ["free kicks", "technique", "dead ball", "scoring"]
+  },
+  {
+    "name": "Corner Delivery",
+    "description": "Practice delivering accurate corners to specific zones. Work on in-swingers, out-swingers, and driven balls.",
+    "category": "Set Pieces",
+    "trainingType": "Team",
+    "skillLevel": "Intermediate",
+    "duration": "Medium (10-20 min)",
+    "spaceRequired": "Large (20x20m+)",
+    "equipment": ["Ball", "Goal", "Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Pick your target zone before delivery",
+      "Consistent run-up and technique",
+      "Vary delivery types to keep defense guessing",
+      "Communicate with teammates on routines"
+    ],
+    "commonMistakes": [
+      "Hitting first defender",
+      "Inconsistent delivery quality",
+      "Not varying corner types"
+    ],
+    "variations": [
+      "Short corner routines",
+      "Near post vs far post targeting",
+      "Practice set piece routines with team"
+    ],
+    "tags": ["corners", "crossing", "delivery", "set pieces"]
+  },
+  {
+    "name": "Penalty Practice",
+    "description": "Practice penalty kicks focusing on technique and mental composure. Work on placement and power.",
+    "category": "Set Pieces",
+    "trainingType": "Solo",
+    "skillLevel": "Beginner",
+    "duration": "Short (5-10 min)",
+    "spaceRequired": "Medium (10x10m)",
+    "equipment": ["Ball", "Goal"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Pick your spot before approaching",
+      "Confident approach to the ball",
+      "Keep your head down through contact",
+      "Follow through toward your target"
+    ],
+    "commonMistakes": [
+      "Changing your mind mid-run",
+      "Looking at the goalkeeper",
+      "Not striking cleanly"
+    ],
+    "variations": [
+      "Add a goalkeeper",
+      "Practice under fatigue",
+      "Simulate pressure situations"
+    ],
+    "tags": ["penalties", "finishing", "composure", "pressure"]
+  },
+  {
+    "name": "Throw-In Routines",
+    "description": "Practice various throw-in options with a partner. Work on long throws, quick throws, and set plays.",
+    "category": "Set Pieces",
+    "trainingType": "Partner",
+    "skillLevel": "Beginner",
+    "duration": "Short (5-10 min)",
+    "spaceRequired": "Medium (10x10m)",
+    "equipment": ["Ball", "Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Both feet behind the line",
+      "Ball starts behind head",
+      "Follow through with both hands",
+      "Target teammate's feet or chest"
+    ],
+    "commonMistakes": [
+      "Foot over the line",
+      "One-handed throw",
+      "Inaccurate delivery"
+    ],
+    "variations": [
+      "Long throw practice",
+      "Quick throw counter-attacks",
+      "Set play routines"
+    ],
+    "tags": ["throw-ins", "technique", "restarts", "possession"]
+  },
+  {
+    "name": "Set Piece Attacking Routines",
+    "description": "Practice coordinated attacking movements from corners and free kicks. Run through specific plays repeatedly.",
+    "category": "Set Pieces",
+    "trainingType": "Team",
+    "skillLevel": "Intermediate",
+    "duration": "Medium (10-20 min)",
+    "spaceRequired": "Large (20x20m+)",
+    "equipment": ["Ball", "Goal", "Cones", "Mannequin"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Time runs precisely",
+      "Know your role in each routine",
+      "Decoy runs are just as important",
+      "Communicate with delivery taker"
+    ],
+    "commonMistakes": [
+      "Mistimed runs",
+      "Forgetting assigned role",
+      "Static movement"
+    ],
+    "variations": [
+      "Add defending players",
+      "Vary the routines",
+      "Practice under match-like conditions"
+    ],
+    "tags": ["set pieces", "routines", "attacking", "coordination"]
+  },
+  {
+    "name": "Defensive Set Piece Organization",
+    "description": "Practice defending corners and free kicks as a team. Work on marking assignments, zonal coverage, and clearances.",
+    "category": "Set Pieces",
+    "trainingType": "Team",
+    "skillLevel": "Intermediate",
+    "duration": "Medium (10-20 min)",
+    "spaceRequired": "Large (20x20m+)",
+    "equipment": ["Ball", "Goal"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Know your marking assignment",
+      "Attack the ball, don't wait",
+      "Clear decisively",
+      "Communicate throughout"
+    ],
+    "commonMistakes": [
+      "Ball watching instead of marking",
+      "Weak clearances",
+      "Confusion over responsibilities"
+    ],
+    "variations": [
+      "Vs different delivery types",
+      "Practice second ball situations",
+      "Add counter-attack transition"
+    ],
+    "tags": ["set pieces", "defending", "organization", "marking"]
+  }
+]

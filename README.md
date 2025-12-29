@@ -4,6 +4,24 @@ A native iOS and macOS app for football⚽️ training. Build custom training se
 
 Named after Giovanni Trapattoni, the legendary Italian football manager.
 
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE) [![Platform](https://img.shields.io/badge/platform-iOS%20%7C%20macOS-lightgrey.svg)](#)
+
+## Table of Contents
+
+- [Why use this app?](#why-use-this-app)
+- [Features](#features)
+- [Screenshots](#screenshots)
+- [Build & Run](#build--run)
+- [How to use (quick)](#how-to-use-quick)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Why use this app?
+
+- Focused, football-specific training templates for all levels.
+- Combine tactical drawing and session execution in one native app.
+- Offline-first local persistence with SwiftData — your data stays on device.
+
 ## Features
 
 ### Exercise Library

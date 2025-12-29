@@ -286,6 +286,21 @@ struct PlanDetailView: View {
     }
 
     private func deletePlan() {
+        // Get all session IDs from the plan before deleting
+        let sessionIds = plan.sessions.map { $0.sessionId }
+
+        // Delete associated calendar events
+        for sessionId in sessionIds {
+            let descriptor = FetchDescriptor<ScheduledActivity>(
+                predicate: #Predicate<ScheduledActivity> { $0.linkedSessionId == sessionId }
+            )
+            if let activities = try? modelContext.fetch(descriptor) {
+                for activity in activities {
+                    modelContext.delete(activity)
+                }
+            }
+        }
+
         modelContext.delete(plan)
         dismiss()
     }

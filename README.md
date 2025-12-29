@@ -81,22 +81,78 @@ Monitor your training consistency:
 - Category breakdown charts
 - Exercise history and ratings
 
-## Screenshots
+### Feature screenshots (macOS | iOS)
 
-### macOS ✅
+Below are side-by-side screenshots demonstrating key areas of the app on macOS (left) and iOS (right).
 
-![macOS — Library](screenshots/macos-1.png)
-![macOS — Session execution](screenshots/macos-2.png)
-![macOS — Tactical board](screenshots/macos-3.png)
+<table>
+    <tr>
+        <th align="center">macOS</th>
+        <th align="center">iOS</th>
+    </tr>
+    <tr>
+        <td align="center">
+            <img src="screenshots/macos-exerciseLibrary.png" alt="macOS — Exercise Library" width="420"><br>
+            <strong>Exercise Library</strong>
+        </td>
+        <td align="center">
+            <img src="screenshots/ios-exerciseLibrary.png" alt="iPhone — Exercise Library" width="240"><br>
+            <strong>Exercise Library</strong>
+        </td>
+    </tr>
+    <tr>
+        <td align="center">
+            <img src="screenshots/macos-trainingSessions.png" alt="macOS — Training Sessions" width="420"><br>
+            <strong>Training Sessions</strong>
+        </td>
+        <td align="center">
+            <img src="screenshots/ios-trainingSessions.png" alt="iPhone — Training Sessions" width="240"><br>
+            <strong>Training Sessions</strong>
+        </td>
+    </tr>
+     <tr>
+        <td align="center">
+            <img src="screenshots/macos-sessionExecution.png" alt="macOS — Session Execution" width="420"><br>
+            <strong>Session Execution</strong>
+        </td>
+        <td align="center">
+            <img src="screenshots/ios-sessionExecution.png" alt="iPhone — Session Execution" width="240"><br>
+            <strong>Session Execution</strong>
+        </td>
+    </tr>
+    <tr>
+        <td align="center">
+            <img src="screenshots/macos-tacticsBoard.png" alt="macOS — Tactical board" width="420"><br>
+            <strong>Tactical board</strong>
+        </td>
+        <td align="center">
+            <img src="screenshots/ios-tacticsBoard.png" alt="iPhone — Tactical board" width="240"><br>
+            <strong>Tactical board</strong>
+        </td>
+    </tr>
+    <tr>
+        <td align="center">
+            <img src="screenshots/macos-calendar.png" alt="macOS — Calendar / Plan" width="420"><br>
+            <strong>Calendar / Plan</strong>
+        </td>
+        <td align="center">
+            <img src="screenshots/ios-calendar.png" alt="iPhone — Calendar / Plan" width="240"><br>
+            <strong>Calendar / Plan</strong>
+        </td>
+    </tr>
+    <tr>
+        <td align="center">
+            <img src="screenshots/macos-playerProfile.png" alt="macOS —  Player Profile" width="420"><br>
+            <strong>Player Profile</strong>
+        </td>
+        <td align="center">
+            <img src="screenshots/ios-playerProfile.png" alt="iPhone — Player Profile" width="240"><br>
+            <strong>Player Profile</strong>
+        </td>
+    </tr>
+</table>
 
-### iOS — iPhone 17 Pro 📱
-
-![iPhone — Library](screenshots/ios-1.jpg)
-![iPhone — Session execution](screenshots/ios-2.jpg)
-![iPhone — Tactical board](screenshots/ios-3.jpg)
-![iPhone — Calendar / Plan](screenshots/ios-4.jpg)
-
-> Screenshots are stored in the `screenshots/` folder — replace them with newer captures if you want to update visuals.
+> Screenshots are stored in the `screenshots/` folder — replace them with newer captures to update visuals.
 
 ## Requirements
 

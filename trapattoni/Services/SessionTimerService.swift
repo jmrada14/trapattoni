@@ -132,6 +132,19 @@ final class SessionTimerService {
         remainingSeconds += seconds
     }
 
+    func reduceTime(by seconds: Int) {
+        remainingSeconds = max(0, remainingSeconds - seconds)
+        // If reduced to 0, trigger the transition
+        if remainingSeconds <= 0 {
+            handleTimerComplete()
+        }
+    }
+
+    // MARK: - Callbacks
+
+    /// Called when a timer phase completes (exercise ends or rest ends)
+    var onPhaseComplete: ((TimerState) -> Void)?
+
     // MARK: - Private Methods
 
     private func startExercise() {
@@ -187,14 +200,23 @@ final class SessionTimerService {
         remainingSeconds -= 1
 
         if remainingSeconds <= 0 {
-            timer?.invalidate()
-            timer = nil
-
-            if isInRestPeriod {
-                moveToNextExercise()
-            } else {
-                startRestPeriod()
-            }
+            handleTimerComplete()
         }
+    }
+
+    private func handleTimerComplete() {
+        timer?.invalidate()
+        timer = nil
+
+        let completedPhase = state
+
+        if isInRestPeriod {
+            moveToNextExercise()
+        } else {
+            startRestPeriod()
+        }
+
+        // Notify about phase completion
+        onPhaseComplete?(completedPhase)
     }
 }

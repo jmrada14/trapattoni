@@ -578,6 +578,9 @@ struct ScheduleSessionSheet: View {
             }
         }
 
+        // Track created activities for calendar sync
+        var createdActivities: [ScheduledActivity] = []
+
         // Create activities
         for date in dates {
             let activity = ScheduledActivity(session: session, scheduledDate: date)
@@ -588,14 +591,35 @@ struct ScheduleSessionSheet: View {
             }
 
             modelContext.insert(activity)
+            createdActivities.append(activity)
+        }
 
-            // Schedule notification
-            if enableNotification {
-                Task {
-                    await NotificationService.shared.scheduleActivityReminder(
-                        for: activity,
-                        minutesBefore: notificationMinutes
-                    )
+        // Sync to device calendar (calendar alarms replace app notifications)
+        if enableNotification {
+            Task {
+                if recurrenceType != .none, let firstActivity = createdActivities.first {
+                    // Create single recurring event in calendar
+                    if let eventId = await CalendarService.shared.createRecurringEvent(
+                        for: firstActivity,
+                        recurrenceType: recurrenceType,
+                        endDate: recurrenceEndDate,
+                        reminderMinutes: notificationMinutes
+                    ) {
+                        // Store same event ID in all activities
+                        for activity in createdActivities {
+                            activity.calendarEventId = eventId
+                        }
+                    }
+                } else {
+                    // Create individual events for non-recurring activities
+                    for activity in createdActivities {
+                        if let eventId = await CalendarService.shared.createEvent(
+                            for: activity,
+                            reminderMinutes: notificationMinutes
+                        ) {
+                            activity.calendarEventId = eventId
+                        }
+                    }
                 }
             }
         }

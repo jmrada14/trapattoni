@@ -575,13 +575,15 @@ struct SchedulePlanToCalendarSheet: View {
 
                 modelContext.insert(activity)
 
-                // Schedule notification
+                // Sync to device calendar (calendar alarms replace app notifications)
                 if enableNotifications {
                     Task {
-                        await NotificationService.shared.scheduleActivityReminder(
+                        if let eventId = await CalendarService.shared.createEvent(
                             for: activity,
-                            minutesBefore: notificationMinutes
-                        )
+                            reminderMinutes: notificationMinutes
+                        ) {
+                            activity.calendarEventId = eventId
+                        }
                     }
                 }
             }

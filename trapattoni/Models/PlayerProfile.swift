@@ -17,6 +17,29 @@ final class PlayerProfile {
     var weeklyGoalSessions: Int = 3
     var focusAreas: [String] = []
 
+    // Notification preferences
+    var notificationsEnabled: Bool = true
+    var inactivityRemindersEnabled: Bool = true
+    var inactivityDaysThreshold: Int = 3
+    var weeklyGoalRemindersEnabled: Bool = true
+    var reminderHour: Int = 9
+    var reminderMinute: Int = 0
+
+    // Computed property for reminder time
+    var reminderTime: Date {
+        get {
+            var components = DateComponents()
+            components.hour = reminderHour
+            components.minute = reminderMinute
+            return Calendar.current.date(from: components) ?? Date()
+        }
+        set {
+            let components = Calendar.current.dateComponents([.hour, .minute], from: newValue)
+            reminderHour = components.hour ?? 9
+            reminderMinute = components.minute ?? 0
+        }
+    }
+
     init(
         name: String = "",
         bio: String = "",

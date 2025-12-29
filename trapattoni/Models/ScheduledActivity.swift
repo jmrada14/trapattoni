@@ -21,6 +21,12 @@ final class ScheduledActivity {
     var recurrenceEndDate: Date?
     var recurrenceGroupId: UUID?  // Links recurring instances together
 
+    // Calendar sync
+    var calendarEventId: String?  // EventKit event identifier for device calendar sync
+
+    // Location
+    var location: String = ""
+
     var createdAt: Date = Date()
     var updatedAt: Date = Date()
 

@@ -129,4 +129,166 @@ class NotificationService {
     func listPendingNotifications() async -> [UNNotificationRequest] {
         return await UNUserNotificationCenter.current().pendingNotificationRequests()
     }
+
+    // MARK: - Smart Reminders
+
+    private let inactivityReminderId = "smart-inactivity-reminder"
+    private let weeklyGoalReminderId = "smart-weekly-goal-reminder"
+
+    /// Updates all smart reminders based on current profile settings and training data
+    func updateSmartReminders(
+        profile: PlayerProfile,
+        lastTrainingDate: Date?,
+        sessionsThisWeek: Int
+    ) async {
+        let status = await checkPermissionStatus()
+        guard status == .authorized, profile.notificationsEnabled else {
+            removeSmartReminders()
+            return
+        }
+
+        // Schedule inactivity reminder if enabled
+        if profile.inactivityRemindersEnabled {
+            await scheduleInactivityReminder(
+                profile: profile,
+                lastTrainingDate: lastTrainingDate
+            )
+        } else {
+            removeNotificationById(inactivityReminderId)
+        }
+
+        // Schedule weekly goal reminder if enabled
+        if profile.weeklyGoalRemindersEnabled {
+            await scheduleWeeklyGoalReminder(
+                profile: profile,
+                sessionsThisWeek: sessionsThisWeek
+            )
+        } else {
+            removeNotificationById(weeklyGoalReminderId)
+        }
+    }
+
+    /// Schedules a reminder if the user hasn't trained recently
+    private func scheduleInactivityReminder(
+        profile: PlayerProfile,
+        lastTrainingDate: Date?
+    ) async {
+        removeNotificationById(inactivityReminderId)
+
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: Date())
+
+        // Calculate days since last training
+        let daysSinceTraining: Int
+        if let lastDate = lastTrainingDate {
+            let lastTrainingDay = calendar.startOfDay(for: lastDate)
+            daysSinceTraining = calendar.dateComponents([.day], from: lastTrainingDay, to: today).day ?? 0
+        } else {
+            daysSinceTraining = profile.inactivityDaysThreshold // Assume they need a reminder if no history
+        }
+
+        // Only schedule if they've been inactive long enough
+        guard daysSinceTraining >= profile.inactivityDaysThreshold else { return }
+
+        // Schedule for tomorrow at reminder time
+        guard let tomorrow = calendar.date(byAdding: .day, value: 1, to: today) else { return }
+        var components = calendar.dateComponents([.year, .month, .day], from: tomorrow)
+        components.hour = profile.reminderHour
+        components.minute = profile.reminderMinute
+
+        let content = UNMutableNotificationContent()
+        content.title = "Time to Train!"
+        if daysSinceTraining == 1 {
+            content.body = "You haven't trained since yesterday. Ready to get back at it?"
+        } else {
+            content.body = "It's been \(daysSinceTraining) days since your last session. Let's get moving!"
+        }
+        content.sound = .default
+        content.categoryIdentifier = "INACTIVITY_REMINDER"
+
+        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+        let request = UNNotificationRequest(
+            identifier: inactivityReminderId,
+            content: content,
+            trigger: trigger
+        )
+
+        do {
+            try await UNUserNotificationCenter.current().add(request)
+        } catch {
+            print("Failed to schedule inactivity reminder: \(error)")
+        }
+    }
+
+    /// Schedules a reminder about weekly goal progress
+    private func scheduleWeeklyGoalReminder(
+        profile: PlayerProfile,
+        sessionsThisWeek: Int
+    ) async {
+        removeNotificationById(weeklyGoalReminderId)
+
+        let calendar = Calendar.current
+        let today = Date()
+
+        // Get current weekday (1 = Sunday, 7 = Saturday)
+        let weekday = calendar.component(.weekday, from: today)
+
+        // Only send goal reminders mid-week (Wednesday-Friday) or weekend
+        // Early week they have time, late week they need a push
+        guard weekday >= 4 else { return } // Wednesday or later
+
+        let sessionsRemaining = profile.weeklyGoalSessions - sessionsThisWeek
+
+        // Don't remind if they've already hit their goal
+        guard sessionsRemaining > 0 else { return }
+
+        // Schedule for tomorrow at reminder time
+        guard let tomorrow = calendar.date(byAdding: .day, value: 1, to: calendar.startOfDay(for: today)) else { return }
+        var components = calendar.dateComponents([.year, .month, .day], from: tomorrow)
+        components.hour = profile.reminderHour
+        components.minute = profile.reminderMinute
+
+        let content = UNMutableNotificationContent()
+
+        // Craft message based on how close they are
+        if sessionsRemaining == 1 {
+            content.title = "Almost There!"
+            content.body = "Just 1 more session to hit your weekly goal. You've got this!"
+        } else if weekday >= 6 { // Friday or later - urgent
+            content.title = "Weekend Push!"
+            content.body = "\(sessionsRemaining) sessions left to reach your goal of \(profile.weeklyGoalSessions) this week."
+        } else {
+            content.title = "Weekly Goal Check-in"
+            content.body = "You've completed \(sessionsThisWeek)/\(profile.weeklyGoalSessions) sessions this week. Keep it up!"
+        }
+
+        content.sound = .default
+        content.categoryIdentifier = "WEEKLY_GOAL_REMINDER"
+
+        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+        let request = UNNotificationRequest(
+            identifier: weeklyGoalReminderId,
+            content: content,
+            trigger: trigger
+        )
+
+        do {
+            try await UNUserNotificationCenter.current().add(request)
+        } catch {
+            print("Failed to schedule weekly goal reminder: \(error)")
+        }
+    }
+
+    /// Removes all smart reminders
+    func removeSmartReminders() {
+        UNUserNotificationCenter.current().removePendingNotificationRequests(
+            withIdentifiers: [inactivityReminderId, weeklyGoalReminderId]
+        )
+    }
+
+    private func removeNotificationById(_ identifier: String) {
+        UNUserNotificationCenter.current().removePendingNotificationRequests(
+            withIdentifiers: [identifier]
+        )
+    }
 }

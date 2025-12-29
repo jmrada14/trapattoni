@@ -16,6 +16,7 @@ struct SessionExecutionView: View {
     @State private var pendingRatings: [UUID: Int] = [:]
     @State private var showingQuitConfirmation = false
     @State private var isSkipping = false
+    @State private var lastCountdownWarning: Int = 0
 
     var body: some View {
         NavigationStack {
@@ -74,6 +75,17 @@ struct SessionExecutionView: View {
             }
             .onChange(of: timerService.state) { oldValue, newValue in
                 handleStateChange(from: oldValue, to: newValue)
+            }
+            .onChange(of: timerService.remainingSeconds) { _, newValue in
+                // Play countdown warning ticks in the last 3 seconds
+                if newValue <= 3 && newValue > 0 && newValue != lastCountdownWarning {
+                    lastCountdownWarning = newValue
+                    Task { @MainActor in
+                        TimerAlertService.shared.playCountdownWarning()
+                    }
+                } else if newValue > 3 {
+                    lastCountdownWarning = 0
+                }
             }
             .confirmationDialog("End Session?", isPresented: $showingQuitConfirmation) {
                 Button("End Session", role: .destructive) {
@@ -197,54 +209,96 @@ struct SessionExecutionView: View {
     }
 
     private var controlButtons: some View {
-        HStack(spacing: 24) {
-            // Skip button
-            Button {
-                // Rate current exercise before skipping (if in exercise phase)
-                if timerService.state == .exerciseActive,
-                   let exercise = timerService.currentExercise {
-                    isSkipping = true
-                    exerciseToRate = exercise
-                } else {
+        VStack(spacing: 20) {
+            // Main controls row
+            HStack(spacing: 24) {
+                // Skip button
+                Button {
+                    // Rate current exercise before skipping (if in exercise phase)
+                    if timerService.state == .exerciseActive,
+                       let exercise = timerService.currentExercise {
+                        isSkipping = true
+                        exerciseToRate = exercise
+                    } else {
+                        timerService.skip()
+                    }
+                } label: {
+                    Image(systemName: "forward.fill")
+                        .font(.title2)
+                        .frame(width: 56, height: 56)
+                        .background(Color.secondaryBackground)
+                        .clipShape(Circle())
+                }
+                .disabled(timerService.state == .completed)
+
+                // Play/Pause button
+                Button {
+                    if timerService.state == .paused {
+                        timerService.resume()
+                    } else {
+                        timerService.pause()
+                    }
+                } label: {
+                    Image(systemName: timerService.state == .paused ? "play.fill" : "pause.fill")
+                        .font(.title)
+                        .frame(width: 72, height: 72)
+                        .background(Color.blue)
+                        .foregroundStyle(.white)
+                        .clipShape(Circle())
+                }
+                .disabled(timerService.state == .completed)
+
+                // Skip to next (for rest periods)
+                Button {
                     timerService.skip()
+                } label: {
+                    Image(systemName: "arrow.right.circle.fill")
+                        .font(.title2)
+                        .frame(width: 56, height: 56)
+                        .background(Color.secondaryBackground)
+                        .clipShape(Circle())
                 }
-            } label: {
-                Image(systemName: "forward.fill")
-                    .font(.title2)
-                    .frame(width: 56, height: 56)
-                    .background(Color.secondaryBackground)
-                    .clipShape(Circle())
+                .disabled(timerService.state == .completed || timerService.state != .restPeriod)
+                .opacity(timerService.state == .restPeriod ? 1 : 0.3)
             }
-            .disabled(timerService.state == .completed)
 
-            // Play/Pause button
-            Button {
-                if timerService.state == .paused {
-                    timerService.resume()
-                } else {
-                    timerService.pause()
+            // Time adjustment row
+            HStack(spacing: 16) {
+                // Reduce time button
+                Button {
+                    timerService.reduceTime(by: 30)
+                } label: {
+                    HStack(spacing: 4) {
+                        Image(systemName: "minus")
+                            .font(.headline)
+                        Text("30s")
+                            .font(.subheadline)
+                            .fontWeight(.medium)
+                    }
+                    .frame(width: 80, height: 40)
+                    .background(Color.secondaryBackground)
+                    .clipShape(Capsule())
                 }
-            } label: {
-                Image(systemName: timerService.state == .paused ? "play.fill" : "pause.fill")
-                    .font(.title)
-                    .frame(width: 72, height: 72)
-                    .background(Color.blue)
-                    .foregroundStyle(.white)
-                    .clipShape(Circle())
-            }
-            .disabled(timerService.state == .completed)
+                .disabled(timerService.state == .completed || timerService.state == .restPeriod || timerService.remainingSeconds <= 30)
 
-            // Extend time button
-            Button {
-                timerService.extendTime(by: 30)
-            } label: {
-                Image(systemName: "plus.circle.fill")
-                    .font(.title2)
-                    .frame(width: 56, height: 56)
+                // Extend time button
+                Button {
+                    timerService.extendTime(by: 30)
+                } label: {
+                    HStack(spacing: 4) {
+                        Image(systemName: "plus")
+                            .font(.headline)
+                        Text("30s")
+                            .font(.subheadline)
+                            .fontWeight(.medium)
+                    }
+                    .frame(width: 80, height: 40)
                     .background(Color.secondaryBackground)
-                    .clipShape(Circle())
+                    .clipShape(Capsule())
+                }
+                .disabled(timerService.state == .completed || timerService.state == .restPeriod)
             }
-            .disabled(timerService.state == .completed || timerService.state == .restPeriod)
+            .foregroundStyle(.primary)
         }
     }
 
@@ -269,6 +323,20 @@ struct SessionExecutionView: View {
         modelContext.insert(log)
         sessionLog = log
 
+        // Set up phase completion alerts
+        timerService.onPhaseComplete = { completedPhase in
+            Task { @MainActor in
+                switch completedPhase {
+                case .exerciseActive:
+                    TimerAlertService.shared.playExerciseCompleteAlert()
+                case .restPeriod:
+                    TimerAlertService.shared.playRestCompleteAlert()
+                default:
+                    break
+                }
+            }
+        }
+
         timerService.start(with: session.sortedExercises)
     }
 
@@ -282,6 +350,11 @@ struct SessionExecutionView: View {
 
         // Session completed
         if newValue == .completed {
+            // Play completion alert
+            Task { @MainActor in
+                TimerAlertService.shared.playSessionCompleteAlert()
+            }
+
             // Rate the last exercise
             if let exercise = session.sortedExercises.last,
                pendingRatings[exercise.exerciseId] == nil {

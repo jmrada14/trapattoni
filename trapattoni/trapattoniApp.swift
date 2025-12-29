@@ -10,6 +10,8 @@ import SwiftData
 
 @main
 struct trapattoniApp: App {
+    @Environment(\.scenePhase) private var scenePhase
+
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             // Exercise Library
@@ -54,9 +56,18 @@ struct trapattoniApp: App {
                 .task {
                     await seedDataIfNeeded()
                     await requestNotificationPermission()
+                    await requestCalendarPermission()
+                    await updateSmartReminders()
                 }
         }
         .modelContainer(sharedModelContainer)
+        .onChange(of: scenePhase) { _, newPhase in
+            if newPhase == .active {
+                Task {
+                    await syncDeletedCalendarEvents()
+                }
+            }
+        }
     }
 
     @MainActor
@@ -65,6 +76,76 @@ struct trapattoniApp: App {
         if granted {
             print("Notification permission granted")
         }
+    }
+
+    @MainActor
+    private func requestCalendarPermission() async {
+        let granted = await CalendarService.shared.requestPermission()
+        if granted {
+            print("Calendar permission granted")
+        }
+    }
+
+    @MainActor
+    private func syncDeletedCalendarEvents() async {
+        let context = sharedModelContainer.mainContext
+
+        // Refresh event store to get latest changes
+        CalendarService.shared.refreshEventStore()
+
+        // Fetch all activities with calendar event IDs
+        let descriptor = FetchDescriptor<ScheduledActivity>(
+            predicate: #Predicate<ScheduledActivity> { $0.calendarEventId != nil }
+        )
+
+        guard let activities = try? context.fetch(descriptor) else { return }
+
+        // Check each activity's calendar event
+        for activity in activities {
+            if let eventId = activity.calendarEventId {
+                // If event no longer exists in calendar, clear the ID
+                if !CalendarService.shared.eventExists(eventIdentifier: eventId) {
+                    activity.calendarEventId = nil
+                    print("Calendar event externally deleted for: \(activity.title)")
+                }
+            }
+        }
+    }
+
+    @MainActor
+    private func updateSmartReminders() async {
+        let context = sharedModelContainer.mainContext
+
+        // Fetch profile
+        let profileDescriptor = FetchDescriptor<PlayerProfile>()
+        guard let profile = try? context.fetch(profileDescriptor).first else { return }
+
+        // Fetch last completed training session
+        var logDescriptor = FetchDescriptor<SessionLog>(
+            predicate: #Predicate<SessionLog> { $0.completedAt != nil },
+            sortBy: [SortDescriptor(\.completedAt, order: .reverse)]
+        )
+        logDescriptor.fetchLimit = 1
+        let lastTrainingDate = try? context.fetch(logDescriptor).first?.completedAt
+
+        // Calculate sessions completed this week
+        let calendar = Calendar.current
+        let now = Date()
+        let startOfWeek = calendar.dateInterval(of: .weekOfYear, for: now)?.start ?? now
+
+        let weekLogDescriptor = FetchDescriptor<SessionLog>(
+            predicate: #Predicate<SessionLog> { log in
+                log.completedAt != nil && log.completedAt! >= startOfWeek
+            }
+        )
+        let sessionsThisWeek = (try? context.fetch(weekLogDescriptor).count) ?? 0
+
+        // Update smart reminders
+        await NotificationService.shared.updateSmartReminders(
+            profile: profile,
+            lastTrainingDate: lastTrainingDate,
+            sessionsThisWeek: sessionsThisWeek
+        )
     }
 
     @MainActor

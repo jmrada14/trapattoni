@@ -922,6 +922,7 @@ struct AddActivitySheet: View {
     @State private var activityType: ActivityType = .gym
     @State private var scheduledTime: Date = Date()
     @State private var durationMinutes: Int = 60
+    @State private var location: String = ""
     @State private var notes: String = ""
     @State private var selectedSession: TrainingSession?
 
@@ -992,6 +993,8 @@ struct AddActivitySheet: View {
                     DatePicker("Time", selection: $scheduledTime, displayedComponents: .hourAndMinute)
 
                     Stepper("Duration: \(durationMinutes) min", value: $durationMinutes, in: 15...240, step: 15)
+
+                    TextField("Location (Optional)", text: $location)
                 }
 
                 Section {
@@ -1082,6 +1085,9 @@ struct AddActivitySheet: View {
             }
         }
 
+        // Track created activities for calendar sync
+        var createdActivities: [ScheduledActivity] = []
+
         for date in dates {
             var dateComponents = calendar.dateComponents([.year, .month, .day], from: date)
             dateComponents.hour = timeComponents.hour
@@ -1105,11 +1111,41 @@ struct AddActivitySheet: View {
             // Set recurrence info
             activity.recurrenceType = recurrenceType
             activity.recurrenceGroupId = groupId
+            activity.location = location
             if recurrenceType != .none {
                 activity.recurrenceEndDate = recurrenceEndDate
             }
 
             modelContext.insert(activity)
+            createdActivities.append(activity)
+        }
+
+        // Sync to device calendar (calendar alarms replace app notifications)
+        Task {
+            if recurrenceType != .none, let firstActivity = createdActivities.first {
+                // Create single recurring event in calendar
+                if let eventId = await CalendarService.shared.createRecurringEvent(
+                    for: firstActivity,
+                    recurrenceType: recurrenceType,
+                    endDate: recurrenceEndDate,
+                    reminderMinutes: 15
+                ) {
+                    // Store same event ID in all activities
+                    for activity in createdActivities {
+                        activity.calendarEventId = eventId
+                    }
+                }
+            } else {
+                // Create individual events for non-recurring activities
+                for activity in createdActivities {
+                    if let eventId = await CalendarService.shared.createEvent(
+                        for: activity,
+                        reminderMinutes: 15
+                    ) {
+                        activity.calendarEventId = eventId
+                    }
+                }
+            }
         }
     }
 }
@@ -1123,6 +1159,7 @@ struct ActivityDetailSheet: View {
 
     @State private var showingDeleteAlert = false
     @State private var showingDeleteSeriesAlert = false
+    @State private var showingEditSheet = false
 
     var body: some View {
         NavigationStack {
@@ -1161,6 +1198,9 @@ struct ActivityDetailSheet: View {
                     LabeledContent("Date", value: activity.formattedDate)
                     LabeledContent("Time", value: activity.formattedTime)
                     LabeledContent("Duration", value: activity.formattedDuration)
+                    if !activity.location.isEmpty {
+                        LabeledContent("Location", value: activity.location)
+                    }
                 }
 
                 if activity.isRecurring {
@@ -1179,6 +1219,12 @@ struct ActivityDetailSheet: View {
                 }
 
                 Section {
+                    Button {
+                        showingEditSheet = true
+                    } label: {
+                        Label("Edit Activity", systemImage: "pencil")
+                    }
+
                     Button {
                         withAnimation {
                             if activity.isCompleted {
@@ -1221,6 +1267,12 @@ struct ActivityDetailSheet: View {
             .alert("Delete Activity?", isPresented: $showingDeleteAlert) {
                 Button("Cancel", role: .cancel) {}
                 Button("Delete", role: .destructive) {
+                    // Remove from device calendar
+                    if let eventId = activity.calendarEventId {
+                        Task {
+                            await CalendarService.shared.deleteEvent(eventIdentifier: eventId)
+                        }
+                    }
                     modelContext.delete(activity)
                     dismiss()
                 }
@@ -1234,6 +1286,9 @@ struct ActivityDetailSheet: View {
             } message: {
                 Text("This will delete all future activities in this recurring series. Past completed activities will not be affected.")
             }
+            .sheet(isPresented: $showingEditSheet) {
+                EditActivitySheet(activity: activity)
+            }
         }
     }
 
@@ -1246,10 +1301,23 @@ struct ActivityDetailSheet: View {
 
         do {
             let activitiesInSeries = try modelContext.fetch(descriptor)
+            var eventIdsToDelete: Set<String> = []
+
             for seriesActivity in activitiesInSeries {
                 // Only delete future uncompleted activities
                 if !seriesActivity.isCompleted && seriesActivity.scheduledDate >= Date() {
+                    if let eventId = seriesActivity.calendarEventId {
+                        eventIdsToDelete.insert(eventId)
+                    }
                     modelContext.delete(seriesActivity)
+                }
+            }
+
+            // Delete from device calendar
+            Task {
+                // For recurring events, just delete the one event (they share eventId)
+                if let firstEventId = eventIdsToDelete.first {
+                    await CalendarService.shared.deleteRecurringEvent(eventIdentifier: firstEventId)
                 }
             }
         } catch {
@@ -1264,6 +1332,81 @@ struct ActivityDetailSheet: View {
         case .game: return .green
         case .recovery: return .orange
         case .cardio: return .red
+        }
+    }
+}
+
+// MARK: - Edit Activity Sheet
+
+struct EditActivitySheet: View {
+    @Environment(\.dismiss) private var dismiss
+    @Bindable var activity: ScheduledActivity
+
+    @State private var title: String = ""
+    @State private var scheduledDate: Date = Date()
+    @State private var durationMinutes: Int = 60
+    @State private var location: String = ""
+    @State private var notes: String = ""
+
+    var body: some View {
+        NavigationStack {
+            Form {
+                Section("Details") {
+                    TextField("Title", text: $title)
+
+                    DatePicker("Date & Time", selection: $scheduledDate)
+
+                    Stepper("Duration: \(durationMinutes) min", value: $durationMinutes, in: 15...240, step: 15)
+
+                    TextField("Location", text: $location)
+                }
+
+                Section("Notes") {
+                    TextField("Notes", text: $notes, axis: .vertical)
+                        .lineLimit(2...4)
+                }
+            }
+            .navigationTitle("Edit Activity")
+            #if os(iOS)
+            .navigationBarTitleDisplayMode(.inline)
+            #endif
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") { dismiss() }
+                }
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Save") {
+                        saveChanges()
+                        dismiss()
+                    }
+                    .disabled(title.isEmpty)
+                }
+            }
+            .onAppear {
+                loadActivityData()
+            }
+        }
+    }
+
+    private func loadActivityData() {
+        title = activity.title
+        scheduledDate = activity.scheduledDate
+        durationMinutes = activity.durationMinutes
+        location = activity.location
+        notes = activity.notes
+    }
+
+    private func saveChanges() {
+        activity.title = title
+        activity.scheduledDate = scheduledDate
+        activity.durationMinutes = durationMinutes
+        activity.location = location
+        activity.notes = notes
+        activity.updatedAt = Date()
+
+        // Sync changes to device calendar
+        Task {
+            await CalendarService.shared.updateEvent(for: activity)
         }
     }
 }

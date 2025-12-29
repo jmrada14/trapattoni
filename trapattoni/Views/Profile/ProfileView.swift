@@ -411,6 +411,7 @@ struct StatCard: View {
 
 struct EditProfileView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.modelContext) private var modelContext
     @Bindable var profile: PlayerProfile
 
     @State private var name: String = ""
@@ -421,6 +422,13 @@ struct EditProfileView: View {
     @State private var weeklyGoal: Int = 3
     @State private var selectedPhotoItem: PhotosPickerItem?
     @State private var photoData: Data?
+
+    // Notification settings
+    @State private var notificationsEnabled: Bool = true
+    @State private var inactivityRemindersEnabled: Bool = true
+    @State private var inactivityDaysThreshold: Int = 3
+    @State private var weeklyGoalRemindersEnabled: Bool = true
+    @State private var reminderTime: Date = Date()
 
     var body: some View {
         NavigationStack {
@@ -499,6 +507,41 @@ struct EditProfileView: View {
                 Section("Training Goals") {
                     Stepper("Weekly Goal: \(weeklyGoal) sessions", value: $weeklyGoal, in: 1...7)
                 }
+
+                // Notification Settings
+                Section {
+                    Toggle("Enable Notifications", isOn: $notificationsEnabled)
+                } header: {
+                    Label("Notifications", systemImage: "bell.fill")
+                }
+
+                if notificationsEnabled {
+                    Section {
+                        Toggle("Inactivity Reminders", isOn: $inactivityRemindersEnabled)
+
+                        if inactivityRemindersEnabled {
+                            Stepper("Remind after \(inactivityDaysThreshold) days", value: $inactivityDaysThreshold, in: 1...7)
+                        }
+                    } header: {
+                        Text("Stay Active")
+                    } footer: {
+                        Text("Get a gentle nudge when you haven't trained in a while")
+                    }
+
+                    Section {
+                        Toggle("Weekly Goal Reminders", isOn: $weeklyGoalRemindersEnabled)
+                    } header: {
+                        Text("Goal Progress")
+                    } footer: {
+                        Text("Get reminders mid-week about your progress toward your weekly goal")
+                    }
+
+                    Section {
+                        DatePicker("Reminder Time", selection: $reminderTime, displayedComponents: .hourAndMinute)
+                    } footer: {
+                        Text("When to receive smart reminders")
+                    }
+                }
             }
             .navigationTitle("Edit Profile")
             #if os(iOS)
@@ -538,6 +581,13 @@ struct EditProfileView: View {
         yearsPlaying = profile.yearsPlaying
         weeklyGoal = profile.weeklyGoalSessions
         photoData = profile.photoData
+
+        // Notification settings
+        notificationsEnabled = profile.notificationsEnabled
+        inactivityRemindersEnabled = profile.inactivityRemindersEnabled
+        inactivityDaysThreshold = profile.inactivityDaysThreshold
+        weeklyGoalRemindersEnabled = profile.weeklyGoalRemindersEnabled
+        reminderTime = profile.reminderTime
     }
 
     private func saveProfile() {
@@ -549,6 +599,46 @@ struct EditProfileView: View {
         profile.weeklyGoalSessions = weeklyGoal
         profile.photoData = photoData
         profile.updatedAt = Date()
+
+        // Notification settings
+        profile.notificationsEnabled = notificationsEnabled
+        profile.inactivityRemindersEnabled = inactivityRemindersEnabled
+        profile.inactivityDaysThreshold = inactivityDaysThreshold
+        profile.weeklyGoalRemindersEnabled = weeklyGoalRemindersEnabled
+        profile.reminderTime = reminderTime
+
+        // Update smart reminders with new settings
+        Task {
+            await updateSmartRemindersAfterSave()
+        }
+    }
+
+    private func updateSmartRemindersAfterSave() async {
+        // Fetch last completed training session
+        var logDescriptor = FetchDescriptor<SessionLog>(
+            predicate: #Predicate<SessionLog> { $0.completedAt != nil },
+            sortBy: [SortDescriptor(\.completedAt, order: .reverse)]
+        )
+        logDescriptor.fetchLimit = 1
+        let lastTrainingDate = try? modelContext.fetch(logDescriptor).first?.completedAt
+
+        // Calculate sessions completed this week
+        let calendar = Calendar.current
+        let now = Date()
+        let startOfWeek = calendar.dateInterval(of: .weekOfYear, for: now)?.start ?? now
+
+        let weekLogDescriptor = FetchDescriptor<SessionLog>(
+            predicate: #Predicate<SessionLog> { log in
+                log.completedAt != nil && log.completedAt! >= startOfWeek
+            }
+        )
+        let sessionsThisWeek = (try? modelContext.fetch(weekLogDescriptor).count) ?? 0
+
+        await NotificationService.shared.updateSmartReminders(
+            profile: profile,
+            lastTrainingDate: lastTrainingDate,
+            sessionsThisWeek: sessionsThisWeek
+        )
     }
 
     #if os(iOS)

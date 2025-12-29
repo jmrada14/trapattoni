@@ -63,6 +63,23 @@ Monitor your training consistency:
 - Category breakdown charts
 - Exercise history and ratings
 
+## Screenshots
+
+### macOS ✅
+
+![macOS — Library](screenshots/macos-1.png)
+![macOS — Session execution](screenshots/macos-2.png)
+![macOS — Tactical board](screenshots/macos-3.png)
+
+### iOS — iPhone 17 Pro 📱
+
+![iPhone — Library](screenshots/ios-1.jpg)
+![iPhone — Session execution](screenshots/ios-2.jpg)
+![iPhone — Tactical board](screenshots/ios-3.jpg)
+![iPhone — Calendar / Plan](screenshots/ios-4.jpg)
+
+> Screenshots are stored in the `screenshots/` folder — replace them with newer captures if you want to update visuals.
+
 ## Requirements
 
 - **iOS**: 17.0+

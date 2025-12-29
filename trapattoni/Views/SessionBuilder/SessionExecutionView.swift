@@ -432,37 +432,40 @@ struct SessionExecutionView: View {
         sessionLog = log
 
         // Set up phase completion alerts
-        timerService.onPhaseComplete = { completedPhase in
-            Task { @MainActor in
-                switch completedPhase {
-                case .exerciseActive:
-                    TimerAlertService.shared.playExerciseCompleteAlert()
-                    VoiceAnnouncementService.shared.announceRestStart(
-                        nextExerciseName: timerService.nextExercise?.exerciseName
-                    )
-                case .restPeriod:
-                    TimerAlertService.shared.playRestCompleteAlert()
-                    if let exercise = timerService.currentExercise {
-                        VoiceAnnouncementService.shared.announceExerciseStart(name: exercise.exerciseName)
-                    }
-                default:
-                    break
+        timerService.onPhaseComplete = { [self] completedPhase in
+            switch completedPhase {
+            case .exerciseActive:
+                TimerAlertService.shared.playExerciseCompleteAlert()
+                VoiceAnnouncementService.shared.announceRestStart(
+                    nextExerciseName: timerService.nextExercise?.exerciseName
+                )
+            case .restPeriod:
+                TimerAlertService.shared.playRestCompleteAlert()
+                if let exercise = timerService.currentExercise {
+                    VoiceAnnouncementService.shared.announceExerciseStart(name: exercise.exerciseName)
                 }
+            default:
+                break
             }
         }
 
-        // Announce session start
+        // Announce session start, then start timer after a delay
         VoiceAnnouncementService.shared.announceSessionStart(
             sessionName: session.name,
             exerciseCount: session.exercises.count
         )
 
-        timerService.start(with: session.sortedExercises)
-
-        // Announce first exercise
-        if let firstExercise = timerService.currentExercise {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+        // Wait for session announcement to finish before starting
+        let startDelay: Double = 3.0
+        DispatchQueue.main.asyncAfter(deadline: .now() + startDelay) { [self] in
+            // Announce first exercise
+            if let firstExercise = session.sortedExercises.first {
                 VoiceAnnouncementService.shared.announceExerciseStart(name: firstExercise.exerciseName)
+            }
+
+            // Start timer after exercise name is announced
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                timerService.start(with: session.sortedExercises)
             }
         }
     }
@@ -471,10 +474,8 @@ struct SessionExecutionView: View {
         // Play countdown warning ticks and voice in the last 3 seconds
         if seconds <= 3 && seconds > 0 && seconds != lastCountdownWarning {
             lastCountdownWarning = seconds
-            Task { @MainActor in
-                TimerAlertService.shared.playCountdownWarning()
-                VoiceAnnouncementService.shared.announceCountdown(seconds)
-            }
+            TimerAlertService.shared.playCountdownWarning()
+            VoiceAnnouncementService.shared.announceCountdown(seconds)
         } else if seconds > 3 {
             lastCountdownWarning = 0
         }
@@ -490,10 +491,8 @@ struct SessionExecutionView: View {
 
         // Session completed
         if newValue == .completed {
-            Task { @MainActor in
-                TimerAlertService.shared.playSessionCompleteAlert()
-                VoiceAnnouncementService.shared.announceSessionComplete()
-            }
+            TimerAlertService.shared.playSessionCompleteAlert()
+            VoiceAnnouncementService.shared.announceSessionComplete()
 
             if let exercise = session.sortedExercises.last,
                pendingRatings[exercise.exerciseId] == nil {

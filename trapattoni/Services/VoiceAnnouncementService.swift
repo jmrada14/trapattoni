@@ -1,16 +1,19 @@
 import Foundation
 import AVFoundation
 
-@MainActor
-final class VoiceAnnouncementService: NSObject, AVSpeechSynthesizerDelegate {
+final class VoiceAnnouncementService: @unchecked Sendable {
     static let shared = VoiceAnnouncementService()
 
     private let synthesizer = AVSpeechSynthesizer()
-    private(set) var isEnabled: Bool = true
+    private var _isEnabled: Bool = true
+    private let lock = NSLock()
 
-    private override init() {
-        super.init()
-        synthesizer.delegate = self
+    var isEnabled: Bool {
+        get { lock.withLock { _isEnabled } }
+        set { lock.withLock { _isEnabled = newValue } }
+    }
+
+    private init() {
         configureAudioSession()
     }
 
@@ -39,72 +42,66 @@ final class VoiceAnnouncementService: NSObject, AVSpeechSynthesizerDelegate {
 
     // MARK: - Announcements
 
-    /// Announce the start of an exercise
     func announceExerciseStart(name: String) {
+        guard !name.isEmpty else { return }
         speak(name)
     }
 
-    /// Announce transitioning to rest period
     func announceRestStart(nextExerciseName: String?) {
-        if let next = nextExerciseName {
-            speak("Rest. Next up: \(next)")
+        if let next = nextExerciseName, !next.isEmpty {
+            speak("Rest. Next: \(next)")
         } else {
             speak("Rest")
         }
     }
 
-    /// Announce countdown (e.g., "3, 2, 1")
     func announceCountdown(_ seconds: Int) {
-        speak("\(seconds)", rate: 0.6)
+        guard seconds > 0 else { return }
+        speak("\(seconds)", rate: 0.5)
     }
 
-    /// Announce session completion
     func announceSessionComplete() {
-        speak("Workout complete. Great job!")
+        speak("Workout complete!")
     }
 
-    /// Announce session starting
     func announceSessionStart(sessionName: String, exerciseCount: Int) {
-        speak("Starting \(sessionName). \(exerciseCount) exercises.")
+        let name = sessionName.isEmpty ? "workout" : sessionName
+        speak("Starting \(name). \(exerciseCount) exercises.")
     }
 
-    /// Announce current progress
     func announceProgress(currentExercise: Int, totalExercises: Int) {
         speak("Exercise \(currentExercise) of \(totalExercises)")
     }
 
     // MARK: - Core Speech
 
-    func speak(_ text: String, rate: Float = 0.52) {
+    func speak(_ text: String, rate: Float = 0.55) {
         guard isEnabled else { return }
+        guard !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
 
-        // Stop any current speech
-        if synthesizer.isSpeaking {
-            synthesizer.stopSpeaking(at: .immediate)
+        DispatchQueue.main.async { [self] in
+            if synthesizer.isSpeaking {
+                synthesizer.stopSpeaking(at: .immediate)
+            }
+
+            let utterance = AVSpeechUtterance(string: text)
+            utterance.rate = rate
+            utterance.pitchMultiplier = 1.0
+            utterance.volume = 0.9
+
+            if let voice = AVSpeechSynthesisVoice(language: "en-US") {
+                utterance.voice = voice
+            }
+
+            synthesizer.speak(utterance)
         }
-
-        let utterance = AVSpeechUtterance(string: text)
-        utterance.rate = rate
-        utterance.pitchMultiplier = 1.0
-        utterance.volume = 0.9
-
-        // Use a clear voice
-        if let voice = AVSpeechSynthesisVoice(language: "en-US") {
-            utterance.voice = voice
-        }
-
-        synthesizer.speak(utterance)
     }
 
     func stop() {
-        if synthesizer.isSpeaking {
-            synthesizer.stopSpeaking(at: .immediate)
+        DispatchQueue.main.async { [self] in
+            if synthesizer.isSpeaking {
+                synthesizer.stopSpeaking(at: .immediate)
+            }
         }
-    }
-
-    // MARK: - AVSpeechSynthesizerDelegate
-
-    nonisolated func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
-        // Speech finished
     }
 }

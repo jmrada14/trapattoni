@@ -14,6 +14,15 @@ final class TimerAlertService {
         configureAudioSession()
     }
 
+    // MARK: - Screen Wake
+
+    /// Prevent screen from dimming during workout
+    func keepScreenAwake(_ awake: Bool) {
+        #if os(iOS)
+        UIApplication.shared.isIdleTimerDisabled = awake
+        #endif
+    }
+
     // MARK: - Audio Session
 
     private func configureAudioSession() {

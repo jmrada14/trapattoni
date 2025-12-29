@@ -140,6 +140,70 @@ final class SessionTimerService {
         }
     }
 
+    /// Advance timer by elapsed seconds (for background recovery)
+    /// This simulates time passing while app was in background
+    func advanceTime(by seconds: Int) {
+        guard state == .exerciseActive || state == .restPeriod else { return }
+        guard seconds > 0 else { return }
+
+        var remainingToAdvance = seconds
+        totalElapsedSeconds += seconds
+
+        // Process time advancement, potentially crossing multiple phases
+        while remainingToAdvance > 0 && state != .completed {
+            if remainingToAdvance >= remainingSeconds {
+                // This phase completes
+                remainingToAdvance -= remainingSeconds
+                remainingSeconds = 0
+
+                let completedPhase = state
+
+                if isInRestPeriod {
+                    currentExerciseIndex += 1
+                    if currentExerciseIndex >= exercises.count {
+                        state = .completed
+                        onPhaseComplete?(completedPhase)
+                        return
+                    } else {
+                        // Start next exercise
+                        isInRestPeriod = false
+                        remainingSeconds = exercises[currentExerciseIndex].durationSeconds
+                        state = .exerciseActive
+                    }
+                } else {
+                    // Start rest period
+                    let restSeconds = exercises[currentExerciseIndex].restAfterSeconds
+                    if restSeconds > 0 {
+                        isInRestPeriod = true
+                        remainingSeconds = restSeconds
+                        state = .restPeriod
+                    } else {
+                        // No rest, move to next exercise
+                        currentExerciseIndex += 1
+                        if currentExerciseIndex >= exercises.count {
+                            state = .completed
+                            onPhaseComplete?(completedPhase)
+                            return
+                        } else {
+                            remainingSeconds = exercises[currentExerciseIndex].durationSeconds
+                        }
+                    }
+                }
+
+                onPhaseComplete?(completedPhase)
+            } else {
+                // Partial advancement within current phase
+                remainingSeconds -= remainingToAdvance
+                remainingToAdvance = 0
+            }
+        }
+
+        // Restart timer if still active
+        if state == .exerciseActive || state == .restPeriod {
+            startTimer()
+        }
+    }
+
     // MARK: - Callbacks
 
     /// Called when a timer phase completes (exercise ends or rest ends)

@@ -16,6 +16,9 @@ final class ScheduledActivity {
     var linkedSessionId: UUID?
     var linkedSessionName: String?
 
+    // Optional link to a training plan (for bulk operations)
+    var linkedPlanId: UUID?
+
     // Recurrence properties
     var recurrenceTypeRaw: String = "none"
     var recurrenceEndDate: Date?

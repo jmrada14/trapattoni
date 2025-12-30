@@ -428,6 +428,8 @@ struct SchedulePlanSheet: View {
     @State private var selectedPlan: TrainingPlan?
     @State private var startDate: Date = Date()
     @State private var scheduledTime: Date = Date()
+    @State private var enableCalendarSync: Bool = true
+    @State private var reminderMinutes: Int = 30
 
     var body: some View {
         NavigationStack {
@@ -451,6 +453,19 @@ struct SchedulePlanSheet: View {
                     Section("sessions.schedule".localized) {
                         DatePicker("plan.startDate".localized, selection: $startDate, displayedComponents: .date)
                         DatePicker("calendar.defaultTime".localized, selection: $scheduledTime, displayedComponents: .hourAndMinute)
+                    }
+
+                    Section("calendar.reminders".localized) {
+                        Toggle("calendar.syncToCalendar".localized, isOn: $enableCalendarSync)
+
+                        if enableCalendarSync {
+                            Picker("calendar.reminderBefore".localized, selection: $reminderMinutes) {
+                                Text("calendar.noReminder".localized).tag(0)
+                                Text("calendar.15min".localized).tag(15)
+                                Text("calendar.30min".localized).tag(30)
+                                Text("calendar.1hour".localized).tag(60)
+                            }
+                        }
                     }
 
                     Section {
@@ -490,6 +505,9 @@ struct SchedulePlanSheet: View {
 
     private func schedulePlan() {
         guard let plan = selectedPlan else { return }
+
+        // Start the plan so it shows as active
+        plan.start()
 
         let calendar = Calendar.current
         let timeComponents = calendar.dateComponents([.hour, .minute], from: scheduledTime)
@@ -532,7 +550,20 @@ struct SchedulePlanSheet: View {
                 )
                 activity.linkedSessionId = session.sessionId
                 activity.linkedSessionName = session.sessionName
+                activity.linkedPlanId = plan.id
                 modelContext.insert(activity)
+
+                // Sync to device calendar
+                if enableCalendarSync {
+                    Task {
+                        if let eventId = await CalendarService.shared.createEvent(
+                            for: activity,
+                            reminderMinutes: reminderMinutes
+                        ) {
+                            activity.calendarEventId = eventId
+                        }
+                    }
+                }
             }
         }
     }

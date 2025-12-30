@@ -16,6 +16,8 @@ struct PlanDetailView: View {
     @State private var showingPauseAlert = false
     @State private var showingSessionNotFoundAlert = false
     @State private var showingSchedule = false
+    @State private var showingRemoveFromCalendarAlert = false
+    @State private var scheduledActivitiesCount: Int = 0
 
     var body: some View {
         List {
@@ -70,7 +72,14 @@ struct PlanDetailView: View {
         } message: {
             Text("plan.pauseMessage".localized)
         }
+        .alert("plan.removeFromCalendar".localized, isPresented: $showingRemoveFromCalendarAlert) {
+            Button("common.cancel".localized, role: .cancel) {}
+            Button("common.remove".localized, role: .destructive) { removeFromCalendar() }
+        } message: {
+            Text("plan.removeFromCalendarMessage".localized(with: scheduledActivitiesCount))
+        }
         .observeLanguageChanges()
+        .onAppear { countScheduledActivities() }
     }
 
     // MARK: - View Components
@@ -239,6 +248,14 @@ struct PlanDetailView: View {
                     Label("plan.scheduleToCalendar".localized, systemImage: "calendar.badge.clock")
                 }
 
+                if scheduledActivitiesCount > 0 {
+                    Button {
+                        showingRemoveFromCalendarAlert = true
+                    } label: {
+                        Label("plan.removeFromCalendar".localized, systemImage: "calendar.badge.minus")
+                    }
+                }
+
                 Button { showingEditPlan = true } label: {
                     Label("plan.editPlan".localized, systemImage: "pencil")
                 }
@@ -304,6 +321,34 @@ struct PlanDetailView: View {
 
         modelContext.delete(plan)
         dismiss()
+    }
+
+    private func countScheduledActivities() {
+        let planId = plan.id
+        let descriptor = FetchDescriptor<ScheduledActivity>(
+            predicate: #Predicate<ScheduledActivity> { $0.linkedPlanId == planId }
+        )
+        scheduledActivitiesCount = (try? modelContext.fetchCount(descriptor)) ?? 0
+    }
+
+    private func removeFromCalendar() {
+        let planId = plan.id
+        let descriptor = FetchDescriptor<ScheduledActivity>(
+            predicate: #Predicate<ScheduledActivity> { $0.linkedPlanId == planId }
+        )
+
+        if let activities = try? modelContext.fetch(descriptor) {
+            for activity in activities {
+                // Remove from device calendar if synced
+                if let eventId = activity.calendarEventId {
+                    Task {
+                        await CalendarService.shared.deleteEvent(eventIdentifier: eventId)
+                    }
+                }
+                modelContext.delete(activity)
+            }
+        }
+        scheduledActivitiesCount = 0
     }
 
     private func startPlan() {
@@ -535,6 +580,9 @@ struct SchedulePlanToCalendarSheet: View {
     }
 
     private func schedulePlan() {
+        // Start the plan so it shows as active
+        plan.start()
+
         let calendar = Calendar.current
         let timeComponents = calendar.dateComponents([.hour, .minute], from: scheduledTime)
 
@@ -575,6 +623,7 @@ struct SchedulePlanToCalendarSheet: View {
                 )
                 activity.linkedSessionId = session.sessionId
                 activity.linkedSessionName = session.sessionName
+                activity.linkedPlanId = plan.id
 
                 modelContext.insert(activity)
 

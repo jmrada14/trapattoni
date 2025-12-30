@@ -47,11 +47,11 @@ struct TrainingPlansView: View {
                                     planToDelete = active
                                     showingDeleteAlert = true
                                 } label: {
-                                    Label("Delete", systemImage: "trash")
+                                    Label("common.delete".localized, systemImage: "trash")
                                 }
                             }
                     } header: {
-                        Label("Active Plan", systemImage: "play.circle.fill")
+                        Label("plans.active".localized, systemImage: "play.circle.fill")
                     }
                 }
 
@@ -61,7 +61,7 @@ struct TrainingPlansView: View {
                         Button {
                             showingCreatePlan = true
                         } label: {
-                            Label("Create Your First Plan", systemImage: "plus.circle")
+                            Label("plans.createFirst".localized, systemImage: "plus.circle")
                         }
                     } else {
                         ForEach(customPlans) { plan in
@@ -75,14 +75,14 @@ struct TrainingPlansView: View {
                                         planToDelete = plan
                                         showingDeleteAlert = true
                                     } label: {
-                                        Label("Delete", systemImage: "trash")
+                                        Label("common.delete".localized, systemImage: "trash")
                                     }
                                 }
                                 .swipeActions(edge: .leading, allowsFullSwipe: true) {
                                     Button {
                                         duplicatePlan(plan)
                                     } label: {
-                                        Label("Duplicate", systemImage: "doc.on.doc")
+                                        Label("sessions.duplicate".localized, systemImage: "doc.on.doc")
                                     }
                                     .tint(.blue)
                                 }
@@ -91,11 +91,11 @@ struct TrainingPlansView: View {
                         Button {
                             showingCreatePlan = true
                         } label: {
-                            Label("Create New Plan", systemImage: "plus.circle")
+                            Label("plans.new".localized, systemImage: "plus.circle")
                         }
                     }
                 } header: {
-                    Text("My Plans")
+                    Text("plans.myPlans".localized)
                 }
 
                 // Prebuilt Plans Section
@@ -111,15 +111,15 @@ struct TrainingPlansView: View {
                                     Button {
                                         duplicatePlan(plan)
                                     } label: {
-                                        Label("Copy", systemImage: "doc.on.doc")
+                                        Label("sessions.copy".localized, systemImage: "doc.on.doc")
                                     }
                                     .tint(.blue)
                                 }
                         }
                     } header: {
-                        Text("Starter Plans")
+                        Text("plans.starterPlans".localized)
                     } footer: {
-                        Text("Curated plans to help you get started")
+                        Text("plans.starterPlansFooter".localized)
                     }
                 }
 
@@ -137,32 +137,32 @@ struct TrainingPlansView: View {
                                         planToDelete = plan
                                         showingDeleteAlert = true
                                     } label: {
-                                        Label("Delete", systemImage: "trash")
+                                        Label("common.delete".localized, systemImage: "trash")
                                     }
                                 }
                                 .swipeActions(edge: .leading) {
                                     Button {
                                         restartPlan(plan)
                                     } label: {
-                                        Label("Restart", systemImage: "arrow.counterclockwise")
+                                        Label("plans.restart".localized, systemImage: "arrow.counterclockwise")
                                     }
                                     .tint(.green)
                                 }
                         }
                     } header: {
-                        Text("Completed")
+                        Text("plans.completed".localized)
                     } footer: {
-                        Text("Swipe right to restart a completed plan")
+                        Text("plans.completedFooter".localized)
                     }
                 }
             }
-            .navigationTitle("Training Plans")
+            .navigationTitle("plans.title".localized)
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button {
                         showingCreatePlan = true
                     } label: {
-                        Label("New Plan", systemImage: "plus")
+                        Label("plans.new".localized, systemImage: "plus")
                     }
                 }
             }
@@ -172,18 +172,19 @@ struct TrainingPlansView: View {
             .navigationDestination(item: $selectedPlan) { plan in
                 PlanDetailView(plan: plan)
             }
-            .alert("Delete Plan?", isPresented: $showingDeleteAlert) {
-                Button("Cancel", role: .cancel) {
+            .alert("plans.delete".localized, isPresented: $showingDeleteAlert) {
+                Button("common.cancel".localized, role: .cancel) {
                     planToDelete = nil
                 }
-                Button("Delete", role: .destructive) {
+                Button("common.delete".localized, role: .destructive) {
                     if let plan = planToDelete {
                         deletePlan(plan)
                     }
                 }
             } message: {
-                Text("This will permanently delete \"\(planToDelete?.name ?? "this plan")\". This cannot be undone.")
+                Text("plans.deleteConfirm".localized)
             }
+            .observeLanguageChanges()
         }
     }
 
@@ -209,7 +210,7 @@ struct TrainingPlansView: View {
 
     private func duplicatePlan(_ plan: TrainingPlan) {
         let duplicate = TrainingPlan(
-            name: "\(plan.name) (Copy)",
+            name: "\(plan.localizedName) (Copy)",
             description: plan.planDescription,
             durationWeeks: plan.durationWeeks,
             targetSessionsPerWeek: plan.targetSessionsPerWeek
@@ -251,7 +252,7 @@ struct PlanRowView: View {
                 .frame(width: 32)
 
             VStack(alignment: .leading, spacing: 4) {
-                Text(plan.name)
+                Text(plan.localizedName)
                     .font(.headline)
 
                 HStack(spacing: 8) {

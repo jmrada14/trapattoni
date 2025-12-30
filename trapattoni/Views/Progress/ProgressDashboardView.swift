@@ -53,16 +53,16 @@ struct ProgressDashboardView: View {
                     } else {
                         // Empty state
                         ContentUnavailableView(
-                            "No Training Data Yet",
+                            "progress.noDataYet".localized,
                             systemImage: "chart.line.uptrend.xyaxis",
-                            description: Text("Complete your first training session to see your progress")
+                            description: Text("progress.completeFirst".localized)
                         )
                         .padding(.vertical, 60)
                     }
                 }
                 .padding()
             }
-            .navigationTitle("Progress")
+            .navigationTitle("progress.title".localized)
             .toolbar {
                 if !completedLogs.isEmpty {
                     ToolbarItem(placement: .primaryAction) {
@@ -70,7 +70,7 @@ struct ProgressDashboardView: View {
                             Button(role: .destructive) {
                                 showingResetAlert = true
                             } label: {
-                                Label("Reset All Progress", systemImage: "trash")
+                                Label("progress.resetAll".localized, systemImage: "trash")
                             }
                         } label: {
                             Image(systemName: "ellipsis.circle")
@@ -78,6 +78,7 @@ struct ProgressDashboardView: View {
                     }
                 }
             }
+            .observeLanguageChanges()
             .onAppear {
                 loadStats()
             }
@@ -87,25 +88,25 @@ struct ProgressDashboardView: View {
             .navigationDestination(item: $selectedLog) { log in
                 SessionLogDetailView(log: log)
             }
-            .alert("Reset All Progress?", isPresented: $showingResetAlert) {
-                Button("Cancel", role: .cancel) {}
-                Button("Reset", role: .destructive) {
+            .alert("progress.resetConfirm".localized, isPresented: $showingResetAlert) {
+                Button("common.cancel".localized, role: .cancel) {}
+                Button("stats.reset".localized, role: .destructive) {
                     resetAllProgress()
                 }
             } message: {
-                Text("This will permanently delete all your training history, statistics, and progress. This cannot be undone.")
+                Text("progress.resetMessage".localized)
             }
-            .alert("Delete Session Log?", isPresented: $showingDeleteLogAlert) {
-                Button("Cancel", role: .cancel) {
+            .alert("progress.deleteLogConfirm".localized, isPresented: $showingDeleteLogAlert) {
+                Button("common.cancel".localized, role: .cancel) {
                     logToDelete = nil
                 }
-                Button("Delete", role: .destructive) {
+                Button("common.delete".localized, role: .destructive) {
                     if let log = logToDelete {
                         deleteLog(log)
                     }
                 }
             } message: {
-                Text("This will delete this training session from your history.")
+                Text("progress.deleteLogMessage".localized)
             }
         }
     }
@@ -156,10 +157,10 @@ struct SessionHistorySection: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
-                Text("Recent Sessions")
+                Text("progress.recentSessions".localized)
                     .font(.headline)
                 Spacer()
-                Text("\(logs.count) sessions")
+                Text("\(logs.count) \("progress.sessionsCount".localized)")
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
@@ -175,7 +176,7 @@ struct SessionHistorySection: View {
                             Button(role: .destructive) {
                                 onDelete?(log)
                             } label: {
-                                Label("Delete", systemImage: "trash")
+                                Label("common.delete".localized, systemImage: "trash")
                             }
                         }
 

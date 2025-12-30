@@ -24,6 +24,19 @@ enum ExerciseCategory: String, Codable, CaseIterable, Identifiable {
         case .setPieces: return "flag.fill"
         }
     }
+
+    var localizedName: String {
+        switch self {
+        case .dribbling: return "category.dribbling".localized
+        case .passing: return "category.passing".localized
+        case .shooting: return "category.shooting".localized
+        case .firstTouch: return "category.firstTouch".localized
+        case .fitnessConditioning: return "category.fitness".localized
+        case .goalkeeping: return "category.goalkeeping".localized
+        case .defending: return "category.defending".localized
+        case .setPieces: return "category.setPieces".localized
+        }
+    }
 }
 
 enum TrainingType: String, Codable, CaseIterable, Identifiable {
@@ -38,6 +51,14 @@ enum TrainingType: String, Codable, CaseIterable, Identifiable {
         case .solo: return "person.fill"
         case .partner: return "person.2.fill"
         case .team: return "person.3.fill"
+        }
+    }
+
+    var localizedName: String {
+        switch self {
+        case .solo: return "exercise.individual".localized
+        case .partner: return "exercise.partner".localized
+        case .team: return "exercise.team".localized
         }
     }
 }
@@ -60,6 +81,14 @@ enum SkillLevel: String, Codable, CaseIterable, Identifiable, Comparable {
     static func < (lhs: SkillLevel, rhs: SkillLevel) -> Bool {
         lhs.sortOrder < rhs.sortOrder
     }
+
+    var localizedName: String {
+        switch self {
+        case .beginner: return "exercise.beginner".localized
+        case .intermediate: return "exercise.intermediate".localized
+        case .advanced: return "exercise.advanced".localized
+        }
+    }
 }
 
 enum Duration: String, Codable, CaseIterable, Identifiable {
@@ -70,6 +99,14 @@ enum Duration: String, Codable, CaseIterable, Identifiable {
     var id: String { rawValue }
 
     var iconName: String { "clock" }
+
+    var localizedName: String {
+        switch self {
+        case .short: return "duration.short".localized
+        case .medium: return "duration.medium".localized
+        case .long: return "duration.long".localized
+        }
+    }
 }
 
 enum SpaceRequired: String, Codable, CaseIterable, Identifiable {
@@ -80,6 +117,14 @@ enum SpaceRequired: String, Codable, CaseIterable, Identifiable {
     var id: String { rawValue }
 
     var iconName: String { "square.dashed" }
+
+    var localizedName: String {
+        switch self {
+        case .small: return "space.small".localized
+        case .medium: return "space.medium".localized
+        case .large: return "space.large".localized
+        }
+    }
 }
 
 enum Equipment: String, Codable, CaseIterable, Identifiable {
@@ -108,6 +153,21 @@ enum Equipment: String, Codable, CaseIterable, Identifiable {
         case .poles: return "lines.measurement.vertical"
         case .mannequin: return "figure.stand"
         case .rebounder: return "arrow.uturn.backward"
+        }
+    }
+
+    var localizedName: String {
+        switch self {
+        case .ball: return "equipment.ball".localized
+        case .cones: return "equipment.cones".localized
+        case .goal: return "equipment.goal".localized
+        case .wall: return "equipment.wall".localized
+        case .ladder: return "equipment.ladder".localized
+        case .hurdles: return "equipment.hurdles".localized
+        case .resistanceBand: return "equipment.resistanceBand".localized
+        case .poles: return "equipment.poles".localized
+        case .mannequin: return "equipment.mannequin".localized
+        case .rebounder: return "equipment.rebounder".localized
         }
     }
 }

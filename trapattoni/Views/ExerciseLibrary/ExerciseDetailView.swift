@@ -60,7 +60,7 @@ struct ExerciseDetailView: View {
             }
             .padding()
         }
-        .navigationTitle(exercise.name)
+        .navigationTitle(exercise.localizedName)
         #if os(iOS)
         .navigationBarTitleDisplayMode(.large)
         #endif
@@ -70,13 +70,13 @@ struct ExerciseDetailView: View {
                     Button {
                         startExercise()
                     } label: {
-                        Label("Start Exercise", systemImage: "play.fill")
+                        Label("detail.startExercise".localized, systemImage: "play.fill")
                     }
 
                     Button {
                         showingAddToSession = true
                     } label: {
-                        Label("Add to Session", systemImage: "plus.circle")
+                        Label("detail.addToSession".localized, systemImage: "plus.circle")
                     }
 
                     Divider()
@@ -85,7 +85,7 @@ struct ExerciseDetailView: View {
                         exercise.isFavorite.toggle()
                     } label: {
                         Label(
-                            exercise.isFavorite ? "Remove from Favorites" : "Add to Favorites",
+                            exercise.isFavorite ? "detail.removeFavorite".localized : "detail.addFavorite".localized,
                             systemImage: exercise.isFavorite ? "heart.slash" : "heart"
                         )
                     }
@@ -94,6 +94,7 @@ struct ExerciseDetailView: View {
                 }
             }
         }
+        .observeLanguageChanges()
         #if os(iOS)
         .fullScreenCover(item: $quickSession) { session in
             SessionExecutionView(session: session)
@@ -112,8 +113,8 @@ struct ExerciseDetailView: View {
     private func startExercise() {
         // Create a quick session with just this exercise
         let session = TrainingSession(
-            name: exercise.name,
-            description: "Quick practice: \(exercise.name)",
+            name: exercise.localizedName,
+            description: "Quick practice: \(exercise.localizedName)",
             templateType: .quickSession,
             defaultRestSeconds: 30,
             isTemplate: false
@@ -132,7 +133,7 @@ struct ExerciseDetailView: View {
                 SkillLevelBadge(level: exercise.skillLevel)
 
                 if exercise.isUserCreated {
-                    Text("Custom")
+                    Text("detail.custom".localized)
                         .font(.caption)
                         .fontWeight(.medium)
                         .padding(.horizontal, 8)
@@ -145,7 +146,7 @@ struct ExerciseDetailView: View {
                 Spacer()
             }
 
-            Text(exercise.exerciseDescription)
+            Text(exercise.localizedDescription)
                 .font(.body)
                 .foregroundStyle(.secondary)
         }
@@ -156,26 +157,26 @@ struct ExerciseDetailView: View {
     private var metadataSection: some View {
         LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 16) {
             MetadataItem(
-                title: "Training Type",
-                value: exercise.trainingType.rawValue,
+                title: "exercise.trainingType".localized,
+                value: exercise.trainingType.localizedName,
                 iconName: exercise.trainingType.iconName
             )
 
             MetadataItem(
-                title: "Duration",
-                value: exercise.duration.rawValue,
+                title: "exercise.duration".localized,
+                value: exercise.duration.localizedName,
                 iconName: "clock"
             )
 
             MetadataItem(
-                title: "Space Required",
-                value: exercise.spaceRequired.rawValue,
+                title: "exercise.space".localized,
+                value: exercise.spaceRequired.localizedName,
                 iconName: "square.dashed"
             )
 
             MetadataItem(
-                title: "Category",
-                value: exercise.category.rawValue,
+                title: "exercise.category".localized,
+                value: exercise.category.localizedName,
                 iconName: exercise.category.iconName
             )
         }
@@ -185,7 +186,7 @@ struct ExerciseDetailView: View {
 
     private var equipmentSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            SectionHeader(title: "Equipment Needed", iconName: "bag")
+            SectionHeader(title: "detail.equipmentNeeded".localized, iconName: "bag")
 
             FlowLayout(spacing: 8) {
                 ForEach(exercise.equipment) { item in
@@ -199,7 +200,7 @@ struct ExerciseDetailView: View {
 
     private var coachingPointsSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            SectionHeader(title: "Coaching Points", iconName: "checkmark.circle")
+            SectionHeader(title: "detail.coachingPoints".localized, iconName: "checkmark.circle")
 
             VStack(alignment: .leading, spacing: 10) {
                 ForEach(exercise.coachingPoints, id: \.self) { point in
@@ -219,7 +220,7 @@ struct ExerciseDetailView: View {
 
     private var commonMistakesSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            SectionHeader(title: "Common Mistakes", iconName: "xmark.circle")
+            SectionHeader(title: "detail.commonMistakes".localized, iconName: "xmark.circle")
 
             VStack(alignment: .leading, spacing: 10) {
                 ForEach(exercise.commonMistakes, id: \.self) { mistake in
@@ -239,7 +240,7 @@ struct ExerciseDetailView: View {
 
     private var variationsSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            SectionHeader(title: "Variations & Progressions", iconName: "arrow.up.right.circle")
+            SectionHeader(title: "detail.variationsProgressions".localized, iconName: "arrow.up.right.circle")
 
             VStack(alignment: .leading, spacing: 10) {
                 ForEach(exercise.variations, id: \.self) { variation in
@@ -259,7 +260,7 @@ struct ExerciseDetailView: View {
 
     private var tagsSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            SectionHeader(title: "Tags", iconName: "tag")
+            SectionHeader(title: "exercise.tags".localized, iconName: "tag")
 
             FlowLayout(spacing: 8) {
                 ForEach(exercise.tags, id: \.self) { tag in
@@ -382,13 +383,13 @@ struct AddExerciseToSessionSheet: View {
                 if sessions.isEmpty {
                     Section {
                         ContentUnavailableView(
-                            "No Sessions",
+                            "detail.noSessionsYet".localized,
                             systemImage: "figure.run",
-                            description: Text("Create a session first to add exercises")
+                            description: Text("detail.createSessionFirst".localized)
                         )
                     }
                 } else {
-                    Section("Select Session") {
+                    Section("detail.selectSession".localized) {
                         ForEach(sessions) { session in
                             Button {
                                 selectedSession = session
@@ -397,7 +398,7 @@ struct AddExerciseToSessionSheet: View {
                                     VStack(alignment: .leading) {
                                         Text(session.name)
                                             .foregroundStyle(.primary)
-                                        Text("\(session.exerciseCount) exercises")
+                                        Text("\(session.exerciseCount) \("sessions.exercises".localized)")
                                             .font(.caption)
                                             .foregroundStyle(.secondary)
                                     }
@@ -414,9 +415,9 @@ struct AddExerciseToSessionSheet: View {
                         }
                     }
 
-                    Section("Exercise Settings") {
-                        Stepper("Duration: \(duration / 60) min", value: $duration, in: 60...1800, step: 60)
-                        Stepper("Rest after: \(restAfter)s", value: $restAfter, in: 0...120, step: 15)
+                    Section("detail.exerciseSettings".localized) {
+                        Stepper("detail.durationMin".localized(with: duration / 60), value: $duration, in: 60...1800, step: 60)
+                        Stepper("detail.restAfter".localized(with: restAfter), value: $restAfter, in: 0...120, step: 15)
                     }
                 }
 
@@ -424,22 +425,22 @@ struct AddExerciseToSessionSheet: View {
                     Button {
                         showingCreateSession = true
                     } label: {
-                        Label("Create New Session", systemImage: "plus.circle")
+                        Label("detail.createNewSession".localized, systemImage: "plus.circle")
                     }
                 }
             }
-            .navigationTitle("Add to Session")
+            .navigationTitle("detail.addToSession".localized)
             #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
             #endif
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") {
+                    Button("common.cancel".localized) {
                         dismiss()
                     }
                 }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Add") {
+                    Button("common.add".localized) {
                         addToSession()
                     }
                     .disabled(selectedSession == nil)
@@ -448,6 +449,7 @@ struct AddExerciseToSessionSheet: View {
             .sheet(isPresented: $showingCreateSession) {
                 CreateSessionView(templateType: .custom)
             }
+            .observeLanguageChanges()
         }
     }
 

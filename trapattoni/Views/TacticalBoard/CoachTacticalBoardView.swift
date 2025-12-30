@@ -248,14 +248,14 @@ struct CoachTacticalBoardView: View {
 
             Menu {
                 ForEach(FieldType.allCases, id: \.self) { type in
-                    Button(type.rawValue) {
+                    Button(type.localizedName) {
                         tacticSheet.fieldType = type
                     }
                 }
             } label: {
                 HStack(spacing: 4) {
                     Image(systemName: "sportscourt")
-                    Text(tacticSheet.fieldType.rawValue)
+                    Text(tacticSheet.fieldType.localizedName)
                         .font(.subheadline)
                 }
             }
@@ -529,7 +529,7 @@ struct ToolButton: View {
             VStack(spacing: 2) {
                 Image(systemName: tool.icon)
                     .font(.system(size: 16))
-                Text(tool.rawValue)
+                Text(tool.localizedName)
                     .font(.system(size: 9))
                     .lineLimit(1)
             }

@@ -68,8 +68,8 @@ enum PlanDataSeeder {
 
         // 1. Dynamic Warm-Up (5-10 min)
         let warmUp = TrainingSession(
-            name: "Dynamic Warm-Up",
-            description: "Essential warm-up routine to prepare your body for training. Light movements to activate muscles and increase heart rate.",
+            name: "starterSession.warmUp.name",
+            description: "starterSession.warmUp.desc",
             templateType: .warmUp,
             defaultRestSeconds: 15,
             isTemplate: true
@@ -84,8 +84,8 @@ enum PlanDataSeeder {
 
         // 2. Ball Mastery Basics (15-20 min) - Beginner
         let ballMastery = TrainingSession(
-            name: "Ball Mastery Basics",
-            description: "Foundation drills for developing close ball control. Perfect for beginners building their touch.",
+            name: "starterSession.ballMastery.name",
+            description: "starterSession.ballMastery.desc",
             templateType: .quickSession,
             defaultRestSeconds: 30,
             isTemplate: true
@@ -100,8 +100,8 @@ enum PlanDataSeeder {
 
         // 3. Cone Dribbling Circuit (20 min) - Beginner/Intermediate
         let coneDribbling = TrainingSession(
-            name: "Cone Dribbling Circuit",
-            description: "Improve your dribbling through cone exercises. Focus on quick feet and direction changes.",
+            name: "starterSession.coneDribbling.name",
+            description: "starterSession.coneDribbling.desc",
             templateType: .skillFocus,
             defaultRestSeconds: 30,
             isTemplate: true
@@ -116,8 +116,8 @@ enum PlanDataSeeder {
 
         // 4. Wall Passing Drills (15 min) - Solo Passing
         let wallPassing = TrainingSession(
-            name: "Wall Passing Drills",
-            description: "Solo passing practice using a wall or rebounder. Improve your passing accuracy and first touch.",
+            name: "starterSession.wallPassing.name",
+            description: "starterSession.wallPassing.desc",
             templateType: .skillFocus,
             defaultRestSeconds: 20,
             isTemplate: true
@@ -136,8 +136,8 @@ enum PlanDataSeeder {
 
         // 5. First Touch Foundation (20 min)
         let firstTouch = TrainingSession(
-            name: "First Touch Foundation",
-            description: "Develop a silky first touch with these targeted drills. Control the ball like a pro.",
+            name: "starterSession.firstTouch.name",
+            description: "starterSession.firstTouch.desc",
             templateType: .skillFocus,
             defaultRestSeconds: 30,
             isTemplate: true
@@ -152,8 +152,8 @@ enum PlanDataSeeder {
 
         // 6. Shooting Fundamentals (25 min) - Beginner Shooting
         let shootingBasics = TrainingSession(
-            name: "Shooting Fundamentals",
-            description: "Learn proper shooting technique. Focus on power, placement, and finishing with confidence.",
+            name: "starterSession.shootingBasics.name",
+            description: "starterSession.shootingBasics.desc",
             templateType: .skillFocus,
             defaultRestSeconds: 45,
             isTemplate: true
@@ -172,8 +172,8 @@ enum PlanDataSeeder {
 
         // 7. Speed & Agility Circuit (30 min) - Fitness
         let speedAgility = TrainingSession(
-            name: "Speed & Agility Circuit",
-            description: "High-intensity workout to improve your speed, agility, and quickness on the pitch.",
+            name: "starterSession.speedAgility.name",
+            description: "starterSession.speedAgility.desc",
             templateType: .fullWorkout,
             defaultRestSeconds: 45,
             isTemplate: true
@@ -188,8 +188,8 @@ enum PlanDataSeeder {
 
         // 8. Advanced Ball Control (25 min) - Intermediate/Advanced
         let advancedControl = TrainingSession(
-            name: "Advanced Ball Control",
-            description: "Take your ball control to the next level with advanced moves and techniques.",
+            name: "starterSession.advancedControl.name",
+            description: "starterSession.advancedControl.desc",
             templateType: .skillFocus,
             defaultRestSeconds: 30,
             isTemplate: true
@@ -208,8 +208,8 @@ enum PlanDataSeeder {
 
         // 9. Finishing From All Angles (30 min) - Advanced Shooting
         let advancedFinishing = TrainingSession(
-            name: "Finishing From All Angles",
-            description: "Practice finishing from various positions and angles. Become clinical in front of goal.",
+            name: "starterSession.advancedFinishing.name",
+            description: "starterSession.advancedFinishing.desc",
             templateType: .skillFocus,
             defaultRestSeconds: 60,
             isTemplate: true
@@ -224,8 +224,8 @@ enum PlanDataSeeder {
 
         // 10. Complete Skills Workout (45 min) - Full Session
         let completeWorkout = TrainingSession(
-            name: "Complete Skills Workout",
-            description: "Comprehensive training session covering all fundamental skills. Great for a full practice day.",
+            name: "starterSession.completeWorkout.name",
+            description: "starterSession.completeWorkout.desc",
             templateType: .fullWorkout,
             defaultRestSeconds: 60,
             isTemplate: true
@@ -241,8 +241,8 @@ enum PlanDataSeeder {
 
         // 11. Defending Fundamentals (20 min)
         let defending = TrainingSession(
-            name: "Defending Fundamentals",
-            description: "Learn proper defending stance, positioning, and tackling technique.",
+            name: "starterSession.defending.name",
+            description: "starterSession.defending.desc",
             templateType: .skillFocus,
             defaultRestSeconds: 30,
             isTemplate: true
@@ -257,8 +257,8 @@ enum PlanDataSeeder {
 
         // 12. Set Piece Specialist (25 min)
         let setPieces = TrainingSession(
-            name: "Set Piece Specialist",
-            description: "Master free kicks, corners, and penalties. Become your team's set piece expert.",
+            name: "starterSession.setPieces.name",
+            description: "starterSession.setPieces.desc",
             templateType: .skillFocus,
             defaultRestSeconds: 45,
             isTemplate: true
@@ -273,8 +273,8 @@ enum PlanDataSeeder {
 
         // 13. Quick Touch Training (15 min) - Fast Session
         let quickTouch = TrainingSession(
-            name: "Quick Touch Training",
-            description: "Short but intense session focusing on rapid ball touches and reactions.",
+            name: "starterSession.quickTouch.name",
+            description: "starterSession.quickTouch.desc",
             templateType: .quickSession,
             defaultRestSeconds: 20,
             isTemplate: true
@@ -292,8 +292,8 @@ enum PlanDataSeeder {
 
         // 14. Passing Combinations (20 min)
         let passingCombos = TrainingSession(
-            name: "Passing Combinations",
-            description: "Work on one-touch passing, give-and-go patterns, and passing under pressure.",
+            name: "starterSession.passingCombos.name",
+            description: "starterSession.passingCombos.desc",
             templateType: .skillFocus,
             defaultRestSeconds: 30,
             isTemplate: true
@@ -319,8 +319,8 @@ enum PlanDataSeeder {
 
         // PLAN 1: Beginner Fundamentals (4 weeks, 3x/week)
         let beginnerFundamentals = TrainingPlan(
-            name: "Beginner Fundamentals",
-            description: "Perfect for new players. Build a strong foundation with ball control, basic passing, and simple dribbling techniques.",
+            name: "starterPlan.beginnerFundamentals.name",
+            description: "starterPlan.beginnerFundamentals.desc",
             durationWeeks: 4,
             targetSessionsPerWeek: 3,
             isPrebuilt: true
@@ -346,8 +346,8 @@ enum PlanDataSeeder {
 
         // PLAN 2: Ball Control Basics (4 weeks, 3x/week)
         let ballControlBasics = TrainingPlan(
-            name: "Ball Control Basics",
-            description: "Master the basics of ball control. Focus on first touch, close control, and building confidence with the ball at your feet.",
+            name: "starterPlan.ballControlBasics.name",
+            description: "starterPlan.ballControlBasics.desc",
             durationWeeks: 4,
             targetSessionsPerWeek: 3,
             isPrebuilt: true
@@ -377,8 +377,8 @@ enum PlanDataSeeder {
 
         // PLAN 3: Complete Skills Development (6 weeks, 4x/week)
         let completeSkills = TrainingPlan(
-            name: "Complete Skills Development",
-            description: "A comprehensive program covering all essential skills. Dribbling, passing, shooting, and fitness combined for well-rounded improvement.",
+            name: "starterPlan.completeSkills.name",
+            description: "starterPlan.completeSkills.desc",
             durationWeeks: 6,
             targetSessionsPerWeek: 4,
             isPrebuilt: true
@@ -418,8 +418,8 @@ enum PlanDataSeeder {
 
         // PLAN 4: Attacking Player Development (5 weeks, 3x/week)
         let attackingDev = TrainingPlan(
-            name: "Attacking Player Development",
-            description: "Designed for strikers and wingers. Focus on finishing, dribbling past defenders, and creating goal-scoring opportunities.",
+            name: "starterPlan.attackingDev.name",
+            description: "starterPlan.attackingDev.desc",
             durationWeeks: 5,
             targetSessionsPerWeek: 3,
             isPrebuilt: true
@@ -453,8 +453,8 @@ enum PlanDataSeeder {
 
         // PLAN 5: Elite Skills Mastery (6 weeks, 4x/week)
         let eliteSkills = TrainingPlan(
-            name: "Elite Skills Mastery",
-            description: "Advanced training for experienced players. Push your technical abilities to the limit with challenging drills and high-intensity sessions.",
+            name: "starterPlan.eliteSkills.name",
+            description: "starterPlan.eliteSkills.desc",
             durationWeeks: 6,
             targetSessionsPerWeek: 4,
             isPrebuilt: true
@@ -494,8 +494,8 @@ enum PlanDataSeeder {
 
         // PLAN 6: Match Performance (4 weeks, 4x/week)
         let matchPerformance = TrainingPlan(
-            name: "Match Performance",
-            description: "Get match-ready with game-realistic training. Combine technical skills with tactical awareness and high-intensity conditioning.",
+            name: "starterPlan.matchPerformance.name",
+            description: "starterPlan.matchPerformance.desc",
             durationWeeks: 4,
             targetSessionsPerWeek: 4,
             isPrebuilt: true
@@ -528,50 +528,50 @@ enum PlanDataSeeder {
         // ============================================
 
         // PLAN 7: Speed & Agility Focus (6 weeks, 4x/week)
-        let speedAgility = TrainingPlan(
-            name: "Speed & Agility Focus",
-            description: "Build explosive speed and quick direction changes. High-intensity conditioning combined with agility drills to improve your pace on the pitch.",
+        let speedAgilityPlan = TrainingPlan(
+            name: "starterPlan.speedAgility.name",
+            description: "starterPlan.speedAgility.desc",
             durationWeeks: 6,
             targetSessionsPerWeek: 4,
             isPrebuilt: true
         )
-        modelContext.insert(speedAgility)
+        modelContext.insert(speedAgilityPlan)
 
         // Week 1
-        addSession(sessions["warmUp"], to: speedAgility, week: 1, order: 1)
-        addSession(sessions["speedAgility"], to: speedAgility, week: 1, order: 2)
-        addSession(sessions["quickTouch"], to: speedAgility, week: 1, order: 3)
-        addSession(sessions["coneDribbling"], to: speedAgility, week: 1, order: 4)
+        addSession(sessions["warmUp"], to: speedAgilityPlan, week: 1, order: 1)
+        addSession(sessions["speedAgility"], to: speedAgilityPlan, week: 1, order: 2)
+        addSession(sessions["quickTouch"], to: speedAgilityPlan, week: 1, order: 3)
+        addSession(sessions["coneDribbling"], to: speedAgilityPlan, week: 1, order: 4)
         // Week 2
-        addSession(sessions["speedAgility"], to: speedAgility, week: 2, order: 1)
-        addSession(sessions["ballMastery"], to: speedAgility, week: 2, order: 2)
-        addSession(sessions["speedAgility"], to: speedAgility, week: 2, order: 3)
-        addSession(sessions["quickTouch"], to: speedAgility, week: 2, order: 4)
+        addSession(sessions["speedAgility"], to: speedAgilityPlan, week: 2, order: 1)
+        addSession(sessions["ballMastery"], to: speedAgilityPlan, week: 2, order: 2)
+        addSession(sessions["speedAgility"], to: speedAgilityPlan, week: 2, order: 3)
+        addSession(sessions["quickTouch"], to: speedAgilityPlan, week: 2, order: 4)
         // Week 3
-        addSession(sessions["coneDribbling"], to: speedAgility, week: 3, order: 1)
-        addSession(sessions["speedAgility"], to: speedAgility, week: 3, order: 2)
-        addSession(sessions["advancedControl"], to: speedAgility, week: 3, order: 3)
-        addSession(sessions["speedAgility"], to: speedAgility, week: 3, order: 4)
+        addSession(sessions["coneDribbling"], to: speedAgilityPlan, week: 3, order: 1)
+        addSession(sessions["speedAgility"], to: speedAgilityPlan, week: 3, order: 2)
+        addSession(sessions["advancedControl"], to: speedAgilityPlan, week: 3, order: 3)
+        addSession(sessions["speedAgility"], to: speedAgilityPlan, week: 3, order: 4)
         // Week 4
-        addSession(sessions["speedAgility"], to: speedAgility, week: 4, order: 1)
-        addSession(sessions["quickTouch"], to: speedAgility, week: 4, order: 2)
-        addSession(sessions["coneDribbling"], to: speedAgility, week: 4, order: 3)
-        addSession(sessions["speedAgility"], to: speedAgility, week: 4, order: 4)
+        addSession(sessions["speedAgility"], to: speedAgilityPlan, week: 4, order: 1)
+        addSession(sessions["quickTouch"], to: speedAgilityPlan, week: 4, order: 2)
+        addSession(sessions["coneDribbling"], to: speedAgilityPlan, week: 4, order: 3)
+        addSession(sessions["speedAgility"], to: speedAgilityPlan, week: 4, order: 4)
         // Week 5
-        addSession(sessions["advancedControl"], to: speedAgility, week: 5, order: 1)
-        addSession(sessions["speedAgility"], to: speedAgility, week: 5, order: 2)
-        addSession(sessions["ballMastery"], to: speedAgility, week: 5, order: 3)
-        addSession(sessions["speedAgility"], to: speedAgility, week: 5, order: 4)
+        addSession(sessions["advancedControl"], to: speedAgilityPlan, week: 5, order: 1)
+        addSession(sessions["speedAgility"], to: speedAgilityPlan, week: 5, order: 2)
+        addSession(sessions["ballMastery"], to: speedAgilityPlan, week: 5, order: 3)
+        addSession(sessions["speedAgility"], to: speedAgilityPlan, week: 5, order: 4)
         // Week 6
-        addSession(sessions["speedAgility"], to: speedAgility, week: 6, order: 1)
-        addSession(sessions["coneDribbling"], to: speedAgility, week: 6, order: 2)
-        addSession(sessions["speedAgility"], to: speedAgility, week: 6, order: 3)
-        addSession(sessions["completeWorkout"], to: speedAgility, week: 6, order: 4)
+        addSession(sessions["speedAgility"], to: speedAgilityPlan, week: 6, order: 1)
+        addSession(sessions["coneDribbling"], to: speedAgilityPlan, week: 6, order: 2)
+        addSession(sessions["speedAgility"], to: speedAgilityPlan, week: 6, order: 3)
+        addSession(sessions["completeWorkout"], to: speedAgilityPlan, week: 6, order: 4)
 
         // PLAN 8: Strength & Conditioning (6 weeks, 3x/week)
         let strengthConditioning = TrainingPlan(
-            name: "Strength & Conditioning",
-            description: "Build physical strength and endurance for football. Combines fitness circuits with ball work to develop power while maintaining technical sharpness.",
+            name: "starterPlan.strengthConditioning.name",
+            description: "starterPlan.strengthConditioning.desc",
             durationWeeks: 6,
             targetSessionsPerWeek: 3,
             isPrebuilt: true

@@ -17,7 +17,10 @@ enum ExerciseDataSeeder {
             return
         }
 
-        // Load and parse JSON
+        // Load and parse JSON with translation keys
+        // Exercise names and descriptions are stored as localization keys
+        // The localizedName/localizedDescription computed properties on Exercise model
+        // handle translation at display time based on current language
         guard let url = Bundle.main.url(forResource: "exercises", withExtension: "json") else {
             throw SeedError.fileNotFound
         }

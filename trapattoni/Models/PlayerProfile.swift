@@ -25,6 +25,14 @@ final class PlayerProfile {
     var reminderHour: Int = 9
     var reminderMinute: Int = 0
 
+    // Language preference
+    var languageCode: String = "en"
+
+    var language: AppLanguage {
+        get { AppLanguage(rawValue: languageCode) ?? .english }
+        set { languageCode = newValue.rawValue }
+    }
+
     // Computed property for reminder time
     var reminderTime: Date {
         get {
@@ -88,6 +96,18 @@ enum PlayerPosition: String, CaseIterable, Identifiable {
         case .other: return "person.fill"
         }
     }
+
+    var localizedName: String {
+        switch self {
+        case .goalkeeper: return "position.goalkeeper".localized
+        case .defender: return "position.defender".localized
+        case .midfielder: return "position.midfielder".localized
+        case .forward: return "position.forward".localized
+        case .winger: return "position.winger".localized
+        case .striker: return "position.striker".localized
+        case .other: return "position.other".localized
+        }
+    }
 }
 
 // MARK: - Preferred Foot
@@ -98,4 +118,46 @@ enum PreferredFoot: String, CaseIterable, Identifiable {
     case both = "Both"
 
     var id: String { rawValue }
+
+    var localizedName: String {
+        switch self {
+        case .left: return "foot.left".localized
+        case .right: return "foot.right".localized
+        case .both: return "foot.both".localized
+        }
+    }
+}
+
+// MARK: - App Language
+
+enum AppLanguage: String, CaseIterable, Identifiable {
+    case english = "en"
+    case spanish = "es"
+    case portuguese = "pt-BR"
+
+    var id: String { rawValue }
+
+    var displayName: String {
+        switch self {
+        case .english: return "English"
+        case .spanish: return "Español"
+        case .portuguese: return "Português (Brasil)"
+        }
+    }
+
+    var flag: String {
+        switch self {
+        case .english: return "🇺🇸"
+        case .spanish: return "🇪🇸"
+        case .portuguese: return "🇧🇷"
+        }
+    }
+
+    var voiceLanguageCode: String {
+        switch self {
+        case .english: return "en-US"
+        case .spanish: return "es-ES"
+        case .portuguese: return "pt-BR"
+        }
+    }
 }

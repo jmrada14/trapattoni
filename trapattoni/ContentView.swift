@@ -14,68 +14,69 @@ struct ContentView: View {
         TabView {
             ExerciseLibraryView()
                 .tabItem {
-                    Label("Library", systemImage: "books.vertical")
+                    Label("tab.exercises".localized, systemImage: "books.vertical")
                 }
 
             TrainingView()
                 .tabItem {
-                    Label("Training", systemImage: "figure.run")
+                    Label("tab.sessions".localized, systemImage: "figure.run")
                 }
 
             TacticsLibraryView()
                 .tabItem {
-                    Label("Tactics", systemImage: "sportscourt")
+                    Label("tab.tactics".localized, systemImage: "sportscourt")
                 }
 
             CalendarView()
                 .tabItem {
-                    Label("Calendar", systemImage: "calendar")
+                    Label("tab.calendar".localized, systemImage: "calendar")
                 }
 
             ProfileView()
                 .tabItem {
-                    Label("Profile", systemImage: "person.crop.circle")
+                    Label("tab.profile".localized, systemImage: "person.crop.circle")
                 }
         }
+        .observeLanguageChanges()
         #else
         NavigationSplitView {
             List {
                 NavigationLink {
                     ExerciseLibraryView()
                 } label: {
-                    Label("Exercise Library", systemImage: "books.vertical")
+                    Label("tab.exercises".localized, systemImage: "books.vertical")
                 }
 
-                Section("Training") {
+                Section("tab.sessions".localized) {
                     NavigationLink {
                         SessionBuilderView()
                     } label: {
-                        Label("Sessions", systemImage: "figure.run")
+                        Label("tab.sessions".localized, systemImage: "figure.run")
                     }
 
                     NavigationLink {
                         TrainingPlansView()
                     } label: {
-                        Label("Plans", systemImage: "list.bullet.rectangle")
+                        Label("training.plans".localized, systemImage: "list.bullet.rectangle")
                     }
                 }
 
                 NavigationLink {
                     TacticsLibraryView()
                 } label: {
-                    Label("Tactical Board", systemImage: "sportscourt")
+                    Label("tab.tactics".localized, systemImage: "sportscourt")
                 }
 
                 NavigationLink {
                     CalendarView()
                 } label: {
-                    Label("Calendar", systemImage: "calendar")
+                    Label("tab.calendar".localized, systemImage: "calendar")
                 }
 
                 NavigationLink {
                     ProfileView()
                 } label: {
-                    Label("Profile", systemImage: "person.crop.circle")
+                    Label("tab.profile".localized, systemImage: "person.crop.circle")
                 }
             }
             .navigationTitle("Trapattoni")
@@ -83,6 +84,7 @@ struct ContentView: View {
         } detail: {
             ExerciseLibraryView()
         }
+        .observeLanguageChanges()
         #endif
     }
 }

@@ -6,12 +6,18 @@ struct StreakCalendarView: View {
     @State private var currentMonth = Date()
 
     private let calendar = Calendar.current
-    private let daysOfWeek = ["S", "M", "T", "W", "T", "F", "S"]
+
+    private var localizedDaysOfWeek: [String] {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: LocalizationManager.shared.currentLanguage.rawValue)
+        return formatter.veryShortWeekdaySymbols ?? ["S", "M", "T", "W", "T", "F", "S"]
+    }
 
     private var monthTitle: String {
         let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: LocalizationManager.shared.currentLanguage.rawValue)
         formatter.dateFormat = "MMMM yyyy"
-        return formatter.string(from: currentMonth)
+        return formatter.string(from: currentMonth).capitalized
     }
 
     private var daysInMonth: [Date?] {
@@ -40,7 +46,7 @@ struct StreakCalendarView: View {
         VStack(spacing: 16) {
             // Header
             HStack {
-                Text("Training Calendar")
+                Text("profile.trainingCalendar".localized)
                     .font(.headline)
 
                 Spacer()
@@ -74,7 +80,7 @@ struct StreakCalendarView: View {
 
             // Day headers
             LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 7), spacing: 8) {
-                ForEach(Array(daysOfWeek.enumerated()), id: \.offset) { _, day in
+                ForEach(Array(localizedDaysOfWeek.enumerated()), id: \.offset) { _, day in
                     Text(day)
                         .font(.caption2)
                         .fontWeight(.medium)
@@ -104,7 +110,7 @@ struct StreakCalendarView: View {
                     Circle()
                         .fill(Color.green)
                         .frame(width: 8, height: 8)
-                    Text("Trained")
+                    Text("calendar.trained".localized)
                         .font(.caption2)
                         .foregroundStyle(.secondary)
                 }
@@ -113,7 +119,7 @@ struct StreakCalendarView: View {
                     Circle()
                         .stroke(Color.blue, lineWidth: 2)
                         .frame(width: 8, height: 8)
-                    Text("Today")
+                    Text("calendar.today".localized)
                         .font(.caption2)
                         .foregroundStyle(.secondary)
                 }

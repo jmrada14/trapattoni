@@ -4,9 +4,16 @@ import SwiftData
 struct TrainingView: View {
     @State private var selectedTab: TrainingTab = .sessions
 
-    enum TrainingTab: String, CaseIterable {
-        case sessions = "Sessions"
-        case plans = "Plans"
+    enum TrainingTab: CaseIterable {
+        case sessions
+        case plans
+
+        var localizedName: String {
+            switch self {
+            case .sessions: return "tab.sessions".localized
+            case .plans: return "plans.title".localized
+            }
+        }
     }
 
     var body: some View {
@@ -14,7 +21,7 @@ struct TrainingView: View {
             // Segmented picker
             Picker("", selection: $selectedTab) {
                 ForEach(TrainingTab.allCases, id: \.self) { tab in
-                    Text(tab.rawValue).tag(tab)
+                    Text(tab.localizedName).tag(tab)
                 }
             }
             .pickerStyle(.segmented)
@@ -32,6 +39,7 @@ struct TrainingView: View {
                 }
             }
         }
+        .observeLanguageChanges()
     }
 }
 

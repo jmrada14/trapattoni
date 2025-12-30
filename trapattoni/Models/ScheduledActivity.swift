@@ -132,6 +132,16 @@ enum ActivityType: String, CaseIterable, Identifiable, Codable {
 
     var id: String { rawValue }
 
+    var localizedName: String {
+        switch self {
+        case .training: return "activity.training".localized
+        case .gym: return "activity.gym".localized
+        case .game: return "activity.game".localized
+        case .recovery: return "activity.recovery".localized
+        case .cardio: return "activity.cardio".localized
+        }
+    }
+
     var iconName: String {
         switch self {
         case .training: return "figure.run"
@@ -174,7 +184,15 @@ enum RecurrenceType: String, CaseIterable, Identifiable, Codable {
 
     var id: String { rawValue }
 
-    var displayName: String { rawValue }
+    var displayName: String {
+        switch self {
+        case .none: return "recurrence.none".localized
+        case .daily: return "recurrence.daily".localized
+        case .weekly: return "recurrence.weekly".localized
+        case .biweekly: return "recurrence.biweekly".localized
+        case .monthly: return "recurrence.monthly".localized
+        }
+    }
 
     var calendarComponent: Calendar.Component? {
         switch self {

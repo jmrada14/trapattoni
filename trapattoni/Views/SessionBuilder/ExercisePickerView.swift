@@ -182,11 +182,11 @@ struct ExercisePickerRow: View {
                     .foregroundStyle(isSelected ? .blue : .secondary)
 
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(exercise.name)
+                    Text(exercise.localizedName)
                         .font(.headline)
                         .foregroundStyle(.primary)
 
-                    Text(exercise.exerciseDescription)
+                    Text(exercise.localizedDescription)
                         .font(.caption)
                         .foregroundStyle(.secondary)
                         .lineLimit(1)

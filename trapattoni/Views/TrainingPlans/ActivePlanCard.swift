@@ -23,7 +23,7 @@ struct ActivePlanCard: View {
 
             // Info
             VStack(alignment: .leading, spacing: 2) {
-                Text(plan.name)
+                Text(plan.localizedName)
                     .font(.headline)
                     .lineLimit(1)
 

@@ -8,16 +8,16 @@ struct ExerciseFilterView: View {
         NavigationStack {
             Form {
                 // Quick filters
-                Section("Quick Filters") {
-                    Toggle("Favorites Only", isOn: $filter.showFavoritesOnly)
-                    Toggle("My Exercises Only", isOn: $filter.showUserCreatedOnly)
+                Section("filter.filters".localized) {
+                    Toggle("filter.favorites".localized, isOn: $filter.showFavoritesOnly)
+                    Toggle("filter.userCreated".localized, isOn: $filter.showUserCreatedOnly)
                 }
 
                 // Categories
-                Section("Categories") {
+                Section("filter.categories".localized) {
                     ForEach(ExerciseCategory.allCases) { category in
                         MultiSelectRow(
-                            title: category.rawValue,
+                            title: category.localizedName,
                             iconName: category.iconName,
                             isSelected: filter.selectedCategories.contains(category)
                         ) {
@@ -27,10 +27,10 @@ struct ExerciseFilterView: View {
                 }
 
                 // Training Type
-                Section("Training Type") {
+                Section("filter.trainingTypes".localized) {
                     ForEach(TrainingType.allCases) { type in
                         MultiSelectRow(
-                            title: type.rawValue,
+                            title: type.localizedName,
                             iconName: type.iconName,
                             isSelected: filter.selectedTrainingTypes.contains(type)
                         ) {
@@ -40,10 +40,10 @@ struct ExerciseFilterView: View {
                 }
 
                 // Skill Level
-                Section("Skill Level") {
+                Section("filter.skillLevels".localized) {
                     ForEach(SkillLevel.allCases) { level in
                         MultiSelectRow(
-                            title: level.rawValue,
+                            title: level.localizedName,
                             isSelected: filter.selectedSkillLevels.contains(level)
                         ) {
                             toggle(&filter.selectedSkillLevels, level)
@@ -52,10 +52,10 @@ struct ExerciseFilterView: View {
                 }
 
                 // Duration
-                Section("Duration") {
+                Section("filter.durations".localized) {
                     ForEach(Duration.allCases) { duration in
                         MultiSelectRow(
-                            title: duration.rawValue,
+                            title: duration.localizedName,
                             iconName: duration.iconName,
                             isSelected: filter.selectedDurations.contains(duration)
                         ) {
@@ -65,10 +65,10 @@ struct ExerciseFilterView: View {
                 }
 
                 // Space Required
-                Section("Space Required") {
+                Section("filter.space".localized) {
                     ForEach(SpaceRequired.allCases) { space in
                         MultiSelectRow(
-                            title: space.rawValue,
+                            title: space.localizedName,
                             iconName: space.iconName,
                             isSelected: filter.selectedSpaces.contains(space)
                         ) {
@@ -78,10 +78,10 @@ struct ExerciseFilterView: View {
                 }
 
                 // Equipment
-                Section("Equipment") {
+                Section("filter.equipment".localized) {
                     ForEach(Equipment.allCases) { item in
                         MultiSelectRow(
-                            title: item.rawValue,
+                            title: item.localizedName,
                             iconName: item.iconName,
                             isSelected: filter.selectedEquipment.contains(item)
                         ) {
@@ -90,24 +90,25 @@ struct ExerciseFilterView: View {
                     }
                 }
             }
-            .navigationTitle("Filters")
+            .navigationTitle("filter.filters".localized)
             #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
             #endif
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Reset") {
+                    Button("filter.clear".localized) {
                         filter.reset()
                     }
                     .disabled(!filter.hasActiveFilters)
                 }
 
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Done") {
+                    Button("common.done".localized) {
                         dismiss()
                     }
                 }
             }
+            .observeLanguageChanges()
         }
     }
 

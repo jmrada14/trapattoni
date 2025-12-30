@@ -27,10 +27,19 @@ struct ExerciseHistoryView: View {
     @State private var searchText: String = ""
 
     enum SortOption: String, CaseIterable {
-        case frequency = "Most Practiced"
-        case recent = "Most Recent"
-        case rating = "Highest Rated"
-        case name = "Name"
+        case frequency
+        case recent
+        case rating
+        case name
+
+        var localizedName: String {
+            switch self {
+            case .frequency: return "history.mostPracticed".localized
+            case .recent: return "history.mostRecent".localized
+            case .rating: return "history.highestRated".localized
+            case .name: return "history.name".localized
+            }
+        }
     }
 
     private var exerciseStats: [ExerciseStats] {
@@ -84,9 +93,9 @@ struct ExerciseHistoryView: View {
         List {
             // Filter Section
             Section {
-                Picker("Sort By", selection: $sortOption) {
+                Picker("history.sortBy".localized, selection: $sortOption) {
                     ForEach(SortOption.allCases, id: \.self) { option in
-                        Text(option.rawValue).tag(option)
+                        Text(option.localizedName).tag(option)
                     }
                 }
                 .pickerStyle(.menu)
@@ -94,7 +103,7 @@ struct ExerciseHistoryView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 8) {
                         CategoryFilterChip(
-                            title: "All",
+                            title: "history.all".localized,
                             isSelected: selectedCategory == nil
                         ) {
                             selectedCategory = nil
@@ -102,7 +111,7 @@ struct ExerciseHistoryView: View {
 
                         ForEach(categoriesWithData, id: \.self) { category in
                             CategoryFilterChip(
-                                title: category.rawValue,
+                                title: category.localizedName,
                                 isSelected: selectedCategory == category
                             ) {
                                 selectedCategory = category
@@ -121,7 +130,7 @@ struct ExerciseHistoryView: View {
                             Text("\(exerciseStats.count)")
                                 .font(.title)
                                 .fontWeight(.bold)
-                            Text("Exercises")
+                            Text("history.exercises".localized)
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                         }
@@ -132,7 +141,7 @@ struct ExerciseHistoryView: View {
                             Text("\(totalPractices)")
                                 .font(.title)
                                 .fontWeight(.bold)
-                            Text("Total Practices")
+                            Text("history.totalPractices".localized)
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                         }
@@ -144,13 +153,13 @@ struct ExerciseHistoryView: View {
             if exerciseStats.isEmpty {
                 Section {
                     ContentUnavailableView(
-                        "No Exercise History",
+                        "history.noExerciseHistory".localized,
                         systemImage: "figure.run",
-                        description: Text("Complete training sessions to see your exercise history")
+                        description: Text("history.completeSessionsFirst".localized)
                     )
                 }
             } else {
-                Section("Exercises") {
+                Section("history.exercises".localized) {
                     ForEach(exerciseStats) { stat in
                         NavigationLink {
                             ExerciseDetailHistoryView(stats: stat)
@@ -161,11 +170,12 @@ struct ExerciseHistoryView: View {
                 }
             }
         }
-        .navigationTitle("Exercise History")
+        .navigationTitle("history.title".localized)
+        .observeLanguageChanges()
         #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
         #endif
-        .searchable(text: $searchText, prompt: "Search exercises")
+        .searchable(text: $searchText, prompt: "history.searchExercises".localized)
     }
 
     private var categoriesWithData: [ExerciseCategory] {
@@ -242,7 +252,7 @@ struct ExerciseHistoryRow: View {
                 }
                 .font(.subheadline)
 
-                Text("avg")
+                Text("history.avg".localized)
                     .font(.caption2)
                     .foregroundStyle(.tertiary)
             }
@@ -263,9 +273,17 @@ struct ExerciseDetailHistoryView: View {
     }
 
     enum TimeRange: String, CaseIterable {
-        case week = "Week"
-        case month = "Month"
-        case all = "All Time"
+        case week
+        case month
+        case all
+
+        var localizedName: String {
+            switch self {
+            case .week: return "history.week".localized
+            case .month: return "history.month".localized
+            case .all: return "history.allTime".localized
+            }
+        }
     }
 
     private var filteredRatings: [ExerciseRating] {
@@ -306,7 +324,7 @@ struct ExerciseDetailHistoryView: View {
                             .font(.title3)
                             .fontWeight(.bold)
 
-                        Text(stats.category.rawValue)
+                        Text(stats.category.localizedName)
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
                     }
@@ -317,9 +335,9 @@ struct ExerciseDetailHistoryView: View {
 
             // Time Range Picker
             Section {
-                Picker("Time Range", selection: $selectedTimeRange) {
+                Picker("history.timeRange".localized, selection: $selectedTimeRange) {
                     ForEach(TimeRange.allCases, id: \.self) { range in
-                        Text(range.rawValue).tag(range)
+                        Text(range.localizedName).tag(range)
                     }
                 }
                 .pickerStyle(.segmented)
@@ -327,10 +345,10 @@ struct ExerciseDetailHistoryView: View {
             }
 
             // Stats for Range
-            Section("Statistics") {
+            Section("history.statistics".localized) {
                 HStack {
                     StatItem(
-                        title: "Practices",
+                        title: "history.practices".localized,
                         value: "\(filteredRatings.count)",
                         icon: "repeat"
                     )
@@ -338,7 +356,7 @@ struct ExerciseDetailHistoryView: View {
                     Divider()
 
                     StatItem(
-                        title: "Avg Rating",
+                        title: "history.avgRating".localized,
                         value: String(format: "%.1f", averageForRange),
                         icon: "star.fill"
                     )
@@ -346,7 +364,7 @@ struct ExerciseDetailHistoryView: View {
                     Divider()
 
                     StatItem(
-                        title: "Best",
+                        title: "history.best".localized,
                         value: "\(filteredRatings.map(\.rating).max() ?? 0)",
                         icon: "trophy.fill"
                     )
@@ -356,16 +374,16 @@ struct ExerciseDetailHistoryView: View {
 
             // Progress Chart (Simple visualization)
             if filteredRatings.count > 1 {
-                Section("Progress") {
+                Section("history.progress".localized) {
                     RatingProgressChart(ratings: filteredRatings)
                         .frame(height: 120)
                 }
             }
 
             // History
-            Section("Practice History") {
+            Section("history.practiceHistory".localized) {
                 if filteredRatings.isEmpty {
-                    Text("No practices in this time range")
+                    Text("history.noPracticesInRange".localized)
                         .foregroundStyle(.secondary)
                 } else {
                     ForEach(filteredRatings) { rating in
@@ -374,7 +392,8 @@ struct ExerciseDetailHistoryView: View {
                 }
             }
         }
-        .navigationTitle("Exercise Details")
+        .navigationTitle("history.exerciseDetails".localized)
+        .observeLanguageChanges()
         #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
         #endif

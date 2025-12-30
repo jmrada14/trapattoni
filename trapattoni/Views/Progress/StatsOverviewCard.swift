@@ -7,7 +7,7 @@ struct StatsOverviewCard: View {
         VStack(spacing: 16) {
             // Header
             HStack {
-                Text("Overview")
+                Text("progress.overview".localized)
                     .font(.headline)
                 Spacer()
             }
@@ -18,29 +18,29 @@ struct StatsOverviewCard: View {
                 GridItem(.flexible())
             ], spacing: 12) {
                 StatItemView(
-                    title: "Total Sessions",
+                    title: "progress.totalSessions".localized,
                     value: "\(stats.totalSessions)",
                     icon: "figure.run",
                     color: .blue
                 )
 
                 StatItemView(
-                    title: "Time Trained",
+                    title: "progress.timeTrained".localized,
                     value: formatDuration(stats.totalTimeMinutes),
                     icon: "clock",
                     color: .purple
                 )
 
                 StatItemView(
-                    title: "Current Streak",
-                    value: "\(stats.currentStreak) day\(stats.currentStreak == 1 ? "" : "s")",
+                    title: "progress.currentStreak".localized,
+                    value: "\(stats.currentStreak) \(stats.currentStreak == 1 ? "progress.day".localized : "progress.days".localized)",
                     icon: "flame.fill",
                     color: stats.currentStreak > 0 ? .orange : .gray
                 )
 
                 StatItemView(
-                    title: "This Week",
-                    value: "\(stats.thisWeekSessions) session\(stats.thisWeekSessions == 1 ? "" : "s")",
+                    title: "progress.thisWeek".localized,
+                    value: "\(stats.thisWeekSessions) \(stats.thisWeekSessions == 1 ? "progress.session".localized : "progress.sessionsCount".localized)",
                     icon: "calendar",
                     color: .green
                 )
@@ -49,19 +49,19 @@ struct StatsOverviewCard: View {
             // Additional stats row
             HStack(spacing: 16) {
                 MiniStatView(
-                    title: "Longest Streak",
-                    value: "\(stats.longestStreak) days",
+                    title: "progress.longestStreak".localized,
+                    value: "\(stats.longestStreak) \("progress.days".localized)",
                     icon: "trophy"
                 )
 
                 MiniStatView(
-                    title: "Avg. Session",
-                    value: "\(stats.averageSessionLength) min",
+                    title: "progress.avgSession".localized,
+                    value: "\(stats.averageSessionLength) \("time.min".localized)",
                     icon: "timer"
                 )
 
                 MiniStatView(
-                    title: "Exercises",
+                    title: "history.exercises".localized,
                     value: "\(stats.totalExercises)",
                     icon: "checkmark.circle"
                 )
@@ -74,14 +74,14 @@ struct StatsOverviewCard: View {
 
     private func formatDuration(_ minutes: Int) -> String {
         if minutes < 60 {
-            return "\(minutes) min"
+            return "\(minutes) \("time.min".localized)"
         }
         let hours = minutes / 60
         let mins = minutes % 60
         if mins == 0 {
-            return "\(hours)h"
+            return "\(hours)\("time.hours".localized)"
         }
-        return "\(hours)h \(mins)m"
+        return "\(hours)\("time.hours".localized) \(mins)\("time.minutes".localized)"
     }
 }
 

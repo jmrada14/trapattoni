@@ -24,7 +24,7 @@ struct PlanDetailView: View {
             weeksSections
             emptyStateSection
         }
-        .navigationTitle(plan.name)
+        .navigationTitle(plan.localizedName)
         #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
         #endif
@@ -41,10 +41,10 @@ struct PlanDetailView: View {
                 .onDisappear { handleSessionDismiss() }
         }
         #endif
-        .alert("Session Not Found", isPresented: $showingSessionNotFoundAlert) {
-            Button("OK", role: .cancel) {}
+        .alert("plan.sessionNotFound".localized, isPresented: $showingSessionNotFoundAlert) {
+            Button("common.done".localized, role: .cancel) {}
         } message: {
-            Text("The training session for this plan could not be found. It may have been deleted.")
+            Text("plan.sessionNotFoundMessage".localized)
         }
         .sheet(isPresented: $showingEditPlan) {
             EditPlanView(plan: plan)
@@ -52,24 +52,25 @@ struct PlanDetailView: View {
         .sheet(isPresented: $showingSchedule) {
             SchedulePlanToCalendarSheet(plan: plan)
         }
-        .alert("Delete Plan?", isPresented: $showingDeleteAlert) {
-            Button("Cancel", role: .cancel) {}
-            Button("Delete", role: .destructive) { deletePlan() }
+        .alert("plans.delete".localized, isPresented: $showingDeleteAlert) {
+            Button("common.cancel".localized, role: .cancel) {}
+            Button("common.delete".localized, role: .destructive) { deletePlan() }
         } message: {
-            Text("This will permanently delete \"\(plan.name)\". This cannot be undone.")
+            Text("plans.deleteConfirm".localized)
         }
-        .alert("Reset Progress?", isPresented: $showingResetAlert) {
-            Button("Cancel", role: .cancel) {}
-            Button("Reset", role: .destructive) { plan.restart() }
+        .alert("plan.resetProgressTitle".localized, isPresented: $showingResetAlert) {
+            Button("common.cancel".localized, role: .cancel) {}
+            Button("stats.reset".localized, role: .destructive) { plan.restart() }
         } message: {
-            Text("This will reset all progress for \"\(plan.name)\". All completed sessions will be marked as incomplete.")
+            Text("plan.resetProgressMessage".localized(with: plan.localizedName))
         }
-        .alert("Pause Plan?", isPresented: $showingPauseAlert) {
-            Button("Cancel", role: .cancel) {}
-            Button("Pause") { plan.pause() }
+        .alert("plan.pauseTitle".localized, isPresented: $showingPauseAlert) {
+            Button("common.cancel".localized, role: .cancel) {}
+            Button("plan.pausePlan".localized) { plan.pause() }
         } message: {
-            Text("This will pause the plan. Your progress will be preserved and you can resume anytime.")
+            Text("plan.pauseMessage".localized)
         }
+        .observeLanguageChanges()
     }
 
     // MARK: - View Components
@@ -77,16 +78,16 @@ struct PlanDetailView: View {
     private var planHeaderSection: some View {
         Section {
             VStack(alignment: .leading, spacing: 12) {
-                if !plan.planDescription.isEmpty {
-                    Text(plan.planDescription)
+                if !plan.localizedDescription.isEmpty {
+                    Text(plan.localizedDescription)
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                 }
 
                 HStack(spacing: 20) {
-                    Label("\(plan.durationWeeks) weeks", systemImage: "calendar")
-                    Label("\(plan.targetSessionsPerWeek)x/week", systemImage: "repeat")
-                    Label("\(plan.totalSessions) sessions", systemImage: "list.bullet")
+                    Label("\(plan.durationWeeks) \("plans.weeks".localized)", systemImage: "calendar")
+                    Label("\(plan.targetSessionsPerWeek)x/\("plans.week".localized.lowercased())", systemImage: "repeat")
+                    Label("\(plan.totalSessions) \("plans.sessions".localized)", systemImage: "list.bullet")
                 }
                 .font(.caption)
                 .foregroundStyle(.secondary)
@@ -96,7 +97,7 @@ struct PlanDetailView: View {
                         HStack {
                             ProgressView(value: plan.progressPercentage)
                             if plan.isPaused {
-                                Text("PAUSED")
+                                Text("plan.paused".localized)
                                     .font(.caption2)
                                     .fontWeight(.semibold)
                                     .foregroundStyle(.orange)
@@ -122,7 +123,7 @@ struct PlanDetailView: View {
                 Button { startPlan() } label: {
                     HStack {
                         Spacer()
-                        Label("Start Plan", systemImage: "play.fill").font(.headline)
+                        Label("plan.startPlan".localized, systemImage: "play.fill").font(.headline)
                         Spacer()
                     }
                     .padding(.vertical, 8)
@@ -133,7 +134,7 @@ struct PlanDetailView: View {
                 Button { showingPauseAlert = true } label: {
                     HStack {
                         Spacer()
-                        Label("Pause Plan", systemImage: "pause.fill").font(.headline)
+                        Label("plan.pausePlan".localized, systemImage: "pause.fill").font(.headline)
                         Spacer()
                     }
                     .padding(.vertical, 8)
@@ -145,7 +146,7 @@ struct PlanDetailView: View {
                 Button { plan.resume() } label: {
                     HStack {
                         Spacer()
-                        Label("Resume Plan", systemImage: "play.fill").font(.headline)
+                        Label("plan.resumePlan".localized, systemImage: "play.fill").font(.headline)
                         Spacer()
                     }
                     .padding(.vertical, 8)
@@ -156,7 +157,7 @@ struct PlanDetailView: View {
                 Button { showingResetAlert = true } label: {
                     HStack {
                         Spacer()
-                        Label("Restart Plan", systemImage: "arrow.counterclockwise").font(.headline)
+                        Label("plan.restartPlan".localized, systemImage: "arrow.counterclockwise").font(.headline)
                         Spacer()
                     }
                     .padding(.vertical, 8)
@@ -179,10 +180,10 @@ struct PlanDetailView: View {
             }
         } header: {
             HStack {
-                Text("Week \(week)")
+                Text("\("plans.week".localized) \(week)")
                 Spacer()
                 if plan.isActive && plan.currentWeek == week {
-                    Text("Current")
+                    Text("plan.current".localized)
                         .font(.caption)
                         .foregroundStyle(.blue)
                         .padding(.horizontal, 8)
@@ -210,7 +211,7 @@ struct PlanDetailView: View {
         .swipeActions(edge: .leading) {
             if planSession.isCompleted {
                 Button { planSession.resetCompletion() } label: {
-                    Label("Reset", systemImage: "arrow.counterclockwise")
+                    Label("stats.reset".localized, systemImage: "arrow.counterclockwise")
                 }
                 .tint(.orange)
             }
@@ -222,9 +223,9 @@ struct PlanDetailView: View {
         if plan.sessions.isEmpty {
             Section {
                 ContentUnavailableView(
-                    "No Sessions",
+                    "sessions.noSessions".localized,
                     systemImage: "calendar.badge.exclamationmark",
-                    description: Text("This plan doesn't have any sessions yet")
+                    description: Text("plan.noSessionsInPlan".localized)
                 )
             }
         }
@@ -235,23 +236,23 @@ struct PlanDetailView: View {
         ToolbarItem(placement: .primaryAction) {
             Menu {
                 Button { showingSchedule = true } label: {
-                    Label("Schedule to Calendar", systemImage: "calendar.badge.clock")
+                    Label("plan.scheduleToCalendar".localized, systemImage: "calendar.badge.clock")
                 }
 
                 Button { showingEditPlan = true } label: {
-                    Label("Edit Plan", systemImage: "pencil")
+                    Label("plan.editPlan".localized, systemImage: "pencil")
                 }
 
                 if plan.isActive || plan.isFinished {
                     Button { showingResetAlert = true } label: {
-                        Label("Reset Progress", systemImage: "arrow.counterclockwise")
+                        Label("plan.resetProgress".localized, systemImage: "arrow.counterclockwise")
                     }
                 }
 
                 Divider()
 
                 Button(role: .destructive) { showingDeleteAlert = true } label: {
-                    Label("Delete Plan", systemImage: "trash")
+                    Label("plan.deletePlan".localized, systemImage: "trash")
                 }
             } label: {
                 Image(systemName: "ellipsis.circle")
@@ -360,11 +361,11 @@ struct PlanSessionRowView: View {
                         .strikethrough(planSession.isCompleted)
 
                     if let completedDate = planSession.completedDateFormatted {
-                        Text("Completed \(completedDate)")
+                        Text("plan.completedDate".localized(with: completedDate))
                             .font(.caption)
                             .foregroundStyle(.green)
                     } else if isCurrentWeek && !planSession.isCompleted {
-                        Text("Ready to start")
+                        Text("plan.readyToStart".localized)
                             .font(.caption)
                             .foregroundStyle(.blue)
                     }
@@ -399,38 +400,38 @@ struct EditPlanView: View {
     var body: some View {
         NavigationStack {
             Form {
-                Section("Plan Details") {
-                    TextField("Name", text: $name)
+                Section("plan.planDetails".localized) {
+                    TextField("profile.name".localized, text: $name)
 
-                    TextField("Description", text: $description, axis: .vertical)
+                    TextField("exercise.description".localized, text: $description, axis: .vertical)
                         .lineLimit(2...4)
                 }
 
-                Section("Schedule") {
-                    Stepper("Duration: \(durationWeeks) weeks", value: $durationWeeks, in: 1...52)
+                Section("sessions.schedule".localized) {
+                    Stepper("plan.durationWeeks".localized(with: durationWeeks), value: $durationWeeks, in: 1...52)
 
-                    Stepper("Sessions per week: \(sessionsPerWeek)", value: $sessionsPerWeek, in: 1...7)
+                    Stepper("plan.sessionsPerWeek".localized(with: sessionsPerWeek), value: $sessionsPerWeek, in: 1...7)
                 }
 
                 Section {
-                    Text("Sessions in plan: \(plan.sessions.count)")
+                    Text("plan.sessionsInPlan".localized(with: plan.sessions.count))
                         .foregroundStyle(.secondary)
                 } footer: {
-                    Text("To modify sessions, create a new plan or use duplicate")
+                    Text("plan.modifySessionsHint".localized)
                 }
             }
-            .navigationTitle("Edit Plan")
+            .navigationTitle("plan.editPlan".localized)
             #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
             #endif
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") {
+                    Button("common.cancel".localized) {
                         dismiss()
                     }
                 }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Save") {
+                    Button("common.save".localized) {
                         savePlan()
                         dismiss()
                     }
@@ -440,6 +441,7 @@ struct EditPlanView: View {
             .onAppear {
                 loadPlanData()
             }
+            .observeLanguageChanges()
         }
     }
 
@@ -480,54 +482,55 @@ struct SchedulePlanToCalendarSheet: View {
     var body: some View {
         NavigationStack {
             Form {
-                Section("Plan") {
+                Section("plans.title".localized) {
                     HStack {
                         Image(systemName: "list.bullet.rectangle")
                             .foregroundStyle(.blue)
-                        Text(plan.name)
+                        Text(plan.localizedName)
                             .fontWeight(.medium)
                     }
 
-                    LabeledContent("Duration", value: "\(plan.durationWeeks) weeks")
-                    LabeledContent("Sessions", value: "\(plan.sessions.count)")
+                    LabeledContent("training.duration".localized, value: "\(plan.durationWeeks) \("plans.weeks".localized)")
+                    LabeledContent("plans.sessions".localized, value: "\(plan.sessions.count)")
                 }
 
-                Section("Schedule") {
-                    DatePicker("Start Date", selection: $startDate, in: Date()..., displayedComponents: .date)
-                    DatePicker("Training Time", selection: $scheduledTime, displayedComponents: .hourAndMinute)
+                Section("sessions.schedule".localized) {
+                    DatePicker("plan.startDate".localized, selection: $startDate, in: Date()..., displayedComponents: .date)
+                    DatePicker("plan.trainingTime".localized, selection: $scheduledTime, displayedComponents: .hourAndMinute)
                 }
 
                 Section {
-                    Toggle("Remind me", isOn: $enableNotifications)
+                    Toggle("detail.remindMe".localized, isOn: $enableNotifications)
 
                     if enableNotifications {
-                        Picker("Reminder", selection: $notificationMinutes) {
-                            Text("15 minutes before").tag(15)
-                            Text("30 minutes before").tag(30)
-                            Text("1 hour before").tag(60)
+                        Picker("detail.reminder".localized, selection: $notificationMinutes) {
+                            Text("detail.15min".localized).tag(15)
+                            Text("detail.30min".localized).tag(30)
+                            Text("detail.1hour".localized).tag(60)
                         }
                     }
                 } header: {
-                    Text("Notifications")
+                    Text("profile.notifications".localized)
                 } footer: {
-                    Text("Sessions will be scheduled throughout each week starting from your selected date")
+                    Text("plan.scheduleFooter".localized)
                 }
             }
-            .navigationTitle("Schedule Plan")
+            .navigationTitle("plans.schedule".localized)
             #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
             #endif
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") { dismiss() }
+                    Button("common.cancel".localized) { dismiss() }
                 }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Schedule") {
+                    Button("sessions.schedule".localized) {
                         schedulePlan()
                         dismiss()
                     }
                 }
             }
+            .observeLanguageChanges()
         }
     }
 
@@ -568,7 +571,7 @@ struct SchedulePlanToCalendarSheet: View {
                     type: .training,
                     scheduledDate: sessionDate,
                     durationMinutes: 60,
-                    notes: "Part of plan: \(plan.name) - Week \(weekNumber)"
+                    notes: "Part of plan: \(plan.localizedName) - Week \(weekNumber)"
                 )
                 activity.linkedSessionId = session.sessionId
                 activity.linkedSessionName = session.sessionName

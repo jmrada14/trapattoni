@@ -36,13 +36,13 @@ struct SessionExecutionView: View {
                     portraitLayout
                 }
             }
-            .navigationTitle(session.name)
+            .navigationTitle(session.localizedName)
             #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
             #endif
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("End") {
+                    Button("session.end".localized) {
                         showingQuitConfirmation = true
                     }
                 }
@@ -72,13 +72,13 @@ struct SessionExecutionView: View {
             .onChange(of: scenePhase) { _, newPhase in
                 handleScenePhaseChange(newPhase)
             }
-            .confirmationDialog("End Session?", isPresented: $showingQuitConfirmation) {
-                Button("End Session", role: .destructive) {
+            .confirmationDialog("session.endConfirm".localized, isPresented: $showingQuitConfirmation) {
+                Button("session.endSession".localized, role: .destructive) {
                     endSession(completed: false)
                 }
-                Button("Cancel", role: .cancel) {}
+                Button("common.cancel".localized, role: .cancel) {}
             } message: {
-                Text("Your progress will be saved.")
+                Text("session.progressSaved".localized)
             }
             .sheet(item: $exerciseToRate) { exercise in
                 ExerciseRatingSheet(exercise: exercise) { rating in
@@ -91,6 +91,7 @@ struct SessionExecutionView: View {
                     }
                 }
             }
+            .observeLanguageChanges()
         }
     }
 
@@ -167,13 +168,13 @@ struct SessionExecutionView: View {
         Group {
             switch timerService.state {
             case .exerciseActive:
-                stateLabel("EXERCISE", color: .blue)
+                stateLabel("session.exercise".localized, color: .blue)
             case .restPeriod:
-                stateLabel("REST", color: .green)
+                stateLabel("session.rest".localized, color: .green)
             case .paused:
-                stateLabel("PAUSED", color: .orange)
+                stateLabel("session.paused".localized, color: .orange)
             case .completed:
-                stateLabel("COMPLETED", color: .green)
+                stateLabel("session.completed".localized, color: .green)
             case .idle:
                 EmptyView()
             }
@@ -451,7 +452,7 @@ struct SessionExecutionView: View {
 
         // Announce session start, then start timer after a delay
         VoiceAnnouncementService.shared.announceSessionStart(
-            sessionName: session.name,
+            sessionName: session.localizedName,
             exerciseCount: session.exercises.count
         )
 
@@ -602,7 +603,7 @@ struct ExerciseRatingSheet: View {
     var body: some View {
         VStack(spacing: 20) {
             HStack {
-                Text("Rate Exercise")
+                Text("rating.title".localized)
                     .font(.headline)
                 Spacer()
             }
@@ -612,7 +613,7 @@ struct ExerciseRatingSheet: View {
                 CategoryIconView(category: exercise.exerciseCategory, size: .medium)
 
                 VStack(alignment: .leading, spacing: 2) {
-                    Text("How did you do?")
+                    Text("rating.howDidYouDo".localized)
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                     Text(exercise.exerciseName)
@@ -648,7 +649,7 @@ struct ExerciseRatingSheet: View {
             Button {
                 onRate(selectedRating)
             } label: {
-                Text("Continue")
+                Text("rating.continue".localized)
                     .font(.headline)
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 14)
@@ -662,17 +663,11 @@ struct ExerciseRatingSheet: View {
         .presentationDetents([.height(320)])
         .presentationDragIndicator(.visible)
         .interactiveDismissDisabled()
+        .observeLanguageChanges()
     }
 
     private var ratingDescription: String {
-        switch selectedRating {
-        case 1: return "Struggled - need more practice"
-        case 2: return "Difficult - some improvement needed"
-        case 3: return "Okay - decent performance"
-        case 4: return "Good - performed well"
-        case 5: return "Excellent - nailed it!"
-        default: return ""
-        }
+        return "rating.\(selectedRating)".localized
     }
 }
 

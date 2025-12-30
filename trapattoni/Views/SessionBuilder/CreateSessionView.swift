@@ -30,13 +30,13 @@ struct CreateSessionView: View {
         NavigationStack {
             Form {
                 // Basic Info
-                Section("Session Details") {
-                    TextField("Session Name", text: $name)
+                Section("createSession.details".localized) {
+                    TextField("createSession.name".localized, text: $name)
 
-                    TextField("Description (optional)", text: $description, axis: .vertical)
+                    TextField("createSession.descriptionOptional".localized, text: $description, axis: .vertical)
                         .lineLimit(2...4)
 
-                    Stepper("Rest between exercises: \(defaultRestSeconds)s", value: $defaultRestSeconds, in: 0...120, step: 15)
+                    Stepper("createSession.restBetween".localized(with: defaultRestSeconds), value: $defaultRestSeconds, in: 0...120, step: 15)
                 }
 
                 // Exercises
@@ -45,7 +45,7 @@ struct CreateSessionView: View {
                         Button {
                             showingExercisePicker = true
                         } label: {
-                            Label("Add Exercises", systemImage: "plus.circle")
+                            Label("createSession.addExercises".localized, systemImage: "plus.circle")
                         }
                     } else {
                         ForEach($exercises) { $exercise in
@@ -60,32 +60,32 @@ struct CreateSessionView: View {
                         Button {
                             showingExercisePicker = true
                         } label: {
-                            Label("Add More", systemImage: "plus.circle")
+                            Label("createSession.addMore".localized, systemImage: "plus.circle")
                         }
                     }
                 } header: {
                     HStack {
-                        Text("Exercises")
+                        Text("training.exercises".localized)
                         Spacer()
                         if !exercises.isEmpty {
-                            Text("\(exercises.count) exercises • \(totalDurationFormatted)")
+                            Text("\(exercises.count) \("sessions.exercises".localized) • \(totalDurationFormatted)")
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                         }
                     }
                 }
             }
-            .navigationTitle("New \(templateType.rawValue)")
+            .navigationTitle("createSession.new".localized(with: templateType.localizedName))
             #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
             #endif
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") { dismiss() }
+                    Button("common.cancel".localized) { dismiss() }
                 }
 
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Save") { saveSession() }
+                    Button("common.save".localized) { saveSession() }
                         .disabled(!isValid)
                 }
 
@@ -100,11 +100,7 @@ struct CreateSessionView: View {
             .sheet(isPresented: $showingExercisePicker) {
                 ExercisePickerView(selectedExercises: $exercises, defaultRestSeconds: defaultRestSeconds)
             }
-            .onAppear {
-                if name.isEmpty {
-                    name = templateType == .custom ? "" : "My \(templateType.rawValue)"
-                }
-            }
+            .observeLanguageChanges()
         }
     }
 
@@ -168,7 +164,7 @@ struct ExerciseInputRow: View {
             HStack {
                 CategoryIconView(category: ExerciseCategory(rawValue: exercise.exercise.categoryRaw) ?? .dribbling, size: .small)
 
-                Text(exercise.exercise.name)
+                Text(exercise.exercise.localizedName)
                     .font(.headline)
 
                 Spacer()
@@ -178,25 +174,25 @@ struct ExerciseInputRow: View {
                 // Duration picker
                 Menu {
                     ForEach([1, 2, 3, 5, 10, 15, 20], id: \.self) { minutes in
-                        Button("\(minutes) min") {
+                        Button("exerciseInput.minutes".localized(with: minutes)) {
                             exercise.durationSeconds = minutes * 60
                         }
                     }
                 } label: {
-                    Label("\(durationMinutes) min", systemImage: "clock")
+                    Label("exerciseInput.minutes".localized(with: durationMinutes), systemImage: "clock")
                         .font(.caption)
                 }
 
                 // Rest picker
                 Menu {
-                    Button("No rest") { exercise.restSeconds = 0 }
+                    Button("exerciseInput.noRest".localized) { exercise.restSeconds = 0 }
                     ForEach([15, 30, 45, 60, 90, 120], id: \.self) { seconds in
-                        Button("\(seconds)s rest") {
+                        Button("exerciseInput.restSeconds".localized(with: seconds)) {
                             exercise.restSeconds = seconds
                         }
                     }
                 } label: {
-                    Label(exercise.restSeconds == 0 ? "No rest" : "\(exercise.restSeconds)s rest", systemImage: "pause.circle")
+                    Label(exercise.restSeconds == 0 ? "exerciseInput.noRest".localized : "exerciseInput.restSeconds".localized(with: exercise.restSeconds), systemImage: "pause.circle")
                         .font(.caption)
                 }
             }

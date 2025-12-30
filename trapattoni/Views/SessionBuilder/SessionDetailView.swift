@@ -29,25 +29,25 @@ struct SessionDetailView: View {
                             .foregroundStyle(.blue)
 
                         VStack(alignment: .leading) {
-                            Text(session.templateType.rawValue)
+                            Text(session.templateType.localizedName)
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
-                            Text(session.name)
+                            Text(session.localizedName)
                                 .font(.title2)
                                 .fontWeight(.semibold)
                         }
                     }
 
-                    if !session.sessionDescription.isEmpty {
-                        Text(session.sessionDescription)
+                    if !session.localizedDescription.isEmpty {
+                        Text(session.localizedDescription)
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
                     }
 
                     HStack(spacing: 16) {
-                        Label("\(session.exerciseCount) exercises", systemImage: "list.bullet")
+                        Label("\(session.exerciseCount) \("sessions.exercises".localized)", systemImage: "list.bullet")
                         Label(session.totalDurationFormatted, systemImage: "clock")
-                        Label("\(session.defaultRestSeconds)s rest", systemImage: "pause.circle")
+                        Label("\(session.defaultRestSeconds)s \("session.rest".localized.lowercased())", systemImage: "pause.circle")
                     }
                     .font(.caption)
                     .foregroundStyle(.secondary)
@@ -62,7 +62,7 @@ struct SessionDetailView: View {
                 } label: {
                     HStack {
                         Spacer()
-                        Label("Start Session", systemImage: "play.fill")
+                        Label("session.startSession".localized, systemImage: "play.fill")
                             .font(.headline)
                         Spacer()
                     }
@@ -75,9 +75,9 @@ struct SessionDetailView: View {
             Section {
                 if session.exercises.isEmpty {
                     ContentUnavailableView(
-                        "No Exercises",
+                        "sessions.noExercisesYet".localized,
                         systemImage: "figure.run",
-                        description: Text("Tap Edit to add exercises to this session")
+                        description: Text("sessions.tapToAdd".localized)
                     )
                     .listRowBackground(Color.clear)
                 } else {
@@ -91,11 +91,11 @@ struct SessionDetailView: View {
                 Button {
                     showingAddExercise = true
                 } label: {
-                    Label("Add Exercise", systemImage: "plus.circle")
+                    Label("exercise.add".localized, systemImage: "plus.circle")
                 }
             } header: {
                 HStack {
-                    Text("Exercises")
+                    Text("training.exercises".localized)
                     Spacer()
                     #if os(iOS)
                     if !session.exercises.isEmpty {
@@ -106,7 +106,7 @@ struct SessionDetailView: View {
                 }
             }
         }
-        .navigationTitle(session.name)
+        .navigationTitle(session.localizedName)
         #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
         #endif
@@ -116,25 +116,25 @@ struct SessionDetailView: View {
                     Button {
                         showingSchedule = true
                     } label: {
-                        Label("Schedule", systemImage: "calendar.badge.clock")
+                        Label("sessions.schedule".localized, systemImage: "calendar.badge.clock")
                     }
 
                     Button {
                         showingEdit = true
                     } label: {
-                        Label("Edit Details", systemImage: "pencil")
+                        Label("detail.editDetails".localized, systemImage: "pencil")
                     }
 
                     Button {
                         duplicateSession()
                     } label: {
-                        Label("Duplicate", systemImage: "doc.on.doc")
+                        Label("sessions.duplicate".localized, systemImage: "doc.on.doc")
                     }
 
                     Button {
                         showingAddToPlan = true
                     } label: {
-                        Label("Add to Plan", systemImage: "list.bullet.rectangle")
+                        Label("detail.addToPlan".localized, systemImage: "list.bullet.rectangle")
                     }
 
                     Divider()
@@ -142,7 +142,7 @@ struct SessionDetailView: View {
                     Button(role: .destructive) {
                         showingDeleteAlert = true
                     } label: {
-                        Label("Delete Session", systemImage: "trash")
+                        Label("sessions.delete".localized, systemImage: "trash")
                     }
                 } label: {
                     Image(systemName: "ellipsis.circle")
@@ -171,14 +171,15 @@ struct SessionDetailView: View {
         .sheet(isPresented: $showingSchedule) {
             ScheduleSessionSheet(session: session)
         }
-        .alert("Delete Session?", isPresented: $showingDeleteAlert) {
-            Button("Cancel", role: .cancel) {}
-            Button("Delete", role: .destructive) {
+        .alert("sessions.delete".localized, isPresented: $showingDeleteAlert) {
+            Button("common.cancel".localized, role: .cancel) {}
+            Button("common.delete".localized, role: .destructive) {
                 deleteSession()
             }
         } message: {
-            Text("This will permanently delete \"\(session.name)\". This cannot be undone.")
+            Text("sessions.deleteConfirm".localized)
         }
+        .observeLanguageChanges()
     }
 
     private func deleteExercises(at offsets: IndexSet) {
@@ -200,7 +201,7 @@ struct SessionDetailView: View {
 
     private func duplicateSession() {
         let duplicate = TrainingSession(
-            name: "\(session.name) (Copy)",
+            name: "\(session.localizedName) (Copy)",
             description: session.sessionDescription,
             templateType: session.templateType
         )
@@ -273,25 +274,25 @@ struct EditSessionView: View {
     var body: some View {
         NavigationStack {
             Form {
-                Section("Session Details") {
-                    TextField("Name", text: $session.name)
+                Section("sessions.title".localized) {
+                    TextField("profile.name".localized, text: $session.name)
 
-                    TextField("Description", text: $session.sessionDescription, axis: .vertical)
+                    TextField("exercise.description".localized, text: $session.sessionDescription, axis: .vertical)
                         .lineLimit(2...4)
 
-                    Picker("Type", selection: $session.templateType) {
+                    Picker("exercise.trainingType".localized, selection: $session.templateType) {
                         ForEach(SessionTemplateType.allCases) { type in
-                            Label(type.rawValue, systemImage: type.iconName)
+                            Label(type.localizedName, systemImage: type.iconName)
                                 .tag(type)
                         }
                     }
 
-                    Stepper("Rest: \(session.defaultRestSeconds)s", value: $session.defaultRestSeconds, in: 0...120, step: 15)
+                    Stepper("\("sessions.restTime".localized): \(session.defaultRestSeconds)s", value: $session.defaultRestSeconds, in: 0...120, step: 15)
                 }
 
-                Section("Exercises (\(session.exerciseCount))") {
+                Section("\("training.exercises".localized) (\(session.exerciseCount))") {
                     if session.exercises.isEmpty {
-                        Text("No exercises added yet")
+                        Text("sessions.noExercisesYet".localized)
                             .foregroundStyle(.secondary)
                     } else {
                         ForEach(session.sortedExercises) { exercise in
@@ -320,13 +321,13 @@ struct EditSessionView: View {
                     }
                 }
             }
-            .navigationTitle("Edit Session")
+            .navigationTitle("common.edit".localized)
             #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
             #endif
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Done") {
+                    Button("common.done".localized) {
                         session.updatedAt = Date()
                         dismiss()
                     }
@@ -338,6 +339,7 @@ struct EditSessionView: View {
                 }
                 #endif
             }
+            .observeLanguageChanges()
         }
     }
 }
@@ -361,22 +363,22 @@ struct AddSessionToPlanSheet: View {
                 if plans.isEmpty {
                     Section {
                         ContentUnavailableView(
-                            "No Plans",
+                            "detail.noPlans".localized,
                             systemImage: "calendar",
-                            description: Text("Create a training plan first to add sessions")
+                            description: Text("detail.createPlanFirst".localized)
                         )
                     }
                 } else {
-                    Section("Select Plan") {
+                    Section("detail.selectPlan".localized) {
                         ForEach(plans) { plan in
                             Button {
                                 selectedPlan = plan
                             } label: {
                                 HStack {
                                     VStack(alignment: .leading) {
-                                        Text(plan.name)
+                                        Text(plan.localizedName)
                                             .foregroundStyle(.primary)
-                                        Text("\(plan.durationWeeks) weeks • \(plan.totalSessions) sessions")
+                                        Text("\(plan.durationWeeks) \("plans.weeks".localized) • \(plan.totalSessions) \("plans.sessions".localized)")
                                             .font(.caption)
                                             .foregroundStyle(.secondary)
                                     }
@@ -394,10 +396,10 @@ struct AddSessionToPlanSheet: View {
                     }
 
                     if let plan = selectedPlan {
-                        Section("Week") {
-                            Picker("Add to Week", selection: $weekNumber) {
+                        Section("plans.week".localized) {
+                            Picker("detail.addToWeek".localized, selection: $weekNumber) {
                                 ForEach(1...plan.durationWeeks, id: \.self) { week in
-                                    Text("Week \(week)").tag(week)
+                                    Text("\("plans.week".localized) \(week)").tag(week)
                                 }
                             }
                             .pickerStyle(.menu)
@@ -409,27 +411,28 @@ struct AddSessionToPlanSheet: View {
                     NavigationLink {
                         CreatePlanView()
                     } label: {
-                        Label("Create New Plan", systemImage: "plus.circle")
+                        Label("detail.createNewPlan".localized, systemImage: "plus.circle")
                     }
                 }
             }
-            .navigationTitle("Add to Plan")
+            .navigationTitle("detail.addToPlan".localized)
             #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
             #endif
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") {
+                    Button("common.cancel".localized) {
                         dismiss()
                     }
                 }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Add") {
+                    Button("common.add".localized) {
                         addToPlan()
                     }
                     .disabled(selectedPlan == nil)
                 }
             }
+            .observeLanguageChanges()
         }
     }
 
@@ -483,78 +486,79 @@ struct ScheduleSessionSheet: View {
     var body: some View {
         NavigationStack {
             Form {
-                Section("Session") {
+                Section("tab.sessions".localized) {
                     HStack {
                         Image(systemName: session.templateType.iconName)
                             .foregroundStyle(.blue)
-                        Text(session.name)
+                        Text(session.localizedName)
                             .fontWeight(.medium)
                     }
 
-                    LabeledContent("Duration", value: session.totalDurationFormatted)
-                    LabeledContent("Exercises", value: "\(session.exerciseCount)")
+                    LabeledContent("training.duration".localized, value: session.totalDurationFormatted)
+                    LabeledContent("training.exercises".localized, value: "\(session.exerciseCount)")
                 }
 
-                Section("Schedule") {
-                    DatePicker("Date & Time", selection: $scheduledDate, in: Date()...)
+                Section("sessions.schedule".localized) {
+                    DatePicker("detail.dateTime".localized, selection: $scheduledDate, in: Date()...)
                 }
 
                 Section {
-                    Picker("Repeat", selection: $recurrenceType) {
+                    Picker("detail.repeat".localized, selection: $recurrenceType) {
                         ForEach(RecurrenceType.allCases) { type in
                             Text(type.displayName).tag(type)
                         }
                     }
 
                     if recurrenceType != .none {
-                        DatePicker("Until", selection: $recurrenceEndDate, in: scheduledDate..., displayedComponents: .date)
+                        DatePicker("detail.until".localized, selection: $recurrenceEndDate, in: scheduledDate..., displayedComponents: .date)
 
                         HStack {
                             Image(systemName: "info.circle")
                                 .foregroundStyle(.blue)
-                            Text("Will schedule \(recurrenceCount) sessions")
+                            Text("detail.willSchedule".localized(with: recurrenceCount))
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                         }
                     }
                 } header: {
-                    Text("Recurrence")
+                    Text("detail.recurrence".localized)
                 }
 
                 Section {
-                    Toggle("Remind me", isOn: $enableNotification)
+                    Toggle("detail.remindMe".localized, isOn: $enableNotification)
 
                     if enableNotification {
-                        Picker("Reminder", selection: $notificationMinutes) {
-                            Text("15 minutes before").tag(15)
-                            Text("30 minutes before").tag(30)
-                            Text("1 hour before").tag(60)
-                            Text("2 hours before").tag(120)
+                        Picker("detail.reminder".localized, selection: $notificationMinutes) {
+                            Text("detail.15min".localized).tag(15)
+                            Text("detail.30min".localized).tag(30)
+                            Text("detail.1hour".localized).tag(60)
+                            Text("detail.2hours".localized).tag(120)
                         }
                     }
                 } header: {
-                    Text("Notification")
+                    Text("detail.notification".localized)
                 } footer: {
                     if enableNotification {
-                        Text("You'll receive a notification before each scheduled session")
+                        Text("detail.notificationFooter".localized)
                     }
                 }
             }
-            .navigationTitle("Schedule Session")
+            .navigationTitle("sessions.schedule".localized)
             #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
             #endif
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") { dismiss() }
+                    Button("common.cancel".localized) { dismiss() }
                 }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Schedule") {
+                    Button("sessions.schedule".localized) {
                         scheduleSession()
                         dismiss()
                     }
                 }
             }
+            .observeLanguageChanges()
         }
     }
 

@@ -1,0 +1,1407 @@
+[
+  {
+    "name": "Dribling Entre Conos",
+    "description": "Navega a través de una línea de conos usando un control cercano del balón, alternando los pies con cada toque. Coloca 8-10 conos en línea recta, espaciados aproximadamente 1 metro.",
+    "category": "Dribbling",
+    "trainingType": "Solo",
+    "skillLevel": "Beginner",
+    "duration": "Short (5-10 min)",
+    "spaceRequired": "Small (5x5m)",
+    "equipment": ["Ball", "Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Mantén el balón cerca de tus pies",
+      "Usa el interior y exterior de ambos pies",
+      "Mantén la cabeza arriba para observar el campo",
+      "Quédate en las puntas de los pies para cambios rápidos de dirección",
+      "Mantén un centro de gravedad bajo"
+    ],
+    "commonMistakes": [
+      "Empujar el balón demasiado lejos",
+      "Usar solo un pie",
+      "Mirar constantemente hacia abajo al balón",
+      "Estar demasiado erguido"
+    ],
+    "variations": [
+      "Aumenta la velocidad a medida que mejoras",
+      "Usa solo tu pie débil",
+      "Añade un sprint al final",
+      "Reduce el espacio entre conos para un control más cerrado"
+    ],
+    "tags": ["control de balón", "trabajo de pies", "básicos", "calentamiento", "agilidad"]
+  },
+  {
+    "name": "Sprints con Dribling",
+    "description": "Dribla el balón a máxima velocidad a través de una distancia de 30 metros mientras mantienes el control. Enfócate en empujar el balón hacia adelante y correr para alcanzarlo.",
+    "category": "Dribbling",
+    "trainingType": "Solo",
+    "skillLevel": "Intermediate",
+    "duration": "Short (5-10 min)",
+    "spaceRequired": "Large (20x20m+)",
+    "equipment": ["Ball", "Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Empuja el balón 2-3 metros adelante en espacio abierto",
+      "Usa el empeine para golpear el balón hacia adelante",
+      "Corre para alcanzar el balón",
+      "Desacelera suavemente al final"
+    ],
+    "commonMistakes": [
+      "Patear el balón demasiado lejos",
+      "Perder el control cuando estás cansado",
+      "No usar los brazos para equilibrio"
+    ],
+    "variations": [
+      "Añade cambios de dirección en los conos",
+      "Compite contra un compañero",
+      "Termina con un tiro a puerta"
+    ],
+    "tags": ["velocidad", "acondicionamiento", "transición", "contraataque"]
+  },
+  {
+    "name": "Dribling en Figura 8",
+    "description": "Dribla en un patrón de figura 8 alrededor de dos conos colocados a 5 metros de distancia. Enfócate en giros suaves y contacto consistente con el balón.",
+    "category": "Dribbling",
+    "trainingType": "Solo",
+    "skillLevel": "Beginner",
+    "duration": "Short (5-10 min)",
+    "spaceRequired": "Small (5x5m)",
+    "equipment": ["Ball", "Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Usa el interior del pie para girar",
+      "Mantén el balón en el exterior al rodear los conos",
+      "Mantén una velocidad constante",
+      "Practica en ambas direcciones por igual"
+    ],
+    "commonMistakes": [
+      "Cortar las esquinas muy cerradas",
+      "Toques inconsistentes",
+      "Favorecer una dirección"
+    ],
+    "variations": [
+      "Añade un tercer cono para un patrón de trébol",
+      "Incorpora pisadas en cada cono",
+      "Cronometréate y supera tu récord"
+    ],
+    "tags": ["control de balón", "giros", "coordinación", "básicos"]
+  },
+  {
+    "name": "La Croqueta",
+    "description": "Practica el movimiento característico de Iniesta: cambia el balón rápidamente de un pie al otro usando el interior de ambos pies para evadir defensores.",
+    "category": "Dribbling",
+    "trainingType": "Solo",
+    "skillLevel": "Advanced",
+    "duration": "Short (5-10 min)",
+    "spaceRequired": "Small (5x5m)",
+    "equipment": ["Ball"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Mantén el balón cerca entre los pies",
+      "Usa un movimiento rápido y preciso de interior a interior",
+      "Cambia el peso del cuerpo con el balón",
+      "Acelera después del movimiento"
+    ],
+    "commonMistakes": [
+      "Mover el balón demasiado lejos del cuerpo",
+      "Telegrafiar el movimiento",
+      "No acelerar después de completar"
+    ],
+    "variations": [
+      "Encadena múltiples Croquetas",
+      "Combina con una finta de cuerpo",
+      "Practica contra un defensor pasivo"
+    ],
+    "tags": ["habilidades", "1v1", "técnica", "estilo", "evasión"]
+  },
+  {
+    "name": "Batallas de Dribling 1v1",
+    "description": "Enfréntate contra un compañero en una cuadrícula pequeña. Un jugador intenta driblar más allá del defensor hacia una línea objetivo. Cambia roles después de cada intento.",
+    "category": "Dribbling",
+    "trainingType": "Partner",
+    "skillLevel": "Intermediate",
+    "duration": "Medium (10-20 min)",
+    "spaceRequired": "Small (5x5m)",
+    "equipment": ["Ball", "Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Usa fintas y movimientos corporales para desequilibrar al defensor",
+      "Cambia de ritmo repentinamente",
+      "Protege el balón cuando estés bajo presión",
+      "Ataca el lado débil del defensor"
+    ],
+    "commonMistakes": [
+      "Movimientos predecibles",
+      "Driblar demasiado cerca del defensor",
+      "No usar fintas corporales"
+    ],
+    "variations": [
+      "Añade un límite de tiempo",
+      "El ganador se queda",
+      "Solo se permiten movimientos específicos"
+    ],
+    "tags": ["1v1", "competitivo", "realista", "defensa"]
+  },
+  {
+    "name": "Dribling en Sombra",
+    "description": "Un jugador dribla libremente mientras el compañero copia sus movimientos sin balón. El seguidor debe mantenerse dentro de 2 metros en todo momento.",
+    "category": "Dribbling",
+    "trainingType": "Partner",
+    "skillLevel": "Beginner",
+    "duration": "Short (5-10 min)",
+    "spaceRequired": "Medium (10x10m)",
+    "equipment": ["Ball"],
+    "videoURL": null,
+    "coachingPoints": [
+      "El líder debe variar velocidad y dirección",
+      "El seguidor se enfoca en reacciones rápidas",
+      "Ambos jugadores se mantienen ligeros en sus pies",
+      "Cambia roles cada 2 minutos"
+    ],
+    "commonMistakes": [
+      "Líder moviéndose muy predecible",
+      "Seguidor quedándose muy atrás",
+      "No comunicar al cambiar"
+    ],
+    "variations": [
+      "Ambos jugadores con balón",
+      "Añade un defensor intentando ganar el balón",
+      "Confinado a un espacio más pequeño"
+    ],
+    "tags": ["agilidad", "reacciones", "calentamiento", "divertido"]
+  },
+  {
+    "name": "Carrera de Relevos con Dribling",
+    "description": "Los equipos compiten en una carrera de relevos, driblando a través de conos y regresando. Cada jugador debe completar el recorrido antes de dar el relevo.",
+    "category": "Dribbling",
+    "trainingType": "Team",
+    "skillLevel": "Beginner",
+    "duration": "Short (5-10 min)",
+    "spaceRequired": "Medium (10x10m)",
+    "equipment": ["Ball", "Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Mantén el control incluso bajo presión",
+      "Entrega limpia al siguiente jugador",
+      "Anima a tus compañeros",
+      "Equilibra velocidad con control"
+    ],
+    "commonMistakes": [
+      "Apresurarse y perder control",
+      "Empezar antes de la entrega correcta",
+      "No animar a los compañeros"
+    ],
+    "variations": [
+      "Solo con pie débil",
+      "Debe realizar un movimiento técnico en cada cono",
+      "Rondas de eliminación"
+    ],
+    "tags": ["trabajo en equipo", "competitivo", "divertido", "calentamiento"]
+  },
+  {
+    "name": "Conservar el Balón (Rondo)",
+    "description": "Juego clásico de posesión donde un grupo mantiene el balón alejado de 1-2 defensores en el medio. Cuando se gana el balón, el jugador que lo perdió se convierte en defensor.",
+    "category": "Dribbling",
+    "trainingType": "Team",
+    "skillLevel": "Intermediate",
+    "duration": "Medium (10-20 min)",
+    "spaceRequired": "Small (5x5m)",
+    "equipment": ["Ball", "Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Mantén el balón moviéndose rápidamente",
+      "Apoya al jugador con balón",
+      "Usa fintas corporales antes de pasar",
+      "Comunica constantemente"
+    ],
+    "commonMistakes": [
+      "Mantener el balón demasiado tiempo",
+      "Mala posición corporal",
+      "No ofrecer opciones de pase"
+    ],
+    "variations": [
+      "Máximo dos toques",
+      "Solo un toque",
+      "Añade jugadores neutrales",
+      "Varía el tamaño de la cuadrícula"
+    ],
+    "tags": ["posesión", "juego rápido", "entrenamiento de equipo", "técnico"]
+  },
+  {
+    "name": "Repeticiones de Pase con Pared",
+    "description": "Párate a 3-5 metros de una pared y practica pasando y recibiendo. Enfócate en control de uno y dos toques con ambos pies.",
+    "category": "Passing",
+    "trainingType": "Solo",
+    "skillLevel": "Beginner",
+    "duration": "Medium (10-20 min)",
+    "spaceRequired": "Small (5x5m)",
+    "equipment": ["Ball", "Wall"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Bloquea tu tobillo al pasar",
+      "Usa el interior del pie para precisión",
+      "Amortigua el balón al recibir",
+      "Mantente en las puntas de los pies para reacciones rápidas"
+    ],
+    "commonMistakes": [
+      "Pasar muy fuerte o muy suave",
+      "Mala posición corporal para recibir",
+      "No usar ambos pies por igual"
+    ],
+    "variations": [
+      "Alterna pies con cada pase",
+      "Añade movimiento entre pases",
+      "Practica pases con el empeine"
+    ],
+    "tags": ["primer toque", "técnica", "repetición", "fundamentos"]
+  },
+  {
+    "name": "Pases con Reboteador",
+    "description": "Usa un reboteador para practicar pases rápidos de uno y dos toques. Enfócate en controlar el ángulo de retorno impredecible.",
+    "category": "Passing",
+    "trainingType": "Solo",
+    "skillLevel": "Intermediate",
+    "duration": "Medium (10-20 min)",
+    "spaceRequired": "Small (5x5m)",
+    "equipment": ["Ball", "Rebounder"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Ajusta el cuerpo rápidamente al ángulo de retorno",
+      "Mantén el equilibrio y listo",
+      "Varía la fuerza del pase",
+      "Practica también voleas y cabezazos"
+    ],
+    "commonMistakes": [
+      "Quedarse con los pies planos",
+      "No ajustarse al ángulo de retorno",
+      "Siempre usar el mismo pie"
+    ],
+    "variations": [
+      "Muévete lateralmente entre pases",
+      "Añade un giro antes de devolver",
+      "Combina con tiros"
+    ],
+    "tags": ["reacciones", "primer toque", "técnica", "coordinación"]
+  },
+  {
+    "name": "Secuencia de Pases en Pareja",
+    "description": "Párate a 10-15 metros de distancia con un compañero. Pasa de ida y vuelta enfocándote en el peso, precisión y primer toque. Progresa de dos toques a uno.",
+    "category": "Passing",
+    "trainingType": "Partner",
+    "skillLevel": "Beginner",
+    "duration": "Short (5-10 min)",
+    "spaceRequired": "Medium (10x10m)",
+    "equipment": ["Ball"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Pasa al pie preferido del compañero",
+      "Dosifica el pase apropiadamente",
+      "Comunica a qué pie recibir",
+      "El primer toque prepara la siguiente acción"
+    ],
+    "commonMistakes": [
+      "Pases detrás del receptor",
+      "Muy fuerte o muy suave",
+      "Primer toque perezoso"
+    ],
+    "variations": [
+      "Añade movimiento después de pasar",
+      "Aumenta la distancia gradualmente",
+      "Incluye pases por alto"
+    ],
+    "tags": ["fundamentos", "calentamiento", "técnica", "comunicación"]
+  },
+  {
+    "name": "Pases en Triángulo",
+    "description": "Coloca tres conos en triángulo. Muévete alrededor del triángulo, pasando a cada posición de cono, luego siguiendo tu pase. Excelente para práctica de combinaciones.",
+    "category": "Passing",
+    "trainingType": "Partner",
+    "skillLevel": "Intermediate",
+    "duration": "Medium (10-20 min)",
+    "spaceRequired": "Medium (10x10m)",
+    "equipment": ["Ball", "Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "El peso del pase debe invitar al compañero hacia adelante",
+      "Muévete inmediatamente después de pasar",
+      "Comunica con los compañeros",
+      "Mira sobre el hombro antes de recibir"
+    ],
+    "commonMistakes": [
+      "Quedarse quieto después de pasar",
+      "Pases detrás del receptor",
+      "No abrir el cuerpo para recibir"
+    ],
+    "variations": [
+      "Añade un cuarto jugador para un diamante",
+      "Incluye rondas de solo un toque",
+      "Añade defensores para presión"
+    ],
+    "tags": ["juego combinado", "movimiento", "trabajo en equipo", "posesión"]
+  },
+  {
+    "name": "Pared (Pase y Va)",
+    "description": "Practica el clásico pase y va con un compañero. Jugador A pasa a B, corre más allá del defensor imaginario, recibe el pase de vuelta en el espacio.",
+    "category": "Passing",
+    "trainingType": "Partner",
+    "skillLevel": "Intermediate",
+    "duration": "Short (5-10 min)",
+    "spaceRequired": "Medium (10x10m)",
+    "equipment": ["Ball", "Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Acelera después del pase",
+      "El pase de vuelta debe estar delante del corredor",
+      "Sincroniza la carrera correctamente",
+      "El primer pase debe ser firme"
+    ],
+    "commonMistakes": [
+      "Correr antes de pasar",
+      "Pase de vuelta muy lento",
+      "No correr a máxima velocidad"
+    ],
+    "variations": [
+      "Añade un defensor pasivo",
+      "Termina con un tiro",
+      "Alterna quién inicia"
+    ],
+    "tags": ["juego combinado", "movimiento", "ataque", "pase 1-2"]
+  },
+  {
+    "name": "Práctica de Pases Largos",
+    "description": "Practica golpear pases largos precisos de más de 30 metros. Enfócate en técnica, vuelo y precisión en la zona de aterrizaje.",
+    "category": "Passing",
+    "trainingType": "Partner",
+    "skillLevel": "Advanced",
+    "duration": "Medium (10-20 min)",
+    "spaceRequired": "Large (20x20m+)",
+    "equipment": ["Ball", "Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Golpea por debajo de la mitad del balón",
+      "Sigue hacia el objetivo",
+      "Pie de apoyo junto al balón",
+      "Usa los brazos para equilibrio y potencia"
+    ],
+    "commonMistakes": [
+      "Inclinarse hacia atrás demasiado",
+      "Golpear el balón muy al centro",
+      "No seguir correctamente"
+    ],
+    "variations": [
+      "Practica con ambos pies",
+      "Golpea objetivos en movimiento",
+      "Añade un primer toque después de recibir"
+    ],
+    "tags": ["técnica", "cambio de juego", "visión", "entrega"]
+  },
+  {
+    "name": "Cuadrados de Pases a Un Toque",
+    "description": "Cuatro jugadores en las esquinas de un cuadrado, pasando a un toque en secuencia. Desarrolla pies rápidos y anticipación.",
+    "category": "Passing",
+    "trainingType": "Team",
+    "skillLevel": "Intermediate",
+    "duration": "Short (5-10 min)",
+    "spaceRequired": "Small (5x5m)",
+    "equipment": ["Ball", "Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Cuerpo abierto antes de que llegue el balón",
+      "Sabe dónde pasar antes de recibir",
+      "Toque suave para redirigir el impulso",
+      "Comunica y pide el balón"
+    ],
+    "commonMistakes": [
+      "Posición corporal cerrada",
+      "Primer toque pesado",
+      "No mirar antes de recibir"
+    ],
+    "variations": [
+      "Dos balones a la vez",
+      "Sigue tu pase a la siguiente esquina",
+      "Añade un defensor en el medio"
+    ],
+    "tags": ["juego rápido", "conciencia", "entrenamiento de equipo", "rondo"]
+  },
+  {
+    "name": "Cuadrícula de Posesión",
+    "description": "Dos equipos juegan a mantener el balón en una cuadrícula definida. El equipo con balón intenta completar un número de pases mientras los oponentes presionan.",
+    "category": "Passing",
+    "trainingType": "Team",
+    "skillLevel": "Intermediate",
+    "duration": "Medium (10-20 min)",
+    "spaceRequired": "Medium (10x10m)",
+    "equipment": ["Ball", "Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Muévete para crear ángulos de pase",
+      "Juega rápido bajo presión",
+      "Apoya al portador del balón",
+      "Cambia el juego"
+    ],
+    "commonMistakes": [
+      "Quedarse quieto",
+      "Forzar pases difíciles",
+      "No abrirse"
+    ],
+    "variations": [
+      "Restricciones de toques",
+      "Jugadores neutrales",
+      "Anota dividiendo defensores con un pase"
+    ],
+    "tags": ["posesión", "presión", "realista", "trabajo en equipo"]
+  },
+  {
+    "name": "Tiro con Efecto",
+    "description": "Practica curvar tiros hacia las esquinas usando el interior del pie. Colócate justo fuera del área y apunta a esquinas específicas.",
+    "category": "Shooting",
+    "trainingType": "Solo",
+    "skillLevel": "Intermediate",
+    "duration": "Medium (10-20 min)",
+    "spaceRequired": "Large (20x20m+)",
+    "equipment": ["Ball", "Goal", "Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Envuelve el pie alrededor del balón",
+      "Golpea a través del balón para el efecto",
+      "Apunta al interior del poste",
+      "Sigue a través de tu cuerpo"
+    ],
+    "commonMistakes": [
+      "Golpear muy al centro",
+      "No suficiente curva",
+      "Apresurar el tiro"
+    ],
+    "variations": [
+      "Añade un primer toque antes de tirar",
+      "Tira mientras te mueves",
+      "Practica desde diferentes ángulos"
+    ],
+    "tags": ["finalización", "técnica", "precisión", "colocación"]
+  },
+  {
+    "name": "Tiros con Potencia",
+    "description": "Golpea el balón con máxima potencia usando el empeine. Enfócate en un contacto limpio y mantener el balón bajo.",
+    "category": "Shooting",
+    "trainingType": "Solo",
+    "skillLevel": "Intermediate",
+    "duration": "Medium (10-20 min)",
+    "spaceRequired": "Large (20x20m+)",
+    "equipment": ["Ball", "Goal"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Bloquea tu tobillo firmemente",
+      "Golpea a través del centro del balón",
+      "Mantén la rodilla sobre el balón",
+      "Aterriza en el pie de tiro"
+    ],
+    "commonMistakes": [
+      "Inclinarse hacia atrás causando que el balón suba",
+      "Golpear con la punta en vez del empeine",
+      "Sin seguimiento"
+    ],
+    "variations": [
+      "Añade un regate antes de tirar",
+      "Tira desde distancias más largas",
+      "Practica con ambos pies"
+    ],
+    "tags": ["potencia", "golpeo", "finalización", "técnica"]
+  },
+  {
+    "name": "Práctica de Voleas",
+    "description": "Lánzate el balón a ti mismo o que un compañero lo centre, luego golpéalo en el aire. Enfócate en el timing y contacto limpio.",
+    "category": "Shooting",
+    "trainingType": "Solo",
+    "skillLevel": "Advanced",
+    "duration": "Medium (10-20 min)",
+    "spaceRequired": "Medium (10x10m)",
+    "equipment": ["Ball", "Goal"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Mira el balón hasta tu pie",
+      "Mantén el cuerpo sobre el balón",
+      "Golpea a través del medio del balón",
+      "Sincroniza tu aproximación cuidadosamente"
+    ],
+    "commonMistakes": [
+      "Golpear muy temprano",
+      "Quitar los ojos del balón",
+      "Inclinarse lejos del tiro"
+    ],
+    "variations": [
+      "Media volea después de un bote",
+      "Voleas laterales desde centros",
+      "Intentos de chilena (en superficie blanda)"
+    ],
+    "tags": ["técnica", "timing", "finalización", "aéreo"]
+  },
+  {
+    "name": "Tiro Bajo Presión",
+    "description": "El compañero alimenta balones mientras tiras rápidamente. Después de cada tiro, el compañero proporciona presión ligera para simular condiciones de juego.",
+    "category": "Shooting",
+    "trainingType": "Partner",
+    "skillLevel": "Intermediate",
+    "duration": "Medium (10-20 min)",
+    "spaceRequired": "Large (20x20m+)",
+    "equipment": ["Ball", "Goal"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Toma de decisiones rápida",
+      "Toma el tiro temprano",
+      "Mantén la calma bajo presión",
+      "Elige tu objetivo antes de recibir"
+    ],
+    "commonMistakes": [
+      "Tomar demasiados toques",
+      "Entrar en pánico cuando hay presión",
+      "No escanear antes de recibir"
+    ],
+    "variations": [
+      "Defensor activo",
+      "Toques limitados",
+      "Varía el tipo de entrega"
+    ],
+    "tags": ["finalización", "presión", "realista", "toma de decisiones"]
+  },
+  {
+    "name": "Centros y Finalización",
+    "description": "Un jugador entrega centros desde las bandas mientras el compañero ataca el área para finalizar. Alterna lados y roles.",
+    "category": "Shooting",
+    "trainingType": "Partner",
+    "skillLevel": "Intermediate",
+    "duration": "Medium (10-20 min)",
+    "spaceRequired": "Large (20x20m+)",
+    "equipment": ["Ball", "Goal", "Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Sincroniza tu carrera para encontrar el centro",
+      "Ataca el balón, no esperes por él",
+      "Varía tus carreras (primer palo, segundo palo, rechace)",
+      "Comunica con el centrador"
+    ],
+    "commonMistakes": [
+      "Correr muy temprano o tarde",
+      "Estático en el área",
+      "Mala conexión en cabezazos"
+    ],
+    "variations": [
+      "Añade un defensor",
+      "Solo centros rasos",
+      "Finalizaciones de rechace"
+    ],
+    "tags": ["finalización", "centros", "cabezazos", "ataque"]
+  },
+  {
+    "name": "Circuito de Tiro",
+    "description": "Configura múltiples estaciones de tiro. Los equipos rotan por cada estación, compitiendo por más goles. Incluye varios tipos de tiros y distancias.",
+    "category": "Shooting",
+    "trainingType": "Team",
+    "skillLevel": "Intermediate",
+    "duration": "Medium (10-20 min)",
+    "spaceRequired": "Large (20x20m+)",
+    "equipment": ["Ball", "Goal", "Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Enfócate en la técnica en cada estación",
+      "Anima a los compañeros",
+      "Recupérate rápido entre tiros",
+      "Competitivo pero controlado"
+    ],
+    "commonMistakes": [
+      "Sacrificar técnica por velocidad",
+      "No seguir el tiro",
+      "Lenguaje corporal negativo después de fallar"
+    ],
+    "variations": [
+      "Añade portero",
+      "Límites de tiempo en cada estación",
+      "Torneo de eliminación"
+    ],
+    "tags": ["finalización", "competición", "trabajo en equipo", "divertido"]
+  },
+  {
+    "name": "Juego Reducido de Finalización",
+    "description": "Juega 3v3 o 4v4 en un área pequeña con dos porterías. Enfócate en crear y tomar oportunidades de tiro rápidamente.",
+    "category": "Shooting",
+    "trainingType": "Team",
+    "skillLevel": "Intermediate",
+    "duration": "Medium (10-20 min)",
+    "spaceRequired": "Medium (10x10m)",
+    "equipment": ["Ball", "Goal", "Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Tira cuando veas la portería",
+      "Combinaciones rápidas para crear ocasiones",
+      "Transiciona rápido después de perder el balón",
+      "Apoya a los compañeros en ataque"
+    ],
+    "commonMistakes": [
+      "Sobre-jugar en vez de tirar",
+      "Mala selección de tiro",
+      "No recuperar defensivamente"
+    ],
+    "variations": [
+      "Debe anotar de un toque",
+      "Goles solo cuentan desde dentro del área",
+      "Añade porteros"
+    ],
+    "tags": ["realista", "finalización", "juego reducido", "competitivo"]
+  },
+  {
+    "name": "Control Amortiguado",
+    "description": "Practica recibir el balón con diferentes partes del cuerpo, amortiguándolo suavemente para mantenerlo cerca. Que un compañero lance o pase balones a varias alturas.",
+    "category": "First Touch",
+    "trainingType": "Partner",
+    "skillLevel": "Beginner",
+    "duration": "Short (5-10 min)",
+    "spaceRequired": "Small (5x5m)",
+    "equipment": ["Ball"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Retira la superficie receptora al contacto",
+      "Ponte en línea con el balón temprano",
+      "Mantén los ojos en el balón todo el tiempo",
+      "Relaja la parte del cuerpo que recibe"
+    ],
+    "commonMistakes": [
+      "Cuerpo rígido al contacto",
+      "Mala posición",
+      "No agacharse para balones rasos"
+    ],
+    "variations": [
+      "Control con pecho, muslo y pie",
+      "Añade cambio de dirección después del control",
+      "Recibe mientras te mueves"
+    ],
+    "tags": ["primer toque", "control", "técnica", "fundamentos"]
+  },
+  {
+    "name": "Control y Giro",
+    "description": "Recibe el balón de espaldas a la portería, controla y gira en un movimiento suave. Habilidad esencial para mediocampistas y delanteros.",
+    "category": "First Touch",
+    "trainingType": "Partner",
+    "skillLevel": "Intermediate",
+    "duration": "Short (5-10 min)",
+    "spaceRequired": "Small (5x5m)",
+    "equipment": ["Ball", "Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Mira sobre el hombro antes de recibir",
+      "Usa el cuerpo para proteger el balón",
+      "Empuja el balón al espacio con el primer toque",
+      "Acelera después de girar"
+    ],
+    "commonMistakes": [
+      "Girar hacia la presión",
+      "Primer toque pesado",
+      "No verificar el entorno"
+    ],
+    "variations": [
+      "Añade presión de defensor pasivo",
+      "Varía la dirección de los giros",
+      "Incluye pase o tiro después de girar"
+    ],
+    "tags": ["giros", "conciencia", "técnica", "mediocampo"]
+  },
+  {
+    "name": "Control Aéreo",
+    "description": "Practica controlar balones altos con pecho, muslo y cabeza. Lánzate a ti mismo o usa un compañero para varias entregas.",
+    "category": "First Touch",
+    "trainingType": "Solo",
+    "skillLevel": "Intermediate",
+    "duration": "Short (5-10 min)",
+    "spaceRequired": "Small (5x5m)",
+    "equipment": ["Ball"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Ponte debajo de la trayectoria del balón",
+      "Usa el pecho con los brazos afuera para equilibrio",
+      "Amortigua los controles de muslo hacia abajo",
+      "Prepara la siguiente acción mientras el balón está en vuelo"
+    ],
+    "commonMistakes": [
+      "Balón rebotando lejos al contacto",
+      "No mover los pies para posicionarse",
+      "Cuerpo tenso al contacto"
+    ],
+    "variations": [
+      "Control y volea",
+      "Control mientras te presionan",
+      "Malabarismo antes de controlar"
+    ],
+    "tags": ["aéreo", "control", "técnica", "cabezazos"]
+  },
+  {
+    "name": "Primer Toque Bajo Presión",
+    "description": "El compañero hace pases mientras aplica presión de cierre. Enfócate en tomar un primer toque de calidad alejándote del defensor.",
+    "category": "First Touch",
+    "trainingType": "Partner",
+    "skillLevel": "Intermediate",
+    "duration": "Short (5-10 min)",
+    "spaceRequired": "Small (5x5m)",
+    "equipment": ["Ball", "Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Sabe de dónde viene la presión",
+      "Toque alejándote del defensor",
+      "Usa el cuerpo para proteger",
+      "Prepárate para jugar rápido"
+    ],
+    "commonMistakes": [
+      "No mirar sobre el hombro",
+      "Toque hacia el defensor",
+      "Entrar en pánico bajo presión"
+    ],
+    "variations": [
+      "Varía la intensidad de presión",
+      "Añade segundo defensor",
+      "Debe jugar hacia adelante después del toque"
+    ],
+    "tags": ["primer toque", "presión", "conciencia", "realista"]
+  },
+  {
+    "name": "Control y Combina",
+    "description": "Grupos de 3: Jugador A pasa a B quien controla y juega a C. Rotar posiciones. Enfócate en calidad del toque y peso del pase.",
+    "category": "First Touch",
+    "trainingType": "Team",
+    "skillLevel": "Beginner",
+    "duration": "Short (5-10 min)",
+    "spaceRequired": "Medium (10x10m)",
+    "equipment": ["Ball", "Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "El primer toque prepara el pase",
+      "Abre el cuerpo para ver todas las opciones",
+      "Comunica para pedir el balón",
+      "Muévete después de pasar"
+    ],
+    "commonMistakes": [
+      "Quedarse quieto",
+      "Mal toque llevando a pase apresurado",
+      "No comunicar"
+    ],
+    "variations": [
+      "Solo un toque",
+      "Añade patrones de movimiento",
+      "Incluye desmarques de solapamiento"
+    ],
+    "tags": ["juego combinado", "primer toque", "trabajo en equipo", "pases"]
+  },
+  {
+    "name": "Ejercicios de Agilidad en Escalera",
+    "description": "Completa varios patrones de trabajo de pies a través de una escalera de agilidad. Enfócate en pies rápidos, coordinación y movimiento atlético.",
+    "category": "Fitness & Conditioning",
+    "trainingType": "Solo",
+    "skillLevel": "Beginner",
+    "duration": "Short (5-10 min)",
+    "spaceRequired": "Small (5x5m)",
+    "equipment": ["Agility Ladder"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Mantente en las puntas de los pies",
+      "Mantén las caderas bajas y el core activado",
+      "Bombea los brazos para ritmo",
+      "Enfócate en precisión antes que velocidad"
+    ],
+    "commonMistakes": [
+      "Mirar hacia abajo constantemente",
+      "Saltarse pasos o patrones",
+      "No usar los brazos efectivamente"
+    ],
+    "variations": [
+      "Patrón dentro-dentro-fuera-fuera",
+      "Desplazamiento lateral",
+      "Shuffle Ickey",
+      "Dos pies en cada cuadrado"
+    ],
+    "tags": ["agilidad", "trabajo de pies", "velocidad", "coordinación", "calentamiento"]
+  },
+  {
+    "name": "Carreras de Lanzadera",
+    "description": "Corre entre conos colocados a 5, 10 y 15 metros. Toca cada cono y regresa. Desarrolla aceleración y desaceleración.",
+    "category": "Fitness & Conditioning",
+    "trainingType": "Solo",
+    "skillLevel": "Beginner",
+    "duration": "Short (5-10 min)",
+    "spaceRequired": "Medium (10x10m)",
+    "equipment": ["Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Explota desde la posición de parado",
+      "Desacelera con pasos cortos y rápidos",
+      "Mantente bajo al cambiar de dirección",
+      "Impulsa los brazos para potencia"
+    ],
+    "commonMistakes": [
+      "Reducir velocidad muy temprano",
+      "Mala técnica de giro",
+      "No dar el máximo esfuerzo"
+    ],
+    "variations": [
+      "Añade un balón al final para tirar",
+      "Compite contra un compañero",
+      "Varía las distancias"
+    ],
+    "tags": ["velocidad", "resistencia", "acondicionamiento", "aceleración"]
+  },
+  {
+    "name": "Saltos a Cajón",
+    "description": "Salta sobre un cajón o plataforma resistente, luego baja y repite. Desarrolla potencia explosiva de piernas para saltar y correr.",
+    "category": "Fitness & Conditioning",
+    "trainingType": "Solo",
+    "skillLevel": "Intermediate",
+    "duration": "Short (5-10 min)",
+    "spaceRequired": "Small (5x5m)",
+    "equipment": ["Hurdles"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Impulsa a través de los talones",
+      "Balancea los brazos para impulso",
+      "Aterriza suavemente con rodillas flexionadas",
+      "Ponte completamente erguido arriba"
+    ],
+    "commonMistakes": [
+      "No extender completamente en el salto",
+      "Aterrizar con piernas rectas",
+      "Saltar hacia abajo en vez de bajar"
+    ],
+    "variations": [
+      "Saltos con una pierna",
+      "Saltos laterales al cajón",
+      "Saltos de profundidad para atletas avanzados"
+    ],
+    "tags": ["potencia", "explosividad", "salto", "fuerza"]
+  },
+  {
+    "name": "Intervalos de Sprint y Recuperación",
+    "description": "Corre 30 segundos a máximo esfuerzo, luego trota o camina 60 segundos. Repite 10-15 rondas.",
+    "category": "Fitness & Conditioning",
+    "trainingType": "Solo",
+    "skillLevel": "Advanced",
+    "duration": "Long (20+ min)",
+    "spaceRequired": "Large (20x20m+)",
+    "equipment": ["Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Da 100% de esfuerzo en sprints",
+      "Usa el tiempo de recuperación sabiamente",
+      "Mantén la forma incluso cuando estés cansado",
+      "Registra tus tiempos para medir progreso"
+    ],
+    "commonMistakes": [
+      "Dosificarte en los sprints",
+      "No recuperar apropiadamente",
+      "Mala forma de carrera cuando fatigado"
+    ],
+    "variations": [
+      "Varía las proporciones de sprint y descanso",
+      "Añade un balón para sprints con dribling",
+      "Sprints en colina para más dificultad"
+    ],
+    "tags": ["resistencia", "acondicionamiento", "aguante", "forma física de partido"]
+  },
+  {
+    "name": "Carreras de Sprint en Pareja",
+    "description": "Compite contra tu compañero en varias distancias (10m, 20m, 30m). Descansa y repite. Excelente para entrenamiento de velocidad competitivo.",
+    "category": "Fitness & Conditioning",
+    "trainingType": "Partner",
+    "skillLevel": "Beginner",
+    "duration": "Short (5-10 min)",
+    "spaceRequired": "Large (20x20m+)",
+    "equipment": ["Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Salida explosiva",
+      "Mantente en tu carril",
+      "Impulsa los brazos fuerte",
+      "Compite con intensidad"
+    ],
+    "commonMistakes": [
+      "Salidas en falso",
+      "Reducir velocidad antes de la línea",
+      "Mala mecánica de carrera"
+    ],
+    "variations": [
+      "Salida por reacción a comando",
+      "Salida hacia atrás luego gira",
+      "Con balón en los pies"
+    ],
+    "tags": ["velocidad", "competitivo", "divertido", "trabajo en pareja"]
+  },
+  {
+    "name": "Carreras con Banda de Resistencia",
+    "description": "Un jugador usa una banda de resistencia mientras el compañero proporciona resistencia desde atrás. Desarrolla potencia explosiva y aceleración.",
+    "category": "Fitness & Conditioning",
+    "trainingType": "Partner",
+    "skillLevel": "Intermediate",
+    "duration": "Short (5-10 min)",
+    "spaceRequired": "Medium (10x10m)",
+    "equipment": ["Resistance Band"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Levanta las rodillas alto contra la resistencia",
+      "Inclínate ligeramente hacia adelante",
+      "Bombea los brazos agresivamente",
+      "El compañero proporciona resistencia constante"
+    ],
+    "commonMistakes": [
+      "Postura erguida",
+      "Resistencia inconsistente del compañero",
+      "Zancadas cortas"
+    ],
+    "variations": [
+      "Movimientos laterales",
+      "Soltar y correr libremente",
+      "Carrera hacia atrás con resistencia"
+    ],
+    "tags": ["potencia", "aceleración", "fuerza", "trabajo en pareja"]
+  },
+  {
+    "name": "Circuito de Fitness en Equipo",
+    "description": "Configura estaciones para diferentes ejercicios (sprints, saltos, trabajo de core). Los equipos rotan juntos por cada estación.",
+    "category": "Fitness & Conditioning",
+    "trainingType": "Team",
+    "skillLevel": "Intermediate",
+    "duration": "Medium (10-20 min)",
+    "spaceRequired": "Large (20x20m+)",
+    "equipment": ["Cones", "Agility Ladder", "Hurdles"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Trabaja como equipo",
+      "Anímense mutuamente",
+      "Mantén la intensidad durante todo",
+      "Transiciones suaves entre estaciones"
+    ],
+    "commonMistakes": [
+      "Dosificarse en vez de esforzarse",
+      "Mala técnica cuando cansado",
+      "No apoyar a los compañeros"
+    ],
+    "variations": [
+      "Añade elemento competitivo entre grupos",
+      "Incluye trabajo con balón en algunas estaciones",
+      "Varía períodos de trabajo y descanso"
+    ],
+    "tags": ["trabajo en equipo", "acondicionamiento", "variedad", "resistencia"]
+  },
+  {
+    "name": "Práctica de Estirada",
+    "description": "Practica tirarte para parar tiros dirigidos a las esquinas. Enfócate en técnica, aterrizaje y recuperación rápida.",
+    "category": "Goalkeeping",
+    "trainingType": "Partner",
+    "skillLevel": "Intermediate",
+    "duration": "Medium (10-20 min)",
+    "spaceRequired": "Medium (10x10m)",
+    "equipment": ["Ball", "Goal"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Impulsa con el pie cercano",
+      "Lleva las manos detrás del balón",
+      "Aterriza de lado, no de estómago",
+      "Recupérate rápido a posición base"
+    ],
+    "commonMistakes": [
+      "Tirarse hacia atrás en vez de adelante",
+      "Muñecas débiles al contacto",
+      "Recuperación lenta"
+    ],
+    "variations": [
+      "Tiros rápidos consecutivos",
+      "Tirarse desde diferentes posiciones de inicio",
+      "Añade centros y escenarios 1v1"
+    ],
+    "tags": ["portería", "atajadas", "técnica", "reacciones"]
+  },
+  {
+    "name": "Práctica de Distribución",
+    "description": "Practica varios métodos de distribución del portero: rodada, lanzamiento, despeje y saques de meta.",
+    "category": "Goalkeeping",
+    "trainingType": "Solo",
+    "skillLevel": "Beginner",
+    "duration": "Medium (10-20 min)",
+    "spaceRequired": "Large (20x20m+)",
+    "equipment": ["Ball", "Goal", "Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Precisión sobre distancia",
+      "Usa lanzamiento por encima para velocidad",
+      "Golpea saques de meta limpiamente",
+      "Elige distribución según la situación"
+    ],
+    "commonMistakes": [
+      "Apresurar la distribución",
+      "Mala precisión bajo presión",
+      "Patrones predecibles"
+    ],
+    "variations": [
+      "Pon objetivos a diferentes distancias",
+      "Practica distribución rápida después de atajadas",
+      "Añade presión de tiempo"
+    ],
+    "tags": ["portería", "distribución", "pases", "pateo"]
+  },
+  {
+    "name": "Reacciones para Detener Tiros",
+    "description": "Enfrenta tiros rápidos desde corta distancia. Desarrolla reacciones rápidas y coordinación ojo-mano.",
+    "category": "Goalkeeping",
+    "trainingType": "Partner",
+    "skillLevel": "Advanced",
+    "duration": "Short (5-10 min)",
+    "spaceRequired": "Small (5x5m)",
+    "equipment": ["Ball", "Goal"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Mantente en las puntas en posición base",
+      "Mantén los ojos en el balón todo el tiempo",
+      "Hazte grande",
+      "Reacciona no anticipes"
+    ],
+    "commonMistakes": [
+      "Adivinar a dónde va el tiro",
+      "Pararse con los pies planos",
+      "Cerrar los ojos al contacto"
+    ],
+    "variations": [
+      "Usa dos balones alternando",
+      "El tirador puede amagar tiros",
+      "Añade tiros desviados"
+    ],
+    "tags": ["reacciones", "reflejos", "portería", "corta distancia"]
+  },
+  {
+    "name": "Ejercicio de Comunicación del Portero",
+    "description": "Practica organizar la defensa durante centros y balón parado. El compañero entrega balones mientras el portero ordena a los defensores.",
+    "category": "Goalkeeping",
+    "trainingType": "Team",
+    "skillLevel": "Intermediate",
+    "duration": "Medium (10-20 min)",
+    "spaceRequired": "Large (20x20m+)",
+    "equipment": ["Ball", "Goal"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Comandos claros y fuertes",
+      "Toma de decisiones temprana",
+      "Ordena con autoridad",
+      "Usa nombres al dirigir jugadores"
+    ],
+    "commonMistakes": [
+      "Comunicación callada o poco clara",
+      "Decisiones tardías",
+      "No tomar responsabilidad"
+    ],
+    "variations": [
+      "Añade jugadores atacantes",
+      "Aumenta el ritmo de las entregas",
+      "Simula ruido de partido"
+    ],
+    "tags": ["comunicación", "liderazgo", "centros", "organización"]
+  },
+  {
+    "name": "Defensa 1v1",
+    "description": "Practica defender contra un atacante en aislamiento. Enfócate en posición corporal, acompañamiento y timing de entradas.",
+    "category": "Defending",
+    "trainingType": "Partner",
+    "skillLevel": "Intermediate",
+    "duration": "Medium (10-20 min)",
+    "spaceRequired": "Medium (10x10m)",
+    "equipment": ["Ball", "Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Mantente de pie, no te tires",
+      "Fuerza al atacante a su pie débil",
+      "Mantente del lado de la portería",
+      "Mira el balón, no el cuerpo del atacante"
+    ],
+    "commonMistakes": [
+      "Tirarse muy temprano",
+      "Quedarse muy cerca o muy lejos",
+      "Dejar que el atacante dicte"
+    ],
+    "variations": [
+      "Añade una portería para defender",
+      "Múltiples atacantes",
+      "Transición a ataque cuando ganas el balón"
+    ],
+    "tags": ["defensa", "entradas", "1v1", "posicionamiento"]
+  },
+  {
+    "name": "Posicionamiento Defensivo",
+    "description": "Practica mantener la forma defensiva adecuada. Reacciona al movimiento del balón mientras te mantienes compacto y organizado.",
+    "category": "Defending",
+    "trainingType": "Team",
+    "skillLevel": "Intermediate",
+    "duration": "Medium (10-20 min)",
+    "spaceRequired": "Large (20x20m+)",
+    "equipment": ["Ball", "Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Desplázate como unidad con el balón",
+      "Mantén distancias entre jugadores",
+      "Comunica constantemente",
+      "Atento a carreras a tu espalda"
+    ],
+    "commonMistakes": [
+      "Solo mirar el balón",
+      "Estirarse demasiado",
+      "No seguir carreras"
+    ],
+    "variations": [
+      "Añade atacantes rivales",
+      "Practica bloque alto vs bajo",
+      "Transición a detonantes de presión"
+    ],
+    "tags": ["forma", "organización", "defensa en equipo", "comunicación"]
+  },
+  {
+    "name": "Práctica de Despejes",
+    "description": "Practica despejar el balón bajo presión. Enfócate en conseguir distancia, altura y dirección en los despejes.",
+    "category": "Defending",
+    "trainingType": "Solo",
+    "skillLevel": "Beginner",
+    "duration": "Short (5-10 min)",
+    "spaceRequired": "Medium (10x10m)",
+    "equipment": ["Ball"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Pon tu cuerpo detrás del balón",
+      "Golpea a través del balón firmemente",
+      "Apunta a altura y distancia",
+      "Despeja lejos de la portería"
+    ],
+    "commonMistakes": [
+      "Contacto débil en el despeje",
+      "Despejar a través de tu propia portería",
+      "Patada fallida bajo presión"
+    ],
+    "variations": [
+      "Despejes de cabeza",
+      "Despejes desequilibrado",
+      "Bajo presión de atacante"
+    ],
+    "tags": ["defensa", "despejes", "técnica", "seguridad"]
+  },
+  {
+    "name": "Defensa 2v2",
+    "description": "Practica defender en parejas contra dos atacantes. Enfócate en comunicación, cobertura y presionar juntos.",
+    "category": "Defending",
+    "trainingType": "Partner",
+    "skillLevel": "Intermediate",
+    "duration": "Medium (10-20 min)",
+    "spaceRequired": "Medium (10x10m)",
+    "equipment": ["Ball", "Cones", "Goal"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Un jugador presiona, otro cubre",
+      "Comunica constantemente",
+      "No dejes que te dividan con pases",
+      "Fuerza el juego a un lado"
+    ],
+    "commonMistakes": [
+      "Ambos presionando juntos",
+      "Sin comunicación",
+      "Permitir pases fáciles entre líneas"
+    ],
+    "variations": [
+      "Añade un 3er atacante",
+      "Varía el tamaño del espacio",
+      "Añade un portero"
+    ],
+    "tags": ["asociación", "comunicación", "presión", "cobertura"]
+  },
+  {
+    "name": "Detonantes de Presión",
+    "description": "Practica reconocer y ejecutar momentos de presión en equipo. Cuando ocurre el detonante, presiona intensamente como unidad.",
+    "category": "Defending",
+    "trainingType": "Team",
+    "skillLevel": "Advanced",
+    "duration": "Medium (10-20 min)",
+    "spaceRequired": "Large (20x20m+)",
+    "equipment": ["Ball", "Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Identifica detonantes de presión (mal toque, pase hacia atrás)",
+      "Presiona como unidad, no individualmente",
+      "Corta líneas de pase",
+      "Gana el balón arriba en el campo"
+    ],
+    "commonMistakes": [
+      "Presionar en momentos incorrectos",
+      "No presionar juntos",
+      "Dejar espacios detrás de la presión"
+    ],
+    "variations": [
+      "Solo detonantes específicos",
+      "Contra-presión después de perder el balón",
+      "Transición a ataque después de ganar el balón"
+    ],
+    "tags": ["presión", "defensa en equipo", "táctico", "intensidad"]
+  },
+  {
+    "name": "Técnica de Tiro Libre",
+    "description": "Practica curvar y hundir tiros libres por encima de una barrera. Enfócate en técnica consistente y precisión.",
+    "category": "Set Pieces",
+    "trainingType": "Solo",
+    "skillLevel": "Advanced",
+    "duration": "Medium (10-20 min)",
+    "spaceRequired": "Large (20x20m+)",
+    "equipment": ["Ball", "Goal", "Mannequin"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Acércate en ángulo",
+      "Golpea a través del balón para efecto",
+      "Sigue hacia el objetivo",
+      "Mantén el balón bajo inclinándote sobre él"
+    ],
+    "commonMistakes": [
+      "Golpear muy al centro",
+      "Apresurar la aproximación",
+      "Punto de contacto inconsistente"
+    ],
+    "variations": [
+      "Diferentes distancias de la portería",
+      "Tiros de potencia vs colocación",
+      "Practica con ambos pies"
+    ],
+    "tags": ["tiros libres", "técnica", "balón parado", "goles"]
+  },
+  {
+    "name": "Entrega de Córner",
+    "description": "Practica entregar córners precisos a zonas específicas. Trabaja en centros cerrados, abiertos y balones rasos.",
+    "category": "Set Pieces",
+    "trainingType": "Team",
+    "skillLevel": "Intermediate",
+    "duration": "Medium (10-20 min)",
+    "spaceRequired": "Large (20x20m+)",
+    "equipment": ["Ball", "Goal", "Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Elige tu zona objetivo antes de entregar",
+      "Carrera y técnica consistente",
+      "Varía tipos de entrega para confundir la defensa",
+      "Comunica con compañeros sobre las jugadas"
+    ],
+    "commonMistakes": [
+      "Golpear al primer defensor",
+      "Calidad de entrega inconsistente",
+      "No variar tipos de córner"
+    ],
+    "variations": [
+      "Rutinas de córner corto",
+      "Objetivo primer palo vs segundo palo",
+      "Practica jugadas ensayadas con el equipo"
+    ],
+    "tags": ["córners", "centros", "entrega", "balón parado"]
+  },
+  {
+    "name": "Práctica de Penaltis",
+    "description": "Practica penaltis enfocándote en técnica y compostura mental. Trabaja en colocación y potencia.",
+    "category": "Set Pieces",
+    "trainingType": "Solo",
+    "skillLevel": "Beginner",
+    "duration": "Short (5-10 min)",
+    "spaceRequired": "Medium (10x10m)",
+    "equipment": ["Ball", "Goal"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Elige tu lugar antes de acercarte",
+      "Aproximación confiada al balón",
+      "Mantén la cabeza abajo durante el contacto",
+      "Sigue hacia tu objetivo"
+    ],
+    "commonMistakes": [
+      "Cambiar de opinión a mitad de carrera",
+      "Mirar al portero",
+      "No golpear limpiamente"
+    ],
+    "variations": [
+      "Añade un portero",
+      "Practica bajo fatiga",
+      "Simula situaciones de presión"
+    ],
+    "tags": ["penaltis", "finalización", "compostura", "presión"]
+  },
+  {
+    "name": "Rutinas de Saque de Banda",
+    "description": "Practica varias opciones de saque de banda con un compañero. Trabaja en saques largos, rápidos y jugadas ensayadas.",
+    "category": "Set Pieces",
+    "trainingType": "Partner",
+    "skillLevel": "Beginner",
+    "duration": "Short (5-10 min)",
+    "spaceRequired": "Medium (10x10m)",
+    "equipment": ["Ball", "Cones"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Ambos pies detrás de la línea",
+      "El balón empieza detrás de la cabeza",
+      "Sigue con ambas manos",
+      "Apunta a pies o pecho del compañero"
+    ],
+    "commonMistakes": [
+      "Pie sobre la línea",
+      "Saque con una mano",
+      "Entrega imprecisa"
+    ],
+    "variations": [
+      "Práctica de saque largo",
+      "Contraataques de saque rápido",
+      "Rutinas de jugadas ensayadas"
+    ],
+    "tags": ["saques de banda", "técnica", "reinicios", "posesión"]
+  },
+  {
+    "name": "Rutinas Ofensivas de Balón Parado",
+    "description": "Practica movimientos ofensivos coordinados desde córners y tiros libres. Repite jugadas específicas repetidamente.",
+    "category": "Set Pieces",
+    "trainingType": "Team",
+    "skillLevel": "Intermediate",
+    "duration": "Medium (10-20 min)",
+    "spaceRequired": "Large (20x20m+)",
+    "equipment": ["Ball", "Goal", "Cones", "Mannequin"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Sincroniza las carreras con precisión",
+      "Conoce tu rol en cada rutina",
+      "Las carreras señuelo son igual de importantes",
+      "Comunica con quien entrega"
+    ],
+    "commonMistakes": [
+      "Carreras desincronizadas",
+      "Olvidar el rol asignado",
+      "Movimiento estático"
+    ],
+    "variations": [
+      "Añade jugadores defensores",
+      "Varía las rutinas",
+      "Practica en condiciones de partido"
+    ],
+    "tags": ["balón parado", "rutinas", "ataque", "coordinación"]
+  },
+  {
+    "name": "Organización Defensiva en Balón Parado",
+    "description": "Practica defender córners y tiros libres en equipo. Trabaja en marcajes, cobertura zonal y despejes.",
+    "category": "Set Pieces",
+    "trainingType": "Team",
+    "skillLevel": "Intermediate",
+    "duration": "Medium (10-20 min)",
+    "spaceRequired": "Large (20x20m+)",
+    "equipment": ["Ball", "Goal"],
+    "videoURL": null,
+    "coachingPoints": [
+      "Conoce tu marcaje asignado",
+      "Ataca el balón, no esperes",
+      "Despeja con decisión",
+      "Comunica durante todo"
+    ],
+    "commonMistakes": [
+      "Solo mirar el balón en vez de marcar",
+      "Despejes débiles",
+      "Confusión sobre responsabilidades"
+    ],
+    "variations": [
+      "Vs diferentes tipos de entrega",
+      "Practica situaciones de segunda jugada",
+      "Añade transición a contraataque"
+    ],
+    "tags": ["balón parado", "defensa", "organización", "marcaje"]
+  }
+]

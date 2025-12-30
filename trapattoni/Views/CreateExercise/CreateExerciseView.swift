@@ -38,50 +38,50 @@ struct CreateExerciseView: View {
         NavigationStack {
             Form {
                 // Basic Information
-                Section("Basic Information") {
-                    TextField("Exercise Name", text: $name)
+                Section("createExercise.basicInfo".localized) {
+                    TextField("createExercise.name".localized, text: $name)
 
-                    TextField("Description", text: $description, axis: .vertical)
+                    TextField("createExercise.description".localized, text: $description, axis: .vertical)
                         .lineLimit(3...6)
                 }
 
                 // Classification
-                Section("Classification") {
-                    Picker("Category", selection: $category) {
+                Section("createExercise.classification".localized) {
+                    Picker("exercise.category".localized, selection: $category) {
                         ForEach(ExerciseCategory.allCases) { cat in
-                            Label(cat.rawValue, systemImage: cat.iconName)
+                            Label(cat.localizedName, systemImage: cat.iconName)
                                 .tag(cat)
                         }
                     }
 
-                    Picker("Training Type", selection: $trainingType) {
+                    Picker("exercise.trainingType".localized, selection: $trainingType) {
                         ForEach(TrainingType.allCases) { type in
-                            Label(type.rawValue, systemImage: type.iconName)
+                            Label(type.localizedName, systemImage: type.iconName)
                                 .tag(type)
                         }
                     }
 
-                    Picker("Skill Level", selection: $skillLevel) {
+                    Picker("exercise.skillLevel".localized, selection: $skillLevel) {
                         ForEach(SkillLevel.allCases) { level in
-                            Text(level.rawValue).tag(level)
+                            Text(level.localizedName).tag(level)
                         }
                     }
 
-                    Picker("Duration", selection: $duration) {
+                    Picker("exercise.duration".localized, selection: $duration) {
                         ForEach(Duration.allCases) { dur in
-                            Text(dur.rawValue).tag(dur)
+                            Text(dur.localizedName).tag(dur)
                         }
                     }
 
-                    Picker("Space Required", selection: $spaceRequired) {
+                    Picker("exercise.space".localized, selection: $spaceRequired) {
                         ForEach(SpaceRequired.allCases) { space in
-                            Text(space.rawValue).tag(space)
+                            Text(space.localizedName).tag(space)
                         }
                     }
                 }
 
                 // Equipment
-                Section("Equipment Needed") {
+                Section("createExercise.equipmentNeeded".localized) {
                     ForEach(Equipment.allCases) { item in
                         Toggle(isOn: Binding(
                             get: { selectedEquipment.contains(item) },
@@ -93,88 +93,89 @@ struct CreateExerciseView: View {
                                 }
                             }
                         )) {
-                            Label(item.rawValue, systemImage: item.iconName)
+                            Label(item.localizedName, systemImage: item.iconName)
                         }
                     }
                 }
 
                 // Video URL
                 Section {
-                    TextField("YouTube URL", text: $videoURL)
+                    TextField("createExercise.youtubeURL".localized, text: $videoURL)
                         #if os(iOS)
                         .keyboardType(.URL)
                         .textInputAutocapitalization(.never)
                         #endif
                         .autocorrectionDisabled()
                 } header: {
-                    Text("Video (Optional)")
+                    Text("createExercise.videoOptional".localized)
                 } footer: {
-                    Text("Paste a YouTube video URL for demonstration")
+                    Text("createExercise.videoFooter".localized)
                 }
 
                 // Coaching Points
                 Section {
                     EditableListSection(
                         items: $coachingPoints,
-                        placeholder: "Add coaching point..."
+                        placeholder: "createExercise.addCoachingPoint".localized
                     )
                 } header: {
-                    Text("Coaching Points")
+                    Text("createExercise.coachingPoints".localized)
                 } footer: {
-                    Text("Key things players should focus on")
+                    Text("createExercise.coachingPointsFooter".localized)
                 }
 
                 // Common Mistakes
                 Section {
                     EditableListSection(
                         items: $commonMistakes,
-                        placeholder: "Add common mistake..."
+                        placeholder: "createExercise.addMistake".localized
                     )
                 } header: {
-                    Text("Common Mistakes")
+                    Text("createExercise.commonMistakes".localized)
                 } footer: {
-                    Text("Errors to watch out for and avoid")
+                    Text("createExercise.commonMistakesFooter".localized)
                 }
 
                 // Variations
                 Section {
                     EditableListSection(
                         items: $variations,
-                        placeholder: "Add variation..."
+                        placeholder: "createExercise.addVariation".localized
                     )
                 } header: {
-                    Text("Variations & Progressions")
+                    Text("createExercise.variations".localized)
                 } footer: {
-                    Text("Ways to make the exercise easier or harder")
+                    Text("createExercise.variationsFooter".localized)
                 }
 
                 // Tags
                 Section {
                     TagInputView(tagInput: $tagInput, tags: $tags)
                 } header: {
-                    Text("Tags")
+                    Text("createExercise.tags".localized)
                 } footer: {
-                    Text("Add tags to help with search and discovery")
+                    Text("createExercise.tagsFooter".localized)
                 }
             }
-            .navigationTitle("New Exercise")
+            .navigationTitle("createExercise.title".localized)
             #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
             #endif
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") {
+                    Button("common.cancel".localized) {
                         dismiss()
                     }
                 }
 
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Save") {
+                    Button("common.save".localized) {
                         saveExercise()
                     }
                     .disabled(!isValid)
                 }
             }
+            .observeLanguageChanges()
         }
     }
 
@@ -242,7 +243,7 @@ struct TagInputView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
-                TextField("Enter tag...", text: $tagInput)
+                TextField("createExercise.enterTag".localized, text: $tagInput)
                     #if os(iOS)
                     .textInputAutocapitalization(.never)
                     #endif
@@ -251,7 +252,7 @@ struct TagInputView: View {
                         addTag()
                     }
 
-                Button("Add") {
+                Button("common.add".localized) {
                     addTag()
                 }
                 .disabled(tagInput.trimmingCharacters(in: .whitespaces).isEmpty)

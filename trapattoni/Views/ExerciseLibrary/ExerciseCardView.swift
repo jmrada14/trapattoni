@@ -7,7 +7,7 @@ struct ExerciseCardView: View {
         VStack(alignment: .leading, spacing: 8) {
             // Header row with name and indicators
             HStack {
-                Text(exercise.name)
+                Text(exercise.localizedName)
                     .font(.headline)
                     .lineLimit(1)
 
@@ -27,7 +27,7 @@ struct ExerciseCardView: View {
             }
 
             // Description
-            Text(exercise.exerciseDescription)
+            Text(exercise.localizedDescription)
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
                 .lineLimit(2)

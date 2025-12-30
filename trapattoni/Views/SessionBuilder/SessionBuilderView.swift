@@ -33,17 +33,17 @@ struct SessionBuilderView: View {
                                     .frame(width: 32)
 
                                 VStack(alignment: .leading, spacing: 2) {
-                                    Text(type.rawValue)
+                                    Text(type.localizedName)
                                         .font(.headline)
                                         .foregroundStyle(.primary)
-                                    Text(type.description)
+                                    Text(type.localizedDescription)
                                         .font(.caption)
                                         .foregroundStyle(.secondary)
                                 }
 
                                 Spacer()
 
-                                Text("~\(type.suggestedDurationMinutes) min")
+                                Text("~\(type.suggestedDurationMinutes) \("time.min".localized)")
                                     .font(.caption)
                                     .foregroundStyle(.secondary)
                             }
@@ -52,16 +52,16 @@ struct SessionBuilderView: View {
                         .buttonStyle(.plain)
                     }
                 } header: {
-                    Text("Quick Start")
+                    Text("sessions.quickStart".localized)
                 }
 
                 // Saved Sessions Section
                 Section {
                     if templateSessions.isEmpty {
                         ContentUnavailableView(
-                            "No Sessions Yet",
+                            "sessions.noSessions".localized,
                             systemImage: "figure.run",
-                            description: Text("Create your first training session using Quick Start above")
+                            description: Text("sessions.createFirst".localized)
                         )
                         .listRowBackground(Color.clear)
                     } else {
@@ -76,62 +76,63 @@ struct SessionBuilderView: View {
                                         sessionToDelete = session
                                         showingDeleteAlert = true
                                     } label: {
-                                        Label("Delete", systemImage: "trash")
+                                        Label("common.delete".localized, systemImage: "trash")
                                     }
                                 }
                                 .swipeActions(edge: .leading, allowsFullSwipe: true) {
                                     Button {
                                         duplicateSession(session)
                                     } label: {
-                                        Label("Duplicate", systemImage: "doc.on.doc")
+                                        Label("sessions.duplicate".localized, systemImage: "doc.on.doc")
                                     }
                                     .tint(.blue)
                                 }
                         }
                     }
                 } header: {
-                    Text("My Sessions")
+                    Text("sessions.mySessions".localized)
                 } footer: {
                     if !templateSessions.isEmpty {
-                        Text("Swipe left to delete, right to duplicate")
+                        Text("sessions.swipeHint".localized)
                     }
                 }
             }
-            .navigationTitle("Training Sessions")
+            .navigationTitle("sessions.title".localized)
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button {
                         selectedTemplateType = .custom
                         showingCreateSession = true
                     } label: {
-                        Label("New Session", systemImage: "plus")
+                        Label("sessions.new".localized, systemImage: "plus")
                     }
                 }
             }
+            .observeLanguageChanges()
             .sheet(isPresented: $showingCreateSession) {
                 CreateSessionView(templateType: selectedTemplateType)
             }
             .navigationDestination(item: $selectedSession) { session in
                 SessionDetailView(session: session)
             }
-            .alert("Delete Session?", isPresented: $showingDeleteAlert) {
-                Button("Cancel", role: .cancel) {
+            .alert("sessions.delete".localized, isPresented: $showingDeleteAlert) {
+                Button("common.cancel".localized, role: .cancel) {
                     sessionToDelete = nil
                 }
-                Button("Delete", role: .destructive) {
+                Button("common.delete".localized, role: .destructive) {
                     if let session = sessionToDelete {
                         deleteSession(session)
                     }
                 }
             } message: {
-                Text("This will permanently delete \"\(sessionToDelete?.name ?? "this session")\". This cannot be undone.")
+                Text("sessions.deleteConfirm".localized)
             }
         }
     }
 
     private func duplicateSession(_ session: TrainingSession) {
         let duplicate = TrainingSession(
-            name: "\(session.name) (Copy)",
+            name: "\(session.localizedName) (Copy)",
             description: session.sessionDescription,
             templateType: session.templateType
         )
@@ -174,11 +175,11 @@ struct SessionRowView: View {
                 .frame(width: 32)
 
             VStack(alignment: .leading, spacing: 4) {
-                Text(session.name)
+                Text(session.localizedName)
                     .font(.headline)
 
                 HStack(spacing: 8) {
-                    Label("\(session.exerciseCount) exercises", systemImage: "list.bullet")
+                    Label("\(session.exerciseCount) \("sessions.exercises".localized)", systemImage: "list.bullet")
                     Label(session.totalDurationFormatted, systemImage: "clock")
                 }
                 .font(.caption)

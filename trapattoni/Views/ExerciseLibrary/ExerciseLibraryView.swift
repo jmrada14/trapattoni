@@ -60,14 +60,14 @@ struct ExerciseLibraryView: View {
                 exercises: filteredExercises,
                 selectedExercise: $selectedExercise
             )
-            .searchable(text: $filter.searchText, prompt: "Search exercises...")
-            .navigationTitle("Exercise Library")
+            .searchable(text: $filter.searchText, prompt: "exercise.search".localized)
+            .navigationTitle("exercise.library".localized)
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button {
                         showingCreateExercise = true
                     } label: {
-                        Label("Add Exercise", systemImage: "plus")
+                        Label("exercise.add".localized, systemImage: "plus")
                     }
                 }
 
@@ -81,6 +81,7 @@ struct ExerciseLibraryView: View {
                 }
                 #endif
             }
+            .observeLanguageChanges()
             .sheet(isPresented: $showingFilters) {
                 ExerciseFilterView(filter: filter)
                     #if os(macOS)
@@ -104,9 +105,9 @@ struct ExerciseLibraryView: View {
             showingFilters = true
         } label: {
             if filter.hasActiveFilters {
-                Label("Filter (\(filter.activeFilterCount))", systemImage: "line.3.horizontal.decrease.circle.fill")
+                Label("\("exercise.filter".localized) (\(filter.activeFilterCount))", systemImage: "line.3.horizontal.decrease.circle.fill")
             } else {
-                Label("Filter", systemImage: "line.3.horizontal.decrease.circle")
+                Label("exercise.filter".localized, systemImage: "line.3.horizontal.decrease.circle")
             }
         }
     }

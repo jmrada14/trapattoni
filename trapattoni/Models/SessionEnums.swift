@@ -48,4 +48,24 @@ enum SessionTemplateType: String, Codable, CaseIterable, Identifiable {
         case .custom: return "Build your own custom session"
         }
     }
+
+    var localizedName: String {
+        switch self {
+        case .warmUp: return "sessions.warmUp".localized
+        case .quickSession: return "sessions.quickSession".localized
+        case .fullWorkout: return "sessions.fullTraining".localized
+        case .skillFocus: return "sessions.skillTraining".localized
+        case .custom: return "sessions.custom".localized
+        }
+    }
+
+    var localizedDescription: String {
+        switch self {
+        case .warmUp: return "sessions.warmUpDesc".localized
+        case .quickSession: return "sessions.quickSessionDesc".localized
+        case .fullWorkout: return "sessions.fullTrainingDesc".localized
+        case .skillFocus: return "sessions.skillTrainingDesc".localized
+        case .custom: return "sessions.customDesc".localized
+        }
+    }
 }

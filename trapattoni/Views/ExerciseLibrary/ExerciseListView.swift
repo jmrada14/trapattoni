@@ -109,7 +109,7 @@ struct ExerciseListView: View {
 
     private func duplicateExercise(_ exercise: Exercise) {
         let duplicate = Exercise(
-            name: "\(exercise.name) (Copy)",
+            name: "\(exercise.localizedName) (Copy)",
             description: exercise.exerciseDescription,
             category: exercise.category,
             trainingType: exercise.trainingType,

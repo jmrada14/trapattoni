@@ -79,6 +79,19 @@ final class TrainingPlan {
         }
     }
 
+    /// Returns localized name if stored value is a translation key, otherwise returns raw name
+    var localizedName: String {
+        let translated = name.localized
+        // If translation exists (different from key), use it; otherwise use raw name
+        return translated != name ? translated : name
+    }
+
+    /// Returns localized description if stored value is a translation key, otherwise returns raw description
+    var localizedDescription: String {
+        let translated = planDescription.localized
+        return translated != planDescription ? translated : planDescription
+    }
+
     // MARK: - Initializer
 
     init(

@@ -75,21 +75,21 @@ struct CalendarView: View {
                 }
                 .padding()
             }
-            .navigationTitle("Calendar")
+            .navigationTitle("calendar.title".localized)
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Menu {
                         Button {
                             showingAddActivity = true
                         } label: {
-                            Label("Add Activity", systemImage: "plus")
+                            Label("calendar.addActivity".localized, systemImage: "plus")
                         }
 
                         if !plans.isEmpty {
                             Button {
                                 showingSchedulePlan = true
                             } label: {
-                                Label("Schedule Plan", systemImage: "list.bullet.rectangle")
+                                Label("calendar.schedulePlan".localized, systemImage: "list.bullet.rectangle")
                             }
                         }
                     } label: {
@@ -97,6 +97,7 @@ struct CalendarView: View {
                     }
                 }
             }
+            .observeLanguageChanges()
             .sheet(isPresented: $showingAddActivity) {
                 AddActivitySheet(selectedDate: selectedDate, sessions: templateSessions)
             }
@@ -144,8 +145,9 @@ struct CalendarView: View {
 
     private var monthYearString: String {
         let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: LocalizationManager.shared.currentLanguage.rawValue)
         formatter.dateFormat = "MMMM yyyy"
-        return formatter.string(from: currentMonth)
+        return formatter.string(from: currentMonth).capitalized
     }
 
     // MARK: - Upcoming Today
@@ -155,7 +157,7 @@ struct CalendarView: View {
             HStack {
                 Image(systemName: "clock.fill")
                     .foregroundStyle(.blue)
-                Text("Coming Up Today")
+                Text("calendar.comingUpToday".localized)
                     .font(.headline)
             }
 
@@ -177,7 +179,7 @@ struct CalendarView: View {
             HStack {
                 Image(systemName: "calendar.badge.clock")
                     .foregroundStyle(.orange)
-                Text("Later This Week")
+                Text("calendar.laterThisWeek".localized)
                     .font(.headline)
             }
 
@@ -188,7 +190,7 @@ struct CalendarView: View {
             }
 
             if upcomingThisWeekActivities.count > 5 {
-                Text("+\(upcomingThisWeekActivities.count - 5) more")
+                Text("+\(upcomingThisWeekActivities.count - 5) \("calendar.more".localized)")
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
@@ -200,22 +202,18 @@ struct CalendarView: View {
 
     // MARK: - Calendar Grid
 
-    private let dayHeaders = [
-        (id: 0, label: "S"),
-        (id: 1, label: "M"),
-        (id: 2, label: "T"),
-        (id: 3, label: "W"),
-        (id: 4, label: "T"),
-        (id: 5, label: "F"),
-        (id: 6, label: "S")
-    ]
+    private var localizedDayHeaders: [String] {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: LocalizationManager.shared.currentLanguage.rawValue)
+        return formatter.veryShortWeekdaySymbols ?? ["S", "M", "T", "W", "T", "F", "S"]
+    }
 
     private var calendarGrid: some View {
         VStack(spacing: 8) {
             // Day of week headers
             HStack {
-                ForEach(dayHeaders, id: \.id) { day in
-                    Text(day.label)
+                ForEach(Array(localizedDayHeaders.enumerated()), id: \.offset) { _, day in
+                    Text(day)
                         .font(.caption)
                         .fontWeight(.medium)
                         .foregroundStyle(.secondary)
@@ -309,7 +307,7 @@ struct CalendarView: View {
             // Header
             HStack {
                 if isTodaySelected {
-                    Text("Today")
+                    Text("calendar.today".localized)
                         .font(.title2)
                         .fontWeight(.bold)
                 } else {
@@ -330,16 +328,16 @@ struct CalendarView: View {
 
             if activitiesForSelectedDate.isEmpty && sessionsCompletedOnSelectedDate.isEmpty {
                 ContentUnavailableView(
-                    "No Activities",
+                    "calendar.noActivities".localized,
                     systemImage: "calendar.badge.plus",
-                    description: Text("Tap + to schedule an activity")
+                    description: Text("calendar.tapToSchedule".localized)
                 )
                 .frame(height: 120)
             } else {
                 // Upcoming activities (for today, only future ones)
                 if !upcomingForSelectedDate.isEmpty {
                     if isTodaySelected {
-                        Text("Coming Up")
+                        Text("calendar.comingUp".localized)
                             .font(.subheadline)
                             .fontWeight(.medium)
                             .foregroundStyle(.secondary)
@@ -361,7 +359,7 @@ struct CalendarView: View {
 
                 // Past uncompleted (missed) - only for today
                 if !pastForSelectedDate.isEmpty {
-                    Text("Earlier")
+                    Text("calendar.earlier".localized)
                         .font(.subheadline)
                         .fontWeight(.medium)
                         .foregroundStyle(.secondary)
@@ -376,7 +374,7 @@ struct CalendarView: View {
 
                 // Completed activities
                 if !completedForSelectedDate.isEmpty {
-                    Text("Completed")
+                    Text("calendar.completed".localized)
                         .font(.subheadline)
                         .fontWeight(.medium)
                         .foregroundStyle(.secondary)
@@ -392,7 +390,7 @@ struct CalendarView: View {
                 // Completed sessions (from SessionLog)
                 if !sessionsCompletedOnSelectedDate.isEmpty {
                     if completedForSelectedDate.isEmpty {
-                        Text("Completed")
+                        Text("calendar.completed".localized)
                             .font(.subheadline)
                             .fontWeight(.medium)
                             .foregroundStyle(.secondary)
@@ -412,8 +410,9 @@ struct CalendarView: View {
 
     private var selectedDateString: String {
         let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: LocalizationManager.shared.currentLanguage.rawValue)
         formatter.dateFormat = "EEEE, MMMM d"
-        return formatter.string(from: selectedDate)
+        return formatter.string(from: selectedDate).capitalized
     }
 }
 
@@ -433,50 +432,51 @@ struct SchedulePlanSheet: View {
     var body: some View {
         NavigationStack {
             Form {
-                Section("Select Plan") {
-                    Picker("Plan", selection: $selectedPlan) {
-                        Text("Select a plan").tag(nil as TrainingPlan?)
+                Section("calendar.selectPlan".localized) {
+                    Picker("plans.title".localized, selection: $selectedPlan) {
+                        Text("calendar.selectPlan".localized).tag(nil as TrainingPlan?)
                         ForEach(plans) { plan in
-                            Text(plan.name).tag(plan as TrainingPlan?)
+                            Text(plan.localizedName).tag(plan as TrainingPlan?)
                         }
                     }
                 }
 
                 if let plan = selectedPlan {
-                    Section("Plan Details") {
-                        LabeledContent("Weeks", value: "\(plan.durationWeeks)")
-                        LabeledContent("Target Sessions per Week", value: "\(plan.targetSessionsPerWeek)")
-                        LabeledContent("Total Sessions", value: "\(plan.sessions.count)")
+                    Section("calendar.planDetails".localized) {
+                        LabeledContent("plans.weeks".localized.capitalized, value: "\(plan.durationWeeks)")
+                        LabeledContent("calendar.targetPerWeek".localized, value: "\(plan.targetSessionsPerWeek)")
+                        LabeledContent("calendar.totalSessions".localized, value: "\(plan.sessions.count)")
                     }
 
-                    Section("Schedule") {
-                        DatePicker("Start Date", selection: $startDate, displayedComponents: .date)
-                        DatePicker("Default Time", selection: $scheduledTime, displayedComponents: .hourAndMinute)
+                    Section("sessions.schedule".localized) {
+                        DatePicker("plan.startDate".localized, selection: $startDate, displayedComponents: .date)
+                        DatePicker("calendar.defaultTime".localized, selection: $scheduledTime, displayedComponents: .hourAndMinute)
                     }
 
                     Section {
-                        Text("This will create \(plan.sessions.count) training activities on your calendar, starting \(startDate.formatted(date: .abbreviated, time: .omitted)).")
+                        Text("calendar.willCreate".localized(with: plan.sessions.count, startDate.formatted(date: .abbreviated, time: .omitted)))
                             .font(.caption)
                             .foregroundStyle(.secondary)
                     }
                 }
             }
-            .navigationTitle("Schedule Plan")
+            .navigationTitle("plans.schedule".localized)
             #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
             #endif
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") { dismiss() }
+                    Button("common.cancel".localized) { dismiss() }
                 }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Schedule") {
+                    Button("sessions.schedule".localized) {
                         schedulePlan()
                         dismiss()
                     }
                     .disabled(selectedPlan == nil)
                 }
             }
+            .observeLanguageChanges()
             .onAppear {
                 startDate = selectedDate
                 let calendar = Calendar.current
@@ -528,7 +528,7 @@ struct SchedulePlanSheet: View {
                     type: .training,
                     scheduledDate: sessionDate,
                     durationMinutes: 60,
-                    notes: "Part of plan: \(plan.name) - Week \(weekNumber)"
+                    notes: "Part of plan: \(plan.localizedName) - Week \(weekNumber)"
                 )
                 activity.linkedSessionId = session.sessionId
                 activity.linkedSessionName = session.sessionName
@@ -822,7 +822,7 @@ struct ActivityRow: View {
                         Text("•")
                         Text(activity.formattedDuration)
                         Text("•")
-                        Text(activity.activityType.rawValue)
+                        Text(activity.activityType.localizedName)
                     }
                     .font(.caption)
                     .foregroundStyle(.secondary)
@@ -889,9 +889,9 @@ struct CompletedSessionRow: View {
                         Text(completedAt.formatted(date: .omitted, time: .shortened))
                     }
                     Text("•")
-                    Text("\(log.exercisesCompleted) exercises")
+                    Text("\(log.exercisesCompleted) \("sessions.exercises".localized)")
                     Text("•")
-                    Text("Completed")
+                    Text("calendar.completed".localized)
                 }
                 .font(.caption)
                 .foregroundStyle(.secondary)
@@ -954,10 +954,10 @@ struct AddActivitySheet: View {
     var body: some View {
         NavigationStack {
             Form {
-                Section("Activity Type") {
-                    Picker("Type", selection: $activityType) {
+                Section("calendar.activityType".localized) {
+                    Picker("calendar.activityType".localized, selection: $activityType) {
                         ForEach(ActivityType.allCases) { type in
-                            Label(type.rawValue, systemImage: type.iconName)
+                            Label(type.localizedName, systemImage: type.iconName)
                                 .tag(type)
                         }
                     }
@@ -971,34 +971,34 @@ struct AddActivitySheet: View {
                 }
 
                 if activityType == .training && !sessions.isEmpty {
-                    Section("Link to Session") {
-                        Picker("Session", selection: $selectedSession) {
-                            Text("Custom").tag(nil as TrainingSession?)
+                    Section("calendar.linkToSession".localized) {
+                        Picker("tab.sessions".localized, selection: $selectedSession) {
+                            Text("calendar.customActivity".localized).tag(nil as TrainingSession?)
                             ForEach(sessions) { session in
-                                Text(session.name).tag(session as TrainingSession?)
+                                Text(session.localizedName).tag(session as TrainingSession?)
                             }
                         }
                         .onChange(of: selectedSession) { _, session in
                             if let session {
-                                title = session.name
+                                title = session.localizedName
                                 durationMinutes = session.totalDurationSeconds / 60
                             }
                         }
                     }
                 }
 
-                Section("Details") {
-                    TextField("Title", text: $title)
+                Section("calendar.details".localized) {
+                    TextField("calendar.titleField".localized, text: $title)
 
-                    DatePicker("Time", selection: $scheduledTime, displayedComponents: .hourAndMinute)
+                    DatePicker("calendar.time".localized, selection: $scheduledTime, displayedComponents: .hourAndMinute)
 
-                    Stepper("Duration: \(durationMinutes) min", value: $durationMinutes, in: 15...240, step: 15)
+                    Stepper("calendar.durationMin".localized(with: durationMinutes), value: $durationMinutes, in: 15...240, step: 15)
 
-                    TextField("Location (Optional)", text: $location)
+                    TextField("calendar.locationOptional".localized, text: $location)
                 }
 
                 Section {
-                    Picker("Repeat", selection: $recurrenceType) {
+                    Picker("detail.repeat".localized, selection: $recurrenceType) {
                         ForEach(RecurrenceType.allCases) { type in
                             Text(type.displayName).tag(type)
                         }
@@ -1006,7 +1006,7 @@ struct AddActivitySheet: View {
 
                     if recurrenceType != .none {
                         DatePicker(
-                            "Until",
+                            "detail.until".localized,
                             selection: $recurrenceEndDate,
                             in: selectedDate...,
                             displayedComponents: .date
@@ -1015,40 +1015,41 @@ struct AddActivitySheet: View {
                         HStack {
                             Image(systemName: "info.circle")
                                 .foregroundStyle(.blue)
-                            Text("Will create \(recurrenceCount) activities")
+                            Text("calendar.willCreateActivities".localized(with: recurrenceCount))
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                         }
                     }
                 } header: {
-                    Text("Recurrence")
+                    Text("detail.recurrence".localized)
                 } footer: {
                     if recurrenceType != .none {
-                        Text("Activities will be scheduled \(recurrenceType.displayName.lowercased()) from \(selectedDate.formatted(date: .abbreviated, time: .omitted)) until \(recurrenceEndDate.formatted(date: .abbreviated, time: .omitted))")
+                        Text("plan.scheduleFooter".localized)
                     }
                 }
 
-                Section("Notes (Optional)") {
-                    TextField("Notes", text: $notes, axis: .vertical)
+                Section("calendar.notesOptional".localized) {
+                    TextField("calendar.notes".localized, text: $notes, axis: .vertical)
                         .lineLimit(2...4)
                 }
             }
-            .navigationTitle("Add Activity")
+            .navigationTitle("calendar.addActivity".localized)
             #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
             #endif
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") { dismiss() }
+                    Button("common.cancel".localized) { dismiss() }
                 }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Add") {
+                    Button("common.add".localized) {
                         addActivities()
                         dismiss()
                     }
                     .disabled(title.isEmpty)
                 }
             }
+            .observeLanguageChanges()
             .onAppear {
                 // Set initial time to selected date
                 let calendar = Calendar.current
@@ -1194,26 +1195,26 @@ struct ActivityDetailSheet: View {
                     .listRowBackground(Color.clear)
                 }
 
-                Section("Schedule") {
-                    LabeledContent("Date", value: activity.formattedDate)
-                    LabeledContent("Time", value: activity.formattedTime)
-                    LabeledContent("Duration", value: activity.formattedDuration)
+                Section("sessions.schedule".localized) {
+                    LabeledContent("calendar.date".localized, value: activity.formattedDate)
+                    LabeledContent("calendar.time".localized, value: activity.formattedTime)
+                    LabeledContent("training.duration".localized, value: activity.formattedDuration)
                     if !activity.location.isEmpty {
-                        LabeledContent("Location", value: activity.location)
+                        LabeledContent("calendar.location".localized, value: activity.location)
                     }
                 }
 
                 if activity.isRecurring {
-                    Section("Recurrence") {
-                        LabeledContent("Repeats", value: activity.recurrenceType.displayName)
+                    Section("detail.recurrence".localized) {
+                        LabeledContent("calendar.repeats".localized, value: activity.recurrenceType.displayName)
                         if let endDate = activity.recurrenceEndDate {
-                            LabeledContent("Until", value: endDate.formatted(date: .abbreviated, time: .omitted))
+                            LabeledContent("detail.until".localized, value: endDate.formatted(date: .abbreviated, time: .omitted))
                         }
                     }
                 }
 
                 if !activity.notes.isEmpty {
-                    Section("Notes") {
+                    Section("calendar.notes".localized) {
                         Text(activity.notes)
                     }
                 }
@@ -1222,7 +1223,7 @@ struct ActivityDetailSheet: View {
                     Button {
                         showingEditSheet = true
                     } label: {
-                        Label("Edit Activity", systemImage: "pencil")
+                        Label("calendar.editActivity".localized, systemImage: "pencil")
                     }
 
                     Button {
@@ -1235,7 +1236,7 @@ struct ActivityDetailSheet: View {
                         }
                     } label: {
                         Label(
-                            activity.isCompleted ? "Mark as Incomplete" : "Mark as Complete",
+                            activity.isCompleted ? "calendar.markIncomplete".localized : "calendar.markComplete".localized,
                             systemImage: activity.isCompleted ? "xmark.circle" : "checkmark.circle"
                         )
                     }
@@ -1243,30 +1244,31 @@ struct ActivityDetailSheet: View {
                     Button(role: .destructive) {
                         showingDeleteAlert = true
                     } label: {
-                        Label("Delete Activity", systemImage: "trash")
+                        Label("calendar.deleteActivity".localized, systemImage: "trash")
                     }
 
                     if activity.isRecurring && activity.recurrenceGroupId != nil {
                         Button(role: .destructive) {
                             showingDeleteSeriesAlert = true
                         } label: {
-                            Label("Delete All in Series", systemImage: "trash.fill")
+                            Label("calendar.deleteAllSeries".localized, systemImage: "trash.fill")
                         }
                     }
                 }
             }
-            .navigationTitle("Activity Details")
+            .navigationTitle("calendar.activityDetails".localized)
             #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
             #endif
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Done") { dismiss() }
+                    Button("common.done".localized) { dismiss() }
                 }
             }
-            .alert("Delete Activity?", isPresented: $showingDeleteAlert) {
-                Button("Cancel", role: .cancel) {}
-                Button("Delete", role: .destructive) {
+            .observeLanguageChanges()
+            .alert("calendar.deleteConfirm".localized, isPresented: $showingDeleteAlert) {
+                Button("common.cancel".localized, role: .cancel) {}
+                Button("common.delete".localized, role: .destructive) {
                     // Remove from device calendar
                     if let eventId = activity.calendarEventId {
                         Task {
@@ -1277,14 +1279,14 @@ struct ActivityDetailSheet: View {
                     dismiss()
                 }
             }
-            .alert("Delete All Activities in Series?", isPresented: $showingDeleteSeriesAlert) {
-                Button("Cancel", role: .cancel) {}
-                Button("Delete All", role: .destructive) {
+            .alert("calendar.deleteSeriesConfirm".localized, isPresented: $showingDeleteSeriesAlert) {
+                Button("common.cancel".localized, role: .cancel) {}
+                Button("common.delete".localized, role: .destructive) {
                     deleteAllInSeries()
                     dismiss()
                 }
             } message: {
-                Text("This will delete all future activities in this recurring series. Past completed activities will not be affected.")
+                Text("calendar.deleteSeriesMessage".localized)
             }
             .sheet(isPresented: $showingEditSheet) {
                 EditActivitySheet(activity: activity)
@@ -1351,37 +1353,38 @@ struct EditActivitySheet: View {
     var body: some View {
         NavigationStack {
             Form {
-                Section("Details") {
-                    TextField("Title", text: $title)
+                Section("calendar.details".localized) {
+                    TextField("calendar.titleField".localized, text: $title)
 
-                    DatePicker("Date & Time", selection: $scheduledDate)
+                    DatePicker("detail.dateTime".localized, selection: $scheduledDate)
 
-                    Stepper("Duration: \(durationMinutes) min", value: $durationMinutes, in: 15...240, step: 15)
+                    Stepper("calendar.durationMin".localized(with: durationMinutes), value: $durationMinutes, in: 15...240, step: 15)
 
-                    TextField("Location", text: $location)
+                    TextField("calendar.location".localized, text: $location)
                 }
 
-                Section("Notes") {
-                    TextField("Notes", text: $notes, axis: .vertical)
+                Section("calendar.notes".localized) {
+                    TextField("calendar.notes".localized, text: $notes, axis: .vertical)
                         .lineLimit(2...4)
                 }
             }
-            .navigationTitle("Edit Activity")
+            .navigationTitle("calendar.editActivity".localized)
             #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
             #endif
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") { dismiss() }
+                    Button("common.cancel".localized) { dismiss() }
                 }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Save") {
+                    Button("common.save".localized) {
                         saveChanges()
                         dismiss()
                     }
                     .disabled(title.isEmpty)
                 }
             }
+            .observeLanguageChanges()
             .onAppear {
                 loadActivityData()
             }

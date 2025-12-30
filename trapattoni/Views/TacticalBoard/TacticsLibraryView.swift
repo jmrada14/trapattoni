@@ -31,8 +31,8 @@ struct TacticsLibraryView: View {
                     tacticsList
                 }
             }
-            .navigationTitle("Tactical Board")
-            .searchable(text: $searchText, prompt: "Search tactics")
+            .navigationTitle("tactics.title".localized)
+            .searchable(text: $searchText, prompt: "tactics.search".localized)
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button {
@@ -51,16 +51,17 @@ struct TacticsLibraryView: View {
             .navigationDestination(item: $selectedTactic) { tactic in
                 TacticEditorView(tacticSheet: tactic)
             }
-            .alert("Delete Tactic?", isPresented: $showingDeleteAlert) {
-                Button("Cancel", role: .cancel) {}
-                Button("Delete", role: .destructive) {
+            .alert("tactics.delete".localized, isPresented: $showingDeleteAlert) {
+                Button("common.cancel".localized, role: .cancel) {}
+                Button("common.delete".localized, role: .destructive) {
                     if let tactic = tacticToDelete {
                         deleteTactic(tactic)
                     }
                 }
             } message: {
-                Text("This action cannot be undone.")
+                Text("tactics.deleteConfirm".localized)
             }
+            .observeLanguageChanges()
         }
     }
 
@@ -68,14 +69,14 @@ struct TacticsLibraryView: View {
 
     private var emptyStateView: some View {
         ContentUnavailableView {
-            Label("No Tactics", systemImage: "sportscourt")
+            Label("tactics.noTactics".localized, systemImage: "sportscourt")
         } description: {
-            Text("Create your first tactic to explain formations, plays, and strategies to your team.")
+            Text("tactics.createFirst".localized)
         } actions: {
             Button {
                 showingNewTacticSheet = true
             } label: {
-                Text("Create Tactic")
+                Text("tactics.create".localized)
             }
             .buttonStyle(.borderedProminent)
         }
@@ -96,14 +97,14 @@ struct TacticsLibraryView: View {
                             tacticToDelete = tactic
                             showingDeleteAlert = true
                         } label: {
-                            Label("Delete", systemImage: "trash")
+                            Label("common.delete".localized, systemImage: "trash")
                         }
                     }
                     .swipeActions(edge: .leading) {
                         Button {
                             duplicateTactic(tactic)
                         } label: {
-                            Label("Duplicate", systemImage: "doc.on.doc")
+                            Label("sessions.duplicate".localized, systemImage: "doc.on.doc")
                         }
                         .tint(.blue)
                     }
@@ -184,7 +185,7 @@ struct TacticCardView: View {
                 }
 
                 HStack(spacing: 8) {
-                    Text(tactic.fieldType.rawValue)
+                    Text(tactic.fieldType.localizedName)
                     Text("•")
                     Text(tactic.updatedAt.formatted(date: .abbreviated, time: .omitted))
                 }
@@ -262,45 +263,45 @@ struct NewTacticSheet: View {
     var body: some View {
         NavigationStack {
             Form {
-                Section("Name") {
-                    TextField("Tactic name", text: $name)
+                Section("profile.name".localized) {
+                    TextField("tactics.name".localized, text: $name)
                 }
 
-                Section("Description") {
-                    TextField("Optional description", text: $description, axis: .vertical)
+                Section("exercise.description".localized) {
+                    TextField("tactics.description".localized, text: $description, axis: .vertical)
                         .lineLimit(3...6)
                 }
 
-                Section("Field Type") {
-                    Picker("Field", selection: $fieldType) {
+                Section("tactics.fieldType".localized) {
+                    Picker("tactics.fieldType".localized, selection: $fieldType) {
                         ForEach(FieldType.allCases, id: \.self) { type in
-                            Text(type.rawValue).tag(type)
+                            Text(type.localizedName).tag(type)
                         }
                     }
                     .pickerStyle(.inline)
                 }
 
                 // Preview
-                Section("Preview") {
+                Section("tactics.preview".localized) {
                     CoachFieldCanvas(fieldType: fieldType)
                         .frame(height: 150)
                         .clipShape(RoundedRectangle(cornerRadius: 8))
                 }
             }
-            .navigationTitle("New Tactic")
+            .navigationTitle("tactics.new".localized)
             #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
             #endif
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") {
+                    Button("common.cancel".localized) {
                         dismiss()
                     }
                 }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Create") {
+                    Button("tactics.create".localized) {
                         let tactic = TacticSheet(
-                            name: name.isEmpty ? "New Tactic" : name,
+                            name: name.isEmpty ? "tactics.new".localized : name,
                             sheetDescription: description,
                             fieldType: fieldType
                         )
@@ -309,6 +310,7 @@ struct NewTacticSheet: View {
                     }
                 }
             }
+            .observeLanguageChanges()
         }
     }
 }
@@ -333,13 +335,13 @@ struct TacticEditorView: View {
                         Button {
                             showingRenameSheet = true
                         } label: {
-                            Label("Rename", systemImage: "pencil")
+                            Label("tactics.rename".localized, systemImage: "pencil")
                         }
 
                         Button {
                             shareTactic()
                         } label: {
-                            Label("Share", systemImage: "square.and.arrow.up")
+                            Label("tactics.share".localized, systemImage: "square.and.arrow.up")
                         }
                     } label: {
                         Image(systemName: "ellipsis.circle")
@@ -368,35 +370,35 @@ struct RenameTacticSheet: View {
     var body: some View {
         NavigationStack {
             Form {
-                Section("Name") {
-                    TextField("Tactic name", text: $name)
+                Section("profile.name".localized) {
+                    TextField("tactics.name".localized, text: $name)
                 }
 
-                Section("Description") {
-                    TextField("Optional description", text: $description, axis: .vertical)
+                Section("exercise.description".localized) {
+                    TextField("tactics.description".localized, text: $description, axis: .vertical)
                         .lineLimit(3...6)
                 }
 
-                Section("Field Type") {
-                    Picker("Field", selection: $tactic.fieldType) {
+                Section("tactics.fieldType".localized) {
+                    Picker("tactics.fieldType".localized, selection: $tactic.fieldType) {
                         ForEach(FieldType.allCases, id: \.self) { type in
-                            Text(type.rawValue).tag(type)
+                            Text(type.localizedName).tag(type)
                         }
                     }
                 }
             }
-            .navigationTitle("Edit Tactic")
+            .navigationTitle("tactics.edit".localized)
             #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
             #endif
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") {
+                    Button("common.cancel".localized) {
                         dismiss()
                     }
                 }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Save") {
+                    Button("common.save".localized) {
                         tactic.name = name
                         tactic.sheetDescription = description
                         tactic.updatedAt = Date()
@@ -408,6 +410,7 @@ struct RenameTacticSheet: View {
                 name = tactic.name
                 description = tactic.sheetDescription
             }
+            .observeLanguageChanges()
         }
     }
 }

@@ -62,7 +62,7 @@ struct ProfileView: View {
                             ExerciseHistoryView()
                         } label: {
                             HStack {
-                                Label("Exercise History", systemImage: "list.bullet.rectangle")
+                                Label("profile.exerciseHistory".localized, systemImage: "list.bullet.rectangle")
                                 Spacer()
                                 Image(systemName: "chevron.right")
                                     .foregroundStyle(.tertiary)
@@ -87,23 +87,23 @@ struct ProfileView: View {
                     } else {
                         // Empty state
                         ContentUnavailableView(
-                            "Start Training",
+                            "profile.startTraining".localized,
                             systemImage: "figure.run",
-                            description: Text("Complete your first training session to track your progress")
+                            description: Text("profile.completeFirstSession".localized)
                         )
                         .padding(.vertical, 60)
                     }
                 }
                 .padding()
             }
-            .navigationTitle("Profile")
+            .navigationTitle("profile.title".localized)
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Menu {
                         Button {
                             showingEditProfile = true
                         } label: {
-                            Label("Edit Profile", systemImage: "pencil")
+                            Label("profile.editProfile".localized, systemImage: "pencil")
                         }
 
                         if !completedLogs.isEmpty {
@@ -112,7 +112,7 @@ struct ProfileView: View {
                             Button(role: .destructive) {
                                 showingResetAlert = true
                             } label: {
-                                Label("Reset All Progress", systemImage: "trash")
+                                Label("profile.resetProgress".localized, systemImage: "trash")
                             }
                         }
                     } label: {
@@ -120,6 +120,7 @@ struct ProfileView: View {
                     }
                 }
             }
+            .observeLanguageChanges()
             .onAppear {
                 ensureProfileExists()
                 loadStats()
@@ -135,25 +136,25 @@ struct ProfileView: View {
             .navigationDestination(item: $selectedLog) { log in
                 SessionLogDetailView(log: log)
             }
-            .alert("Reset All Progress?", isPresented: $showingResetAlert) {
-                Button("Cancel", role: .cancel) {}
-                Button("Reset", role: .destructive) {
+            .alert("progress.resetConfirm".localized, isPresented: $showingResetAlert) {
+                Button("common.cancel".localized, role: .cancel) {}
+                Button("stats.reset".localized, role: .destructive) {
                     resetAllProgress()
                 }
             } message: {
-                Text("This will permanently delete all your training history, statistics, and progress. This cannot be undone.")
+                Text("progress.resetMessage".localized)
             }
-            .alert("Delete Session Log?", isPresented: $showingDeleteLogAlert) {
-                Button("Cancel", role: .cancel) {
+            .alert("progress.deleteLogConfirm".localized, isPresented: $showingDeleteLogAlert) {
+                Button("common.cancel".localized, role: .cancel) {
                     logToDelete = nil
                 }
-                Button("Delete", role: .destructive) {
+                Button("common.delete".localized, role: .destructive) {
                     if let log = logToDelete {
                         deleteLog(log)
                     }
                 }
             } message: {
-                Text("This will delete this training session from your history.")
+                Text("progress.deleteLogMessage".localized)
             }
         }
     }
@@ -253,8 +254,9 @@ struct ProfileHeaderView: View {
                     .font(.title2)
                     .fontWeight(.bold)
 
-                if let position = profile?.position, !position.isEmpty {
-                    Text(position)
+                if let position = profile?.position, !position.isEmpty,
+                   let playerPosition = PlayerPosition(rawValue: position) {
+                    Text(playerPosition.localizedName)
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                 }
@@ -272,24 +274,25 @@ struct ProfileHeaderView: View {
             // Player info badges
             if let profile, hasPlayerInfo(profile) {
                 HStack(spacing: 12) {
-                    if !profile.preferredFoot.isEmpty {
+                    if !profile.preferredFoot.isEmpty,
+                       let foot = PreferredFoot(rawValue: profile.preferredFoot.capitalized) {
                         InfoBadge(
                             icon: "shoe.fill",
-                            text: profile.preferredFoot.capitalized
+                            text: foot.localizedName
                         )
                     }
 
                     if profile.yearsPlaying > 0 {
                         InfoBadge(
                             icon: "calendar",
-                            text: "\(profile.yearsPlaying) yr\(profile.yearsPlaying > 1 ? "s" : "")"
+                            text: "\(profile.yearsPlaying) \("profile.yearsPlaying".localized.lowercased())"
                         )
                     }
 
                     if let streak = stats?.currentStreak, streak > 0 {
                         InfoBadge(
                             icon: "flame.fill",
-                            text: "\(streak) day streak",
+                            text: "\(streak) \("stats.streak".localized)",
                             color: .orange
                         )
                     }
@@ -347,21 +350,21 @@ struct QuickStatsRow: View {
     var body: some View {
         HStack(spacing: 12) {
             StatCard(
-                title: "Sessions",
+                title: "profile.sessions".localized,
                 value: "\(stats.totalSessions)",
                 icon: "figure.run",
                 color: .blue
             )
 
             StatCard(
-                title: "Time",
+                title: "profile.time".localized,
                 value: formatTime(stats.totalTimeMinutes),
                 icon: "clock",
                 color: .green
             )
 
             StatCard(
-                title: "Exercises",
+                title: "profile.exercises".localized,
                 value: "\(stats.totalExercises)",
                 icon: "dumbbell",
                 color: .orange
@@ -430,6 +433,9 @@ struct EditProfileView: View {
     @State private var weeklyGoalRemindersEnabled: Bool = true
     @State private var reminderTime: Date = Date()
 
+    // Language settings
+    @State private var selectedLanguage: AppLanguage = .english
+
     var body: some View {
         NavigationStack {
             Form {
@@ -478,88 +484,106 @@ struct EditProfileView: View {
                 }
 
                 // Basic Info
-                Section("Basic Info") {
-                    TextField("Name", text: $name)
+                Section("profile.basicInfo".localized) {
+                    TextField("profile.name".localized, text: $name)
 
-                    TextField("Bio", text: $bio, axis: .vertical)
+                    TextField("profile.bio".localized, text: $bio, axis: .vertical)
                         .lineLimit(2...4)
                 }
 
                 // Player Details
-                Section("Player Details") {
-                    Picker("Position", selection: $position) {
-                        Text("Not Set").tag("")
+                Section("profile.playerDetails".localized) {
+                    Picker("profile.position".localized, selection: $position) {
+                        Text("profile.notSet".localized).tag("")
                         ForEach(PlayerPosition.allCases) { pos in
-                            Text(pos.rawValue).tag(pos.rawValue)
+                            Text(pos.localizedName).tag(pos.rawValue)
                         }
                     }
 
-                    Picker("Preferred Foot", selection: $preferredFoot) {
+                    Picker("profile.preferredFoot".localized, selection: $preferredFoot) {
                         ForEach(PreferredFoot.allCases) { foot in
-                            Text(foot.rawValue).tag(foot.rawValue.lowercased())
+                            Text(foot.localizedName).tag(foot.rawValue.lowercased())
                         }
                     }
 
-                    Stepper("Years Playing: \(yearsPlaying)", value: $yearsPlaying, in: 0...50)
+                    Stepper("\("profile.yearsPlaying".localized): \(yearsPlaying)", value: $yearsPlaying, in: 0...50)
                 }
 
                 // Training Goals
-                Section("Training Goals") {
-                    Stepper("Weekly Goal: \(weeklyGoal) sessions", value: $weeklyGoal, in: 1...7)
+                Section("profile.trainingGoals".localized) {
+                    Stepper("\("profile.weeklyGoal".localized): \(weeklyGoal) \("profile.sessionsPerWeek".localized)", value: $weeklyGoal, in: 1...7)
+                }
+
+                // Language Settings
+                Section {
+                    Picker("profile.language".localized, selection: $selectedLanguage) {
+                        ForEach(AppLanguage.allCases) { language in
+                            HStack {
+                                Text(language.flag)
+                                Text(language.displayName)
+                            }
+                            .tag(language)
+                        }
+                    }
+                } header: {
+                    Label("profile.language".localized, systemImage: "globe")
+                } footer: {
+                    Text("profile.languageFooter".localized)
                 }
 
                 // Notification Settings
                 Section {
-                    Toggle("Enable Notifications", isOn: $notificationsEnabled)
+                    Toggle("profile.enableNotifications".localized, isOn: $notificationsEnabled)
                 } header: {
-                    Label("Notifications", systemImage: "bell.fill")
+                    Label("profile.notifications".localized, systemImage: "bell.fill")
                 }
 
                 if notificationsEnabled {
                     Section {
-                        Toggle("Inactivity Reminders", isOn: $inactivityRemindersEnabled)
+                        Toggle("profile.inactivityReminders".localized, isOn: $inactivityRemindersEnabled)
 
                         if inactivityRemindersEnabled {
-                            Stepper("Remind after \(inactivityDaysThreshold) days", value: $inactivityDaysThreshold, in: 1...7)
+                            Stepper("profile.remindAfterDays".localized(with: inactivityDaysThreshold), value: $inactivityDaysThreshold, in: 1...7)
                         }
                     } header: {
-                        Text("Stay Active")
+                        Text("profile.stayActive".localized)
                     } footer: {
-                        Text("Get a gentle nudge when you haven't trained in a while")
+                        Text("profile.stayActiveFooter".localized)
                     }
 
                     Section {
-                        Toggle("Weekly Goal Reminders", isOn: $weeklyGoalRemindersEnabled)
+                        Toggle("profile.weeklyGoalReminders".localized, isOn: $weeklyGoalRemindersEnabled)
                     } header: {
-                        Text("Goal Progress")
+                        Text("profile.goalProgress".localized)
                     } footer: {
-                        Text("Get reminders mid-week about your progress toward your weekly goal")
+                        Text("profile.goalProgressFooter".localized)
                     }
 
                     Section {
-                        DatePicker("Reminder Time", selection: $reminderTime, displayedComponents: .hourAndMinute)
+                        DatePicker("profile.reminderTime".localized, selection: $reminderTime, displayedComponents: .hourAndMinute)
                     } footer: {
-                        Text("When to receive smart reminders")
+                        Text("profile.reminderTimeFooter".localized)
                     }
                 }
             }
-            .navigationTitle("Edit Profile")
+            .navigationTitle("profile.editProfile".localized)
             #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
             #endif
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") {
+                    Button("common.cancel".localized) {
                         dismiss()
                     }
                 }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Save") {
+                    Button("common.save".localized) {
                         saveProfile()
                         dismiss()
                     }
                 }
             }
+            .observeLanguageChanges()
             .onAppear {
                 loadProfileData()
             }
@@ -588,6 +612,9 @@ struct EditProfileView: View {
         inactivityDaysThreshold = profile.inactivityDaysThreshold
         weeklyGoalRemindersEnabled = profile.weeklyGoalRemindersEnabled
         reminderTime = profile.reminderTime
+
+        // Language
+        selectedLanguage = profile.language
     }
 
     private func saveProfile() {
@@ -606,6 +633,10 @@ struct EditProfileView: View {
         profile.inactivityDaysThreshold = inactivityDaysThreshold
         profile.weeklyGoalRemindersEnabled = weeklyGoalRemindersEnabled
         profile.reminderTime = reminderTime
+
+        // Language
+        profile.language = selectedLanguage
+        LocalizationManager.shared.setLanguage(selectedLanguage)
 
         // Update smart reminders with new settings
         Task {
@@ -659,7 +690,7 @@ struct ActivityStatsRow: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("Activity Breakdown")
+            Text("profile.activityBreakdown".localized)
                 .font(.headline)
                 .padding(.horizontal, 4)
 
@@ -669,7 +700,7 @@ struct ActivityStatsRow: View {
             ], spacing: 12) {
                 if stats.totalGymSessions > 0 {
                     ActivityStatCard(
-                        title: "Gym",
+                        title: "profile.gym".localized,
                         count: stats.totalGymSessions,
                         icon: "dumbbell.fill",
                         color: .purple
@@ -678,7 +709,7 @@ struct ActivityStatsRow: View {
 
                 if stats.totalGames > 0 {
                     ActivityStatCard(
-                        title: "Games",
+                        title: "profile.games".localized,
                         count: stats.totalGames,
                         icon: "sportscourt.fill",
                         color: .green
@@ -687,7 +718,7 @@ struct ActivityStatsRow: View {
 
                 if stats.totalCardio > 0 {
                     ActivityStatCard(
-                        title: "Cardio",
+                        title: "profile.cardio".localized,
                         count: stats.totalCardio,
                         icon: "figure.run.circle.fill",
                         color: .red
@@ -696,7 +727,7 @@ struct ActivityStatsRow: View {
 
                 if stats.totalRecovery > 0 {
                     ActivityStatCard(
-                        title: "Recovery",
+                        title: "profile.recovery".localized,
                         count: stats.totalRecovery,
                         icon: "heart.circle.fill",
                         color: .orange
@@ -708,7 +739,7 @@ struct ActivityStatsRow: View {
                 HStack {
                     Image(systemName: "calendar.badge.checkmark")
                         .foregroundStyle(.blue)
-                    Text("\(stats.thisWeekActivities) activities this week")
+                    Text("\(stats.thisWeekActivities) \("profile.activitiesThisWeek".localized)")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }

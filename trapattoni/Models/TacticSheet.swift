@@ -52,6 +52,15 @@ enum FieldType: String, Codable, CaseIterable {
         case .penaltyBox: return 1.1   // Penalty area (wider than tall)
         }
     }
+
+    var localizedName: String {
+        switch self {
+        case .fullField: return "tactics.fullField".localized
+        case .halfField: return "tactics.halfField".localized
+        case .thirdField: return "tactics.thirdField".localized
+        case .penaltyBox: return "tactics.penaltyArea".localized
+        }
+    }
 }
 
 // MARK: - Board Element
@@ -290,6 +299,22 @@ enum BoardTool: String, CaseIterable, Identifiable {
     case eraser = "Eraser"
 
     var id: String { rawValue }
+
+    var localizedName: String {
+        switch self {
+        case .select: return "tactics.select".localized
+        case .player: return "tactics.player".localized
+        case .goalkeeper: return "tactics.goalkeeper".localized
+        case .ball: return "tactics.ball".localized
+        case .equipment: return "tactics.equipment".localized
+        case .arrow: return "tactics.arrow".localized
+        case .line: return "tactics.line".localized
+        case .curvedArrow: return "tactics.curved".localized
+        case .zone: return "tactics.zone".localized
+        case .freehand: return "tactics.draw".localized
+        case .eraser: return "tactics.eraser".localized
+        }
+    }
 
     var icon: String {
         switch self {

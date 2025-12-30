@@ -68,6 +68,19 @@ final class Exercise {
         }
     }
 
+    /// Returns localized name if stored value is a translation key, otherwise returns raw name
+    var localizedName: String {
+        let translated = name.localized
+        // If translation exists (different from key), use it; otherwise use raw name
+        return translated != name ? translated : name
+    }
+
+    /// Returns localized description if stored value is a translation key, otherwise returns raw description
+    var localizedDescription: String {
+        let translated = exerciseDescription.localized
+        return translated != exerciseDescription ? translated : exerciseDescription
+    }
+
     // MARK: - Initializer
     init(
         name: String,

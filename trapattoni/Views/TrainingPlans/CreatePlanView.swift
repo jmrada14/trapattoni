@@ -30,18 +30,18 @@ struct CreatePlanView: View {
         NavigationStack {
             Form {
                 // Plan Details
-                Section("Plan Details") {
-                    TextField("Plan Name", text: $name)
+                Section("createPlan.details".localized) {
+                    TextField("createPlan.name".localized, text: $name)
 
-                    TextField("Description (optional)", text: $description, axis: .vertical)
+                    TextField("createPlan.descriptionOptional".localized, text: $description, axis: .vertical)
                         .lineLimit(2...4)
 
-                    Stepper("Duration: \(durationWeeks) weeks", value: $durationWeeks, in: 1...12)
+                    Stepper("createPlan.duration".localized(with: durationWeeks), value: $durationWeeks, in: 1...12)
                         .onChange(of: durationWeeks) {
                             adjustWeekSessions()
                         }
 
-                    Stepper("Target: \(sessionsPerWeek)x per week", value: $sessionsPerWeek, in: 1...7)
+                    Stepper("createPlan.target".localized(with: sessionsPerWeek), value: $sessionsPerWeek, in: 1...7)
                 }
 
                 // Sessions Per Week
@@ -55,7 +55,7 @@ struct CreatePlanView: View {
                                     Image(systemName: session.templateType.iconName)
                                         .foregroundStyle(.blue)
 
-                                    Text(session.name)
+                                    Text(session.localizedName)
 
                                     Spacer()
 
@@ -71,7 +71,7 @@ struct CreatePlanView: View {
                         }
 
                         if availableSessions.isEmpty {
-                            Text("Create some training sessions first")
+                            Text("createPlan.createSessionsFirst".localized)
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                         } else {
@@ -80,19 +80,19 @@ struct CreatePlanView: View {
                                     Button {
                                         addSession(session, to: week)
                                     } label: {
-                                        Label(session.name, systemImage: session.templateType.iconName)
+                                        Label(session.localizedName, systemImage: session.templateType.iconName)
                                     }
                                 }
                             } label: {
-                                Label("Add Session", systemImage: "plus.circle")
+                                Label("createPlan.addSession".localized, systemImage: "plus.circle")
                             }
                         }
                     } header: {
                         HStack {
-                            Text("Week \(week)")
+                            Text("createPlan.weekNumber".localized(with: week))
                             Spacer()
                             if (week - 1) < weekSessions.count && !weekSessions[week - 1].isEmpty {
-                                Text("\(weekSessions[week - 1].count) session\(weekSessions[week - 1].count == 1 ? "" : "s")")
+                                Text("createPlan.sessionCount".localized(with: weekSessions[week - 1].count))
                                     .font(.caption)
                                     .foregroundStyle(.secondary)
                             }
@@ -103,35 +103,36 @@ struct CreatePlanView: View {
                 // Summary
                 if totalSessions > 0 {
                     Section {
-                        LabeledContent("Total Sessions") {
+                        LabeledContent("createPlan.totalSessions".localized) {
                             Text("\(totalSessions)")
                         }
 
-                        LabeledContent("Avg. per Week") {
+                        LabeledContent("createPlan.avgPerWeek".localized) {
                             Text(String(format: "%.1f", Double(totalSessions) / Double(durationWeeks)))
                         }
                     } header: {
-                        Text("Summary")
+                        Text("createPlan.summary".localized)
                     }
                 }
             }
-            .navigationTitle("New Plan")
+            .navigationTitle("createPlan.title".localized)
             #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
             #endif
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") { dismiss() }
+                    Button("common.cancel".localized) { dismiss() }
                 }
 
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Create") { savePlan() }
+                    Button("createPlan.create".localized) { savePlan() }
                         .disabled(!isValid)
                 }
             }
             .onAppear {
                 initializeWeekSessions()
             }
+            .observeLanguageChanges()
         }
     }
 

@@ -1190,7 +1190,7 @@ final class LocalizationManager {
             "tactics.player": "Jugador",
             "tactics.goalkeeper": "Portero",
             "tactics.ball": "Balón",
-            "tactics.equipment": "Equipo",
+            "tactics.equipment": "Equipamiento",
             "tactics.arrow": "Flecha",
             "tactics.line": "Línea",
             "tactics.curved": "Curva",

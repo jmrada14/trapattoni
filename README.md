@@ -21,6 +21,7 @@ Named after Giovanni Trapattoni, the legendary Italian football manager.
 - Focused, football-specific training templates for all levels.
 - Combine tactical drawing and session execution in one native app.
 - Offline-first local persistence with SwiftData — your data stays on device.
+- Multi-language support: English, Spanish, and Portuguese.
 
 ## Features
 
@@ -80,6 +81,19 @@ Monitor your training consistency:
 - Time trained metrics
 - Category breakdown charts
 - Exercise history and ratings
+
+### Multi-Language Support
+The app is fully localized in three languages:
+- **English** (default)
+- **Spanish** (Español)
+- **Portuguese** (Português)
+
+All content updates instantly when you change the language in Settings — no restart required. This includes:
+- All UI labels and buttons
+- Exercise names and descriptions (50+ exercises)
+- Training session templates
+- Training plan names and descriptions
+- Categories, skill levels, and equipment names
 
 ### Feature screenshots (macOS | iOS)
 
@@ -204,6 +218,7 @@ trapattoni/
 ├── Services/
 │   ├── ExerciseDataSeeder.swift # Seeds initial exercises
 │   ├── PlanDataSeeder.swift     # Seeds starter plans
+│   ├── LocalizationManager.swift# Multi-language support (EN/ES/PT)
 │   ├── NotificationService.swift# Push notifications
 │   └── StatsService.swift       # Statistics calculations
 └── Extensions/

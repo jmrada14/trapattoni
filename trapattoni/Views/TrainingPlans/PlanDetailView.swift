@@ -304,23 +304,34 @@ struct PlanDetailView: View {
     }
 
     private func deletePlan() {
-        // Get all session IDs from the plan before deleting
-        let sessionIds = plan.sessions.map { $0.sessionId }
+        let planId = plan.id
 
-        // Delete associated calendar events
-        for sessionId in sessionIds {
-            let descriptor = FetchDescriptor<ScheduledActivity>(
-                predicate: #Predicate<ScheduledActivity> { $0.linkedSessionId == sessionId }
-            )
-            if let activities = try? modelContext.fetch(descriptor) {
-                for activity in activities {
-                    modelContext.delete(activity)
+        // Find all scheduled activities linked to this plan
+        let descriptor = FetchDescriptor<ScheduledActivity>(
+            predicate: #Predicate<ScheduledActivity> { $0.linkedPlanId == planId }
+        )
+
+        if let activities = try? modelContext.fetch(descriptor) {
+            // Collect calendar event IDs to delete from phone calendar
+            let eventIds = activities.compactMap { $0.calendarEventId }
+
+            // Delete from phone calendar first, then from SwiftData
+            Task {
+                await CalendarService.shared.deleteEvents(eventIdentifiers: eventIds)
+
+                await MainActor.run {
+                    for activity in activities {
+                        modelContext.delete(activity)
+                    }
+                    modelContext.delete(plan)
+                    dismiss()
                 }
             }
+        } else {
+            // No activities to delete, just delete the plan
+            modelContext.delete(plan)
+            dismiss()
         }
-
-        modelContext.delete(plan)
-        dismiss()
     }
 
     private func countScheduledActivities() {
@@ -337,18 +348,24 @@ struct PlanDetailView: View {
             predicate: #Predicate<ScheduledActivity> { $0.linkedPlanId == planId }
         )
 
-        if let activities = try? modelContext.fetch(descriptor) {
-            for activity in activities {
-                // Remove from device calendar if synced
-                if let eventId = activity.calendarEventId {
-                    Task {
-                        await CalendarService.shared.deleteEvent(eventIdentifier: eventId)
-                    }
+        guard let activities = try? modelContext.fetch(descriptor) else { return }
+
+        // Collect all calendar event IDs to delete
+        let eventIds = activities.compactMap { $0.calendarEventId }
+
+        // Delete from device calendar first, then from SwiftData
+        Task {
+            // Delete all calendar events
+            await CalendarService.shared.deleteEvents(eventIdentifiers: eventIds)
+
+            // Then delete from SwiftData on main actor
+            await MainActor.run {
+                for activity in activities {
+                    modelContext.delete(activity)
                 }
-                modelContext.delete(activity)
+                scheduledActivitiesCount = 0
             }
         }
-        scheduledActivitiesCount = 0
     }
 
     private func startPlan() {
@@ -613,16 +630,16 @@ struct SchedulePlanToCalendarSheet: View {
                 dateComponents.minute = timeComponents.minute
                 sessionDate = calendar.date(from: dateComponents) ?? sessionDate
 
-                // Create the activity
+                // Create the activity with localized names
                 let activity = ScheduledActivity(
-                    title: session.sessionName,
+                    title: session.localizedSessionName,
                     type: .training,
                     scheduledDate: sessionDate,
                     durationMinutes: 60,
-                    notes: "Part of plan: \(plan.localizedName) - Week \(weekNumber)"
+                    notes: "\("plan.partOf".localized): \(plan.localizedName) - \("plans.week".localized) \(weekNumber)"
                 )
                 activity.linkedSessionId = session.sessionId
-                activity.linkedSessionName = session.sessionName
+                activity.linkedSessionName = session.localizedSessionName
                 activity.linkedPlanId = plan.id
 
                 modelContext.insert(activity)

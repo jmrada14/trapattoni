@@ -225,8 +225,34 @@ struct SessionDetailView: View {
     }
 
     private func deleteSession() {
-        modelContext.delete(session)
-        dismiss()
+        let sessionId = session.id
+
+        // Find all scheduled activities linked to this session
+        let descriptor = FetchDescriptor<ScheduledActivity>(
+            predicate: #Predicate<ScheduledActivity> { $0.linkedSessionId == sessionId }
+        )
+
+        if let activities = try? modelContext.fetch(descriptor) {
+            // Collect calendar event IDs to delete from phone calendar
+            let eventIds = activities.compactMap { $0.calendarEventId }
+
+            // Delete from phone calendar first, then from SwiftData
+            Task {
+                await CalendarService.shared.deleteEvents(eventIdentifiers: eventIds)
+
+                await MainActor.run {
+                    for activity in activities {
+                        modelContext.delete(activity)
+                    }
+                    modelContext.delete(session)
+                    dismiss()
+                }
+            }
+        } else {
+            // No activities to delete, just delete the session
+            modelContext.delete(session)
+            dismiss()
+        }
     }
 }
 

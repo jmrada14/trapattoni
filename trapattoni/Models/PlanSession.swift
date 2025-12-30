@@ -16,6 +16,11 @@ final class PlanSession {
 
     // MARK: - Computed Properties
 
+    var localizedSessionName: String {
+        let translated = sessionName.localized
+        return translated != sessionName ? translated : sessionName
+    }
+
     var isCompleted: Bool {
         completedAt != nil
     }

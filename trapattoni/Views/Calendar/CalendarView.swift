@@ -540,16 +540,16 @@ struct SchedulePlanSheet: View {
                 dateComponents.minute = timeComponents.minute
                 sessionDate = calendar.date(from: dateComponents) ?? sessionDate
 
-                // Create the activity
+                // Create the activity with localized names
                 let activity = ScheduledActivity(
-                    title: session.sessionName,
+                    title: session.localizedSessionName,
                     type: .training,
                     scheduledDate: sessionDate,
                     durationMinutes: 60,
-                    notes: "Part of plan: \(plan.localizedName) - Week \(weekNumber)"
+                    notes: "\("plan.partOf".localized): \(plan.localizedName) - \("plans.week".localized) \(weekNumber)"
                 )
                 activity.linkedSessionId = session.sessionId
-                activity.linkedSessionName = session.sessionName
+                activity.linkedSessionName = session.localizedSessionName
                 activity.linkedPlanId = plan.id
                 modelContext.insert(activity)
 

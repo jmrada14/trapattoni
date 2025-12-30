@@ -529,8 +529,8 @@ enum PlanDataSeeder {
 
         // PLAN 7: Speed & Agility Focus (6 weeks, 4x/week)
         let speedAgilityPlan = TrainingPlan(
-            name: "starterPlan.speedAgility.name",
-            description: "starterPlan.speedAgility.desc",
+            name: "starterPlan.speedAgilityFocus.name",
+            description: "starterPlan.speedAgilityFocus.desc",
             durationWeeks: 6,
             targetSessionsPerWeek: 4,
             isPrebuilt: true

@@ -189,23 +189,34 @@ struct TrainingPlansView: View {
     }
 
     private func deletePlan(_ plan: TrainingPlan) {
-        // Get all session IDs from the plan before deleting
-        let sessionIds = plan.sessions.map { $0.sessionId }
+        let planId = plan.id
 
-        // Delete associated calendar events
-        for sessionId in sessionIds {
-            let descriptor = FetchDescriptor<ScheduledActivity>(
-                predicate: #Predicate<ScheduledActivity> { $0.linkedSessionId == sessionId }
-            )
-            if let activities = try? modelContext.fetch(descriptor) {
-                for activity in activities {
-                    modelContext.delete(activity)
+        // Find all scheduled activities linked to this plan
+        let descriptor = FetchDescriptor<ScheduledActivity>(
+            predicate: #Predicate<ScheduledActivity> { $0.linkedPlanId == planId }
+        )
+
+        if let activities = try? modelContext.fetch(descriptor) {
+            // Collect calendar event IDs to delete from phone calendar
+            let eventIds = activities.compactMap { $0.calendarEventId }
+
+            // Delete from phone calendar first, then from SwiftData
+            Task {
+                await CalendarService.shared.deleteEvents(eventIdentifiers: eventIds)
+
+                await MainActor.run {
+                    for activity in activities {
+                        modelContext.delete(activity)
+                    }
+                    modelContext.delete(plan)
+                    planToDelete = nil
                 }
             }
+        } else {
+            // No activities to delete, just delete the plan
+            modelContext.delete(plan)
+            planToDelete = nil
         }
-
-        modelContext.delete(plan)
-        planToDelete = nil
     }
 
     private func duplicatePlan(_ plan: TrainingPlan) {

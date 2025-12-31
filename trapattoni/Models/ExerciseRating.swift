@@ -19,6 +19,13 @@ final class ExerciseRating {
         ExerciseCategory(rawValue: exerciseCategoryRaw) ?? .dribbling
     }
 
+    /// Returns localized exercise name if stored value is a translation key, otherwise returns raw name
+    var localizedExerciseName: String {
+        let translated = exerciseName.localized
+        // If translation exists (different from key), use it; otherwise use raw name
+        return translated != exerciseName ? translated : exerciseName
+    }
+
     var ratingStars: String {
         String(repeating: "★", count: rating) + String(repeating: "☆", count: 5 - rating)
     }

@@ -271,7 +271,7 @@ struct SessionExerciseRow: View {
             CategoryIconView(category: exercise.exerciseCategory, size: .small)
 
             VStack(alignment: .leading, spacing: 2) {
-                Text(exercise.exerciseName)
+                Text(exercise.localizedExerciseName)
                     .font(.headline)
 
                 HStack(spacing: 8) {
@@ -325,7 +325,7 @@ struct EditSessionView: View {
                             HStack {
                                 Text("\(exercise.orderIndex + 1).")
                                     .foregroundStyle(.secondary)
-                                Text(exercise.exerciseName)
+                                Text(exercise.localizedExerciseName)
                                 Spacer()
                                 Text(exercise.durationFormatted)
                                     .foregroundStyle(.secondary)

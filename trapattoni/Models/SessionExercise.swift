@@ -23,6 +23,13 @@ final class SessionExercise {
         ExerciseCategory(rawValue: exerciseCategoryRaw) ?? .dribbling
     }
 
+    /// Returns localized exercise name if stored value is a translation key, otherwise returns raw name
+    var localizedExerciseName: String {
+        let translated = exerciseName.localized
+        // If translation exists (different from key), use it; otherwise use raw name
+        return translated != exerciseName ? translated : exerciseName
+    }
+
     var durationFormatted: String {
         let minutes = durationSeconds / 60
         let seconds = durationSeconds % 60

@@ -222,7 +222,7 @@ struct SessionExecutionView: View {
                 CategoryIconView(category: exercise.exerciseCategory, size: .large)
             }
 
-            Text(exercise.exerciseName)
+            Text(exercise.localizedExerciseName)
                 .font(compact ? .headline : .title2)
                 .fontWeight(.semibold)
                 .multilineTextAlignment(.center)
@@ -231,7 +231,7 @@ struct SessionExecutionView: View {
             // Exercise description (portrait only)
             if !compact,
                timerService.state == .exerciseActive || timerService.state == .paused,
-               let description = fullExercise?.exerciseDescription, !description.isEmpty {
+               let description = fullExercise?.localizedDescription, !description.isEmpty {
                 ScrollView {
                     Text(description)
                         .font(.subheadline)
@@ -243,7 +243,7 @@ struct SessionExecutionView: View {
             }
 
             if timerService.state == .restPeriod, let next = timerService.nextExercise {
-                Text("Next: \(next.exerciseName)")
+                Text("Next: \(next.localizedExerciseName)")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
             }
@@ -438,12 +438,12 @@ struct SessionExecutionView: View {
             case .exerciseActive:
                 TimerAlertService.shared.playExerciseCompleteAlert()
                 VoiceAnnouncementService.shared.announceRestStart(
-                    nextExerciseName: timerService.nextExercise?.exerciseName
+                    nextExerciseName: timerService.nextExercise?.localizedExerciseName
                 )
             case .restPeriod:
                 TimerAlertService.shared.playRestCompleteAlert()
                 if let exercise = timerService.currentExercise {
-                    VoiceAnnouncementService.shared.announceExerciseStart(name: exercise.exerciseName)
+                    VoiceAnnouncementService.shared.announceExerciseStart(name: exercise.localizedExerciseName)
                 }
             default:
                 break
@@ -461,7 +461,7 @@ struct SessionExecutionView: View {
         DispatchQueue.main.asyncAfter(deadline: .now() + startDelay) { [self] in
             // Announce first exercise
             if let firstExercise = session.sortedExercises.first {
-                VoiceAnnouncementService.shared.announceExerciseStart(name: firstExercise.exerciseName)
+                VoiceAnnouncementService.shared.announceExerciseStart(name: firstExercise.localizedExerciseName)
             }
 
             // Start timer after exercise name is announced
@@ -538,7 +538,7 @@ struct SessionExecutionView: View {
         content.title = timerService.state == .exerciseActive ? "Exercise Complete" : "Rest Over"
         content.body = timerService.state == .exerciseActive
             ? "Time for a rest break!"
-            : "Ready for the next exercise: \(timerService.nextExercise?.exerciseName ?? "Continue")"
+            : "Ready for the next exercise: \(timerService.nextExercise?.localizedExerciseName ?? "Continue")"
         content.sound = .default
 
         let trigger = UNTimeIntervalNotificationTrigger(
@@ -616,7 +616,7 @@ struct ExerciseRatingSheet: View {
                     Text("rating.howDidYouDo".localized)
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
-                    Text(exercise.exerciseName)
+                    Text(exercise.localizedExerciseName)
                         .font(.headline)
                         .lineLimit(2)
                 }

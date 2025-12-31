@@ -49,7 +49,7 @@ struct ExerciseHistoryView: View {
         var stats: [ExerciseStats] = []
 
         for (exerciseId, ratings) in grouped {
-            let exerciseName = ratings.first?.exerciseName ?? "Unknown"
+            let exerciseName = ratings.first?.localizedExerciseName ?? "Unknown"
             let category = ratings.first?.exerciseCategory ?? .dribbling
 
             // Skip if filtered by category

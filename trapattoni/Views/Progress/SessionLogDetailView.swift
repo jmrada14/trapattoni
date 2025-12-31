@@ -94,7 +94,7 @@ struct RatingRow: View {
             CategoryIconView(category: rating.exerciseCategory, size: .small)
 
             VStack(alignment: .leading, spacing: 2) {
-                Text(rating.exerciseName)
+                Text(rating.localizedExerciseName)
                     .font(.subheadline)
 
                 if !rating.notes.isEmpty {

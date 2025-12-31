@@ -417,7 +417,7 @@ struct PlanSessionRowView: View {
                     .foregroundStyle(planSession.isCompleted ? .green : isCurrentWeek ? .blue : .secondary)
 
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(planSession.sessionName)
+                    Text(planSession.localizedSessionName)
                         .font(.headline)
                         .foregroundStyle(planSession.isCompleted ? .secondary : .primary)
                         .strikethrough(planSession.isCompleted)

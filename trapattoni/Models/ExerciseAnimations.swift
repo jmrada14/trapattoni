@@ -7,122 +7,122 @@ struct ExerciseAnimationBuilder {
     // MARK: - Main Builder
 
     static func buildScene(for exercise: Exercise) -> TacticalScene {
-        // Look up by exact exercise name
+        // Look up by exercise name - supports both translation keys and legacy English names
         switch exercise.name {
         // MARK: - Dribbling Exercises
-        case "Cone Weave Dribbling":
+        case "exercise.coneWeaveDribbling.name", "Cone Weave Dribbling":
             return coneWeaveDribbling()
-        case "Speed Dribble Sprints":
+        case "exercise.speedDribbleSprints.name", "Speed Dribble Sprints":
             return speedDribbleSprints()
-        case "Figure 8 Dribbling":
+        case "exercise.figure8Dribbling.name", "Figure 8 Dribbling":
             return figure8Dribbling()
-        case "La Croqueta":
+        case "exercise.laCroqueta.name", "La Croqueta":
             return laCroqueta()
-        case "1v1 Dribbling Battles":
+        case "exercise.1v1DribblingBattles.name", "1v1 Dribbling Battles":
             return oneVOneDribblingBattles()
-        case "Shadow Dribbling":
+        case "exercise.shadowDribbling.name", "Shadow Dribbling":
             return shadowDribbling()
-        case "Dribbling Relay Race":
+        case "exercise.dribblingRelayRace.name", "Dribbling Relay Race":
             return dribblingRelayRace()
-        case "Keep Ball (Rondo)":
+        case "exercise.keepBall(rondo).name", "exercise.keepBallRondo.name", "Keep Ball (Rondo)":
             return keepBallRondo()
 
         // MARK: - Passing Exercises
-        case "Wall Passing Repetitions":
+        case "exercise.wallPassingRepetitions.name", "Wall Passing Repetitions":
             return wallPassingRepetitions()
-        case "Rebounder Passing":
+        case "exercise.rebounderPassing.name", "Rebounder Passing":
             return rebounderPassing()
-        case "Partner Passing Sequence":
+        case "exercise.partnerPassingSequence.name", "Partner Passing Sequence":
             return partnerPassingSequence()
-        case "Triangle Passing":
+        case "exercise.trianglePassing.name", "Triangle Passing":
             return trianglePassing()
-        case "Give and Go (Wall Pass)":
+        case "exercise.giveAndGo(wallPass).name", "exercise.giveAndGo.name", "Give and Go (Wall Pass)":
             return giveAndGo()
-        case "Long Ball Practice":
+        case "exercise.longBallPractice.name", "Long Ball Practice":
             return longBallPractice()
-        case "One-Touch Passing Squares":
+        case "exercise.oneTouchPassingSquares.name", "One-Touch Passing Squares":
             return oneTouchPassingSquares()
-        case "Possession Grid":
+        case "exercise.possessionGrid.name", "Possession Grid":
             return possessionGrid()
 
         // MARK: - Shooting Exercises
-        case "Finesse Shooting":
+        case "exercise.finesseShooting.name", "Finesse Shooting":
             return finesseShooting()
-        case "Power Shots":
+        case "exercise.powerShots.name", "Power Shots":
             return powerShots()
-        case "Volley Practice":
+        case "exercise.volleyPractice.name", "Volley Practice":
             return volleyPractice()
-        case "Shooting Under Pressure":
+        case "exercise.shootingUnderPressure.name", "Shooting Under Pressure":
             return shootingUnderPressure()
-        case "Crossing and Finishing":
+        case "exercise.crossingAndFinishing.name", "Crossing and Finishing":
             return crossingAndFinishing()
-        case "Shooting Circuit":
+        case "exercise.shootingCircuit.name", "Shooting Circuit":
             return shootingCircuit()
-        case "Small-Sided Finishing Game":
+        case "exercise.smallSidedFinishingGame.name", "Small-Sided Finishing Game":
             return smallSidedFinishingGame()
 
         // MARK: - First Touch Exercises
-        case "Cushion Control":
+        case "exercise.cushionControl.name", "Cushion Control":
             return cushionControl()
-        case "Trap and Turn":
+        case "exercise.trapAndTurn.name", "Trap and Turn":
             return trapAndTurn()
-        case "Aerial Control":
+        case "exercise.aerialControl.name", "Aerial Control":
             return aerialControl()
-        case "First Touch Under Pressure":
+        case "exercise.firstTouchUnderPressure.name", "First Touch Under Pressure":
             return firstTouchUnderPressure()
-        case "Control and Combine":
+        case "exercise.controlAndCombine.name", "Control and Combine":
             return controlAndCombine()
 
         // MARK: - Fitness Exercises
-        case "Ladder Agility Drills":
+        case "exercise.ladderAgilityDrills.name", "Ladder Agility Drills":
             return ladderAgilityDrills()
-        case "Shuttle Runs":
+        case "exercise.shuttleRuns.name", "Shuttle Runs":
             return shuttleRuns()
-        case "Box Jumps":
+        case "exercise.boxJumps.name", "Box Jumps":
             return boxJumps()
-        case "Sprint Recovery Intervals":
+        case "exercise.sprintRecoveryIntervals.name", "Sprint Recovery Intervals":
             return sprintRecoveryIntervals()
-        case "Partner Sprint Races":
+        case "exercise.partnerSprintRaces.name", "Partner Sprint Races":
             return partnerSprintRaces()
-        case "Resistance Band Partner Runs":
+        case "exercise.resistanceBandPartnerRuns.name", "Resistance Band Partner Runs":
             return resistanceBandRuns()
-        case "Team Fitness Circuit":
+        case "exercise.teamFitnessCircuit.name", "Team Fitness Circuit":
             return teamFitnessCircuit()
 
         // MARK: - Goalkeeping Exercises
-        case "Diving Save Practice":
+        case "exercise.divingSavePractice.name", "Diving Save Practice":
             return divingSavePractice()
-        case "Distribution Practice":
+        case "exercise.distributionPractice.name", "Distribution Practice":
             return distributionPractice()
-        case "Shot Stopping Reactions":
+        case "exercise.shotStoppingReactions.name", "Shot Stopping Reactions":
             return shotStoppingReactions()
-        case "Goalkeeper Communication Drill":
+        case "exercise.goalkeeperCommunicationDrill.name", "Goalkeeper Communication Drill":
             return goalkeeperCommunication()
 
         // MARK: - Defending Exercises
-        case "1v1 Defending":
+        case "exercise.1v1Defending.name", "1v1 Defending":
             return oneVOneDefending()
-        case "Defensive Positioning":
+        case "exercise.defensivePositioning.name", "Defensive Positioning":
             return defensivePositioning()
-        case "Clearance Practice":
+        case "exercise.clearancePractice.name", "Clearance Practice":
             return clearancePractice()
-        case "2v2 Defending":
+        case "exercise.2v2Defending.name", "2v2 Defending":
             return twoVTwoDefending()
-        case "Pressing Triggers":
+        case "exercise.pressingTriggers.name", "Pressing Triggers":
             return pressingTriggers()
 
         // MARK: - Set Pieces Exercises
-        case "Free Kick Technique":
+        case "exercise.freeKickTechnique.name", "Free Kick Technique":
             return freeKickTechnique()
-        case "Corner Delivery":
+        case "exercise.cornerDelivery.name", "Corner Delivery":
             return cornerDelivery()
-        case "Penalty Practice":
+        case "exercise.penaltyPractice.name", "Penalty Practice":
             return penaltyPractice()
-        case "Throw-In Routines":
+        case "exercise.throwInRoutines.name", "Throw-In Routines":
             return throwInRoutines()
-        case "Set Piece Attacking Routines":
+        case "exercise.setPieceAttackingRoutines.name", "Set Piece Attacking Routines":
             return setPieceAttackingRoutines()
-        case "Defensive Set Piece Organization":
+        case "exercise.defensiveSetPieceOrganization.name", "Defensive Set Piece Organization":
             return defensiveSetPieceOrganization()
 
         default:

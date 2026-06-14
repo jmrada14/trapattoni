@@ -10,14 +10,6 @@ struct ElementRenderer {
     private static let coneSize: CGFloat = 10
     private static let equipmentSize: CGFloat = 18
 
-    // MARK: - Player Number Tracking
-
-    private static var playerNumberCounter: [PlayerRole: Int] = [:]
-
-    static func resetPlayerNumbers() {
-        playerNumberCounter = [:]
-    }
-
     // MARK: - Main Drawing
 
     /// Draw an element at its current position
@@ -28,16 +20,28 @@ struct ElementRenderer {
         in context: GraphicsContext,
         size: CGSize,
         scale: CGFloat = 1.0,
-        playerNumber: Int? = nil
+        playerNumber: Int? = nil,
+        time: TimeInterval = 0
     ) {
         let point = position.toPoint(in: size)
         let elementScale = element.scale * scale
+        let isMoving = element.movementPath != nil
 
         switch element.type {
         case .player(let role):
-            drawPlayer(context: context, at: point, role: role, scale: elementScale, number: playerNumber)
+            drawPlayer(
+                context: context,
+                at: point,
+                role: role,
+                scale: elementScale,
+                number: playerNumber,
+                direction: direction,
+                showDirection: isMoving
+            )
         case .ball:
-            drawBall(context: context, at: point, scale: elementScale)
+            // Spin the pattern while the ball travels so it looks like it's rolling
+            let spin = isMoving ? Angle(radians: time * 3.5) : .zero
+            drawBall(context: context, at: point, scale: elementScale, spin: spin)
         case .cone:
             drawCone(context: context, at: point, scale: elementScale)
         case .goal(let goalSize):
@@ -57,30 +61,6 @@ struct ElementRenderer {
         }
     }
 
-    /// Draw movement trail for an element
-    static func drawMovementTrail(
-        from startPosition: FieldPosition,
-        to endPosition: FieldPosition,
-        progress: CGFloat,
-        in context: GraphicsContext,
-        size: CGSize,
-        color: Color,
-        isDashed: Bool = false
-    ) {
-        let start = startPosition.toPoint(in: size)
-        let current = endPosition.interpolated(to: startPosition, progress: 1 - progress).toPoint(in: size)
-
-        var path = Path()
-        path.move(to: start)
-        path.addLine(to: current)
-
-        let style = isDashed
-            ? StrokeStyle(lineWidth: 2, dash: [4, 4])
-            : StrokeStyle(lineWidth: 2)
-
-        context.stroke(path, with: .color(color.opacity(0.4)), style: style)
-    }
-
     // MARK: - Player
 
     private static func drawPlayer(
@@ -88,9 +68,40 @@ struct ElementRenderer {
         at point: CGPoint,
         role: PlayerRole,
         scale: CGFloat,
-        number: Int? = nil
+        number: Int? = nil,
+        direction: Angle = .zero,
+        showDirection: Bool = false
     ) {
         let radius = playerRadius * scale
+
+        // Direction wedge behind the body, pointing where the player is heading
+        if showDirection {
+            let angle = CGFloat(direction.radians)
+            let tipDistance = radius * 1.65
+            let baseAngleOffset: CGFloat = 0.55
+
+            let tip = CGPoint(
+                x: point.x + cos(angle) * tipDistance,
+                y: point.y + sin(angle) * tipDistance
+            )
+            let baseLeft = CGPoint(
+                x: point.x + cos(angle - baseAngleOffset) * radius,
+                y: point.y + sin(angle - baseAngleOffset) * radius
+            )
+            let baseRight = CGPoint(
+                x: point.x + cos(angle + baseAngleOffset) * radius,
+                y: point.y + sin(angle + baseAngleOffset) * radius
+            )
+
+            var wedge = Path()
+            wedge.move(to: tip)
+            wedge.addLine(to: baseLeft)
+            wedge.addLine(to: baseRight)
+            wedge.closeSubpath()
+
+            context.fill(wedge, with: .color(role.color.opacity(0.85)))
+            context.stroke(wedge, with: .color(.white.opacity(0.7)), lineWidth: 1 * scale)
+        }
 
         // Outer glow/shadow for depth
         let glowPath = Path(ellipseIn: CGRect(
@@ -137,7 +148,12 @@ struct ElementRenderer {
 
     // MARK: - Ball
 
-    private static func drawBall(context: GraphicsContext, at point: CGPoint, scale: CGFloat) {
+    private static func drawBall(
+        context: GraphicsContext,
+        at point: CGPoint,
+        scale: CGFloat,
+        spin: Angle = .zero
+    ) {
         let radius = ballRadius * scale
 
         // Shadow
@@ -170,11 +186,11 @@ struct ElementRenderer {
         // Black outline
         context.stroke(ballPath, with: .color(.black), lineWidth: 1.5 * scale)
 
-        // Pentagon pattern (classic soccer ball look)
+        // Pentagon pattern (classic soccer ball look), rotated by spin
         let pentagonRadius = radius * 0.35
         var pentagonPath = Path()
         for i in 0..<5 {
-            let angle = CGFloat(i) * .pi * 2 / 5 - .pi / 2
+            let angle = CGFloat(i) * .pi * 2 / 5 - .pi / 2 + CGFloat(spin.radians)
             let x = point.x + cos(angle) * pentagonRadius
             let y = point.y + sin(angle) * pentagonRadius
             if i == 0 {

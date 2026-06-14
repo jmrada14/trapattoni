@@ -3,16 +3,55 @@ import SwiftUI
 /// Animated tactical board showing exercise visualization
 struct TacticalBoardView: View {
     let exercise: Exercise
-    var isCompact: Bool = false
+    let isCompact: Bool
+
+    // Scene geometry is static per exercise, so everything that doesn't
+    // depend on the current frame time is computed once here instead of
+    // inside the 60fps Canvas closure.
+    private let scene: TacticalScene
+    private let animationSpeed: AnimationSpeed
+    private let drawList: [(element: FieldElement, playerNumber: Int?)]
+    private let trails: [(points: [FieldPosition], color: Color, isDashed: Bool)]
 
     @State private var startTime: Date = Date()
 
-    private var scene: TacticalScene {
-        ExerciseAnimationBuilder.buildScene(for: exercise)
-    }
+    init(exercise: Exercise, isCompact: Bool = false) {
+        self.exercise = exercise
+        self.isCompact = isCompact
 
-    private var animationSpeed: AnimationSpeed {
-        AnimationSpeed(from: exercise.skillLevel)
+        let scene = ExerciseAnimationBuilder.buildScene(for: exercise)
+        self.scene = scene
+        self.animationSpeed = AnimationSpeed(from: exercise.skillLevel)
+
+        // Sort elements: equipment first, then players, then ball on top
+        let sorted = scene.elements.sorted {
+            Self.elementDrawOrder($0.type) < Self.elementDrawOrder($1.type)
+        }
+
+        // Number players per role (1, 2, 3...) in draw order
+        var playerNumbers: [String: Int] = [:]
+        self.drawList = sorted.map { element in
+            guard case .player(let role) = element.type else {
+                return (element, nil)
+            }
+            let number = (playerNumbers[role.rawValue] ?? 0) + 1
+            playerNumbers[role.rawValue] = number
+            return (element, number)
+        }
+
+        // Trails follow the actual motion (spline samples for curved paths)
+        self.trails = scene.elements.compactMap { element in
+            guard let path = element.movementPath, path.waypoints.count >= 2 else { return nil }
+
+            switch element.type {
+            case .player(let role):
+                return (AnimationEngine.trailPoints(for: path), role.color, false)
+            case .ball:
+                return (AnimationEngine.trailPoints(for: path), .white, true)
+            default:
+                return nil // Don't draw trails for equipment
+            }
+        }
     }
 
     var body: some View {
@@ -29,38 +68,28 @@ struct TacticalBoardView: View {
                 )
 
                 // Draw movement trails first (so they appear behind elements)
-                drawMovementTrails(
-                    scene: scene,
-                    elapsedTime: elapsedTime,
-                    context: context,
-                    size: size
-                )
-
-                // Draw animated elements
-                let animatedElements = AnimationEngine.animatedElements(
-                    for: scene,
-                    at: elapsedTime,
-                    speed: animationSpeed
-                )
-
-                // Sort elements: equipment first, then players, then ball on top
-                let sortedElements = animatedElements.sorted { e1, e2 in
-                    elementDrawOrder(e1.element.type) < elementDrawOrder(e2.element.type)
+                for trail in trails {
+                    drawPathTrail(
+                        points: trail.points,
+                        context: context,
+                        size: size,
+                        color: trail.color,
+                        isDashed: trail.isDashed
+                    )
                 }
 
-                // Track player numbers by role
-                var playerNumbers: [String: Int] = [:]
-
-                for (element, position, direction) in sortedElements {
-                    var playerNumber: Int? = nil
-
-                    // Assign numbers to players
-                    if case .player(let role) = element.type {
-                        let key = role.rawValue
-                        let num = (playerNumbers[key] ?? 0) + 1
-                        playerNumbers[key] = num
-                        playerNumber = num
-                    }
+                // Draw animated elements
+                for (element, playerNumber) in drawList {
+                    let position = AnimationEngine.currentPosition(
+                        for: element,
+                        at: elapsedTime,
+                        speed: animationSpeed
+                    )
+                    let direction = AnimationEngine.direction(
+                        for: element,
+                        at: elapsedTime,
+                        speed: animationSpeed
+                    )
 
                     ElementRenderer.drawElement(
                         element,
@@ -69,7 +98,8 @@ struct TacticalBoardView: View {
                         in: context,
                         size: size,
                         scale: scale,
-                        playerNumber: playerNumber
+                        playerNumber: playerNumber,
+                        time: elapsedTime
                     )
                 }
             }
@@ -85,7 +115,7 @@ struct TacticalBoardView: View {
     // MARK: - Drawing Helpers
 
     /// Determine draw order (lower = drawn first / behind)
-    private func elementDrawOrder(_ type: FieldElementType) -> Int {
+    private static func elementDrawOrder(_ type: FieldElementType) -> Int {
         switch type {
         case .goal: return 0
         case .wall, .rebounder: return 1
@@ -96,58 +126,21 @@ struct TacticalBoardView: View {
         }
     }
 
-    /// Draw faded movement trails for elements with paths
-    private func drawMovementTrails(
-        scene: TacticalScene,
-        elapsedTime: TimeInterval,
-        context: GraphicsContext,
-        size: CGSize
-    ) {
-        for element in scene.elements {
-            guard let movementPath = element.movementPath, movementPath.waypoints.count >= 2 else { continue }
-
-            // Determine trail color based on element type
-            let trailColor: Color
-            var isDashed: Bool = false
-
-            switch element.type {
-            case .player(let role):
-                trailColor = role.color
-            case .ball:
-                trailColor = .white
-                isDashed = true
-            default:
-                continue // Don't draw trails for equipment
-            }
-
-            // Draw the full movement path as a faded trail
-            drawPathTrail(
-                waypoints: movementPath.waypoints,
-                context: context,
-                size: size,
-                color: trailColor,
-                isDashed: isDashed
-            )
-        }
-    }
-
-    /// Draw a path trail connecting waypoints
+    /// Draw a faded trail through the sampled path points
     private func drawPathTrail(
-        waypoints: [FieldPosition],
+        points: [FieldPosition],
         context: GraphicsContext,
         size: CGSize,
         color: Color,
         isDashed: Bool
     ) {
-        guard waypoints.count >= 2 else { return }
+        guard points.count >= 2 else { return }
 
         var trailPath = Path()
-        let firstPoint = waypoints[0].toPoint(in: size)
-        trailPath.move(to: firstPoint)
+        trailPath.move(to: points[0].toPoint(in: size))
 
-        for i in 1..<waypoints.count {
-            let point = waypoints[i].toPoint(in: size)
-            trailPath.addLine(to: point)
+        for i in 1..<points.count {
+            trailPath.addLine(to: points[i].toPoint(in: size))
         }
 
         let style = isDashed

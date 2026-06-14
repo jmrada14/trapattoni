@@ -63,10 +63,17 @@ struct MovementPath: Identifiable, Sendable {
     let repeatBehavior: RepeatBehavior
     let pathType: PathType
 
+    /// Distance between consecutive waypoints, precomputed for
+    /// constant-speed (arc length) interpolation.
+    let segmentLengths: [CGFloat]
+    let totalLength: CGFloat
+
+    /// Whether the path returns to its starting point (closed loop)
+    let isClosed: Bool
+
     enum PathType: Sendable {
         case linear
         case curved
-        case zigzag
     }
 
     enum RepeatBehavior: Sendable {
@@ -85,25 +92,15 @@ struct MovementPath: Identifiable, Sendable {
         self.duration = duration
         self.repeatBehavior = repeatBehavior
         self.pathType = pathType
-    }
 
-    // Create a simple back-and-forth path
-    static func linear(from: FieldPosition, to: FieldPosition, duration: TimeInterval = 2.0) -> MovementPath {
-        MovementPath(waypoints: [from, to], duration: duration, repeatBehavior: .pingPong, pathType: .linear)
-    }
-
-    // Create a circular/loop path
-    static func loop(points: [FieldPosition], duration: TimeInterval = 4.0) -> MovementPath {
-        var waypoints = points
-        if let first = points.first {
-            waypoints.append(first) // Close the loop
+        var lengths: [CGFloat] = []
+        lengths.reserveCapacity(max(waypoints.count - 1, 0))
+        for i in 0..<max(waypoints.count - 1, 0) {
+            lengths.append(waypoints[i].distance(to: waypoints[i + 1]))
         }
-        return MovementPath(waypoints: waypoints, duration: duration, repeatBehavior: .loop, pathType: .curved)
-    }
-
-    // Create a zigzag path through cones
-    static func zigzag(points: [FieldPosition], duration: TimeInterval = 3.0) -> MovementPath {
-        MovementPath(waypoints: points, duration: duration, repeatBehavior: .pingPong, pathType: .zigzag)
+        self.segmentLengths = lengths
+        self.totalLength = lengths.reduce(0, +)
+        self.isClosed = waypoints.count > 2 && waypoints.first == waypoints.last
     }
 }
 

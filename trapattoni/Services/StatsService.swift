@@ -23,14 +23,6 @@ struct StatsService {
         var thisWeekActivities: Int
     }
 
-    struct ActivityStats {
-        var type: ActivityType
-        var totalCount: Int
-        var totalMinutes: Int
-        var thisWeekCount: Int
-        var thisMonthCount: Int
-    }
-
     struct CategoryProgress: Identifiable {
         var id: String { category.rawValue }
         var category: ExerciseCategory
@@ -51,13 +43,6 @@ struct StatsService {
                 }
             }
         }
-    }
-
-    struct WeeklyStats {
-        var weekStart: Date
-        var sessionsCompleted: Int
-        var totalMinutes: Int
-        var exercisesCompleted: Int
     }
 
     // MARK: - Properties
@@ -152,87 +137,6 @@ struct StatsService {
 
         var components = logs.compactMap { log -> DateComponents? in
             guard let date = log.completedAt else { return nil }
-            return calendar.dateComponents([.year, .month, .day], from: date)
-        }
-
-        if let month = month {
-            let targetMonth = calendar.component(.month, from: month)
-            let targetYear = calendar.component(.year, from: month)
-            components = components.filter {
-                $0.month == targetMonth && $0.year == targetYear
-            }
-        }
-
-        return Set(components)
-    }
-
-    func getWeeklyStats(weeks: Int = 4) throws -> [WeeklyStats] {
-        let logs = try fetchCompletedLogs()
-        let calendar = Calendar.current
-        let now = Date()
-
-        return (0..<weeks).compactMap { weekOffset -> WeeklyStats? in
-            guard let weekStart = calendar.date(byAdding: .weekOfYear, value: -weekOffset, to: now),
-                  let weekInterval = calendar.dateInterval(of: .weekOfYear, for: weekStart) else {
-                return nil
-            }
-
-            let weekLogs = logs.filter { log in
-                guard let completedAt = log.completedAt else { return false }
-                return completedAt >= weekInterval.start && completedAt < weekInterval.end
-            }
-
-            return WeeklyStats(
-                weekStart: weekInterval.start,
-                sessionsCompleted: weekLogs.count,
-                totalMinutes: weekLogs.reduce(0) { $0 + $1.actualDurationSeconds } / 60,
-                exercisesCompleted: weekLogs.reduce(0) { $0 + $1.exercisesCompleted }
-            )
-        }.reversed()
-    }
-
-    func getRecentLogs(limit: Int = 10) throws -> [SessionLog] {
-        var descriptor = FetchDescriptor<SessionLog>(
-            predicate: #Predicate { $0.completedAt != nil },
-            sortBy: [SortDescriptor(\.completedAt, order: .reverse)]
-        )
-        descriptor.fetchLimit = limit
-        return try modelContext.fetch(descriptor)
-    }
-
-    func calculateActivityStats() throws -> [ActivityStats] {
-        let activities = try fetchCompletedActivities()
-        let calendar = Calendar.current
-        let now = Date()
-        let startOfWeek = calendar.dateInterval(of: .weekOfYear, for: now)?.start ?? now
-        let startOfMonth = calendar.dateInterval(of: .month, for: now)?.start ?? now
-
-        return ActivityType.allCases.map { type in
-            let typeActivities = activities.filter { $0.activityType == type }
-            let thisWeek = typeActivities.filter {
-                ($0.completedAt ?? Date.distantPast) >= startOfWeek
-            }
-            let thisMonth = typeActivities.filter {
-                ($0.completedAt ?? Date.distantPast) >= startOfMonth
-            }
-            let totalMinutes = typeActivities.reduce(0) { $0 + $1.durationMinutes }
-
-            return ActivityStats(
-                type: type,
-                totalCount: typeActivities.count,
-                totalMinutes: totalMinutes,
-                thisWeekCount: thisWeek.count,
-                thisMonthCount: thisMonth.count
-            )
-        }
-    }
-
-    func getActivityDays(for month: Date? = nil) throws -> Set<DateComponents> {
-        let activities = try fetchCompletedActivities()
-        let calendar = Calendar.current
-
-        var components = activities.compactMap { activity -> DateComponents? in
-            guard let date = activity.completedAt else { return nil }
             return calendar.dateComponents([.year, .month, .day], from: date)
         }
 
